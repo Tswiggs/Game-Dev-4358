@@ -1,0 +1,7 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!30 &1
+GraphicsSettings:
+  m_ObjectHideFlags: 0
+  m_AlwaysIncludedShaders:
+  - {fileID: 4800000, guid: 96dadcea3984d494da0e0158a65cc73e, type: 3}
