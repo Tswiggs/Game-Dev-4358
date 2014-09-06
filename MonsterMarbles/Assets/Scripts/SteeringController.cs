@@ -17,9 +17,9 @@ public class SteeringController : MonoBehaviour {
 		//set tilt to be a vector pointing either right or left of the character and scale the vector
 		//by a public float steerStrength and by the current forward velocity.
 		if(DeviceType.Handheld==SystemInfo.deviceType){
-			tilt.x=Input.acceleration.x*camera.transform.TransformDirection(rigidbody.velocity).y* steerStrength;
+			tilt.x=Input.acceleration.x*camera.transform.TransformDirection(rigidbody.velocity).y* -steerStrength;
 		}else{
-			tilt.x=Input.GetAxis("Horizontal")*camera.transform.TransformDirection(rigidbody.velocity).y* steerStrength;
+			tilt.x=Input.GetAxis("Horizontal")*camera.transform.TransformDirection(rigidbody.velocity).y* -steerStrength;
 		}
 		rigidbody.AddForce(tilt);
 	}
