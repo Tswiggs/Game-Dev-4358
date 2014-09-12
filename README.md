@@ -12,23 +12,27 @@ Set up
 Update your local copy of the project 
 ---------------------------------------------------
 For Project Files:
+
 1. Use Git to"pull" from the remote into your local copy.
 2. This will attempt to merge any changes made to the project.
 3. It will notify you if a merge is required.  This is a pain in the ass and hopefully won't happen often.
 
 For Assets:
+
 1. To update the asset package delete the Box_Assets folder via unity project view.
 2. Import the newest package in the dropbox folder.
 
 Update the remote copy of the project (save to GitHub)
 -------------------------------------------------------------------------
 For Project Files:
+
 1. Use Git to merge any new changes into your current project.
 2. Stage and Commit all of your current changes.
 3. Write a description of all of your changes.
 4. Push the changes to the remote repository (this is what makes all of your work available to everyone else).
 
 For Assets:
+
 1. Export the Box_Assets folder by right clicking on it in Unity project view.
 2. Make sure you increment the version number.
 3. Delete the previous package.
