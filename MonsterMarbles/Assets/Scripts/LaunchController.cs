@@ -28,7 +28,7 @@ public class LaunchController : MonoBehaviour {
 		if(shouldLaunch)
 		{
 			Vector3 launchVector= new Vector3();
-			launchVector=(transform.position-camera.transform.position)*power*launchScalar;
+			launchVector=(transform.position-camera.transform.position).normalized*power*launchScalar;
 			launchVector.y=0f;
 			rigidbody.AddForce(launchVector);
 			rigidbody.AddRelativeTorque(power*launchSpin, 0f, 0f);
@@ -51,6 +51,7 @@ public class LaunchController : MonoBehaviour {
 
 		GetComponent<TapGesture>().StateChanged += pressHandler;
 		GetComponent<FlickGesture>().Flicked += flickHandler;
+		power = 0;
 	}
 	
 	private void OnDisable()
