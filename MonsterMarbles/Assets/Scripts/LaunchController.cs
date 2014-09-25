@@ -49,7 +49,7 @@ public class LaunchController : MonoBehaviour {
 	{
 		// subscribe to gesture's Panned event
 
-		GetComponent<TapGesture>().StateChanged += pressHandler;
+		GetComponent<TapGesture>().Tapped += pressHandler;
 		GetComponent<FlickGesture>().Flicked += flickHandler;
 		power = 0;
 	}
@@ -57,7 +57,7 @@ public class LaunchController : MonoBehaviour {
 	private void OnDisable()
 	{
 		// don't forget to unsubscribe
-		GetComponent<TapGesture>().StateChanged -= pressHandler;
+		GetComponent<TapGesture>().Tapped -= pressHandler;
 		GetComponent<FlickGesture>().Flicked -= flickHandler;
 	}
 	
