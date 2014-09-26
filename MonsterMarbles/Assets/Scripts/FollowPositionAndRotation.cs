@@ -8,7 +8,6 @@ public class FollowPositionAndRotation : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
 	}
 	
 	// Update is called once per frame
@@ -17,6 +16,10 @@ public class FollowPositionAndRotation : MonoBehaviour {
 		if (target.rigidbody.velocity.magnitude > sleepVelocityMagnitude)
 		{
 			transform.rotation=Quaternion.LookRotation(target.rigidbody.velocity);
+		}
+		else if(target.rotation.x<=90f && target.rotation.x >= 270)
+		{
+			transform.rotation=target.transform.rotation;
 		}
 	}
 }

@@ -51,6 +51,7 @@ public class LaunchController : MonoBehaviour {
 
 		GetComponent<TapGesture>().StateChanged += pressHandler;
 		GetComponent<FlickGesture>().Flicked += flickHandler;
+
 	}
 	
 	private void OnDisable()
