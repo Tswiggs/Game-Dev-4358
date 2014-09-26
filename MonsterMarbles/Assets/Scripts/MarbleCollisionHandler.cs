@@ -14,14 +14,14 @@ public class MarbleCollisionHandler : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		if (collision.collider.CompareTag("Player") || collision.collider.CompareTag ("Marble")) {
+		if (collision.collider.CompareTag(Constants.TAG_PLAYER) || collision.collider.CompareTag (Constants.TAG_MARBLE)) {
 			if(audioSource != null){
 				audioSource.Play();
 			}
 			rigidbody.AddForce(collision.contacts[0].normal * onCollisionPowerIncrease);
 
 		}
-		if (collision.collider.CompareTag("Bumper")) {
+		if (collision.collider.CompareTag(Constants.TAG_BUMPER)) {
 			Vector3 forceDirection = new Vector3(0,0,0) + collision.contacts[0].normal;
 			//forceDirection.Scale(new Vector3(-1,0,-1));
 
