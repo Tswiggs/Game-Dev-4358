@@ -19,18 +19,8 @@ public class PlayerBall : MonoBehaviour {
 	/// <summary>
 	/// <c>true</c> if the ball is on the game board, <c> false if it is not.</c>
 	/// </summary>
-	private bool onGameBoard; 
+	public bool onGameBoard; 
 
-
-	public bool getOnGameboard()
-	{
-		return onGameBoard; 
-	}
-
-	public void setOnGameBoard(bool currentState)
-	{
-		onGameBoard = currentState; 
-	}
 
 
 	// Use this for initialization
@@ -50,6 +40,6 @@ public class PlayerBall : MonoBehaviour {
 	/// </param>
 	public void setActive (bool active)
 	{
-		throw new System.NotImplementedException ();
+		this.gameObject.SetActive (active);
 	}
 }
