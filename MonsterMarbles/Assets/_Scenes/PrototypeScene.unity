@@ -3591,8 +3591,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 242358471}
   - 114: {fileID: 242358473}
-  - 114: {fileID: 242358472}
   - 114: {fileID: 242358474}
+  - 114: {fileID: 242358472}
   m_Layer: 0
   m_Name: Player Ball
   m_TagString: Untagged
@@ -3623,10 +3623,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 242358470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 645232165, guid: 20c2a163775f09b4cafa29b19d0c9204, type: 3}
+  m_Script: {fileID: 11500000, guid: beb30acc3088c4dedac785909a9bb575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 10
+  aimSpeed: 1
 --- !u!114 &242358473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3635,7 +3635,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 242358470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1726975797, guid: 20c2a163775f09b4cafa29b19d0c9204, type: 3}
+  m_Script: {fileID: -1518784480, guid: 20c2a163775f09b4cafa29b19d0c9204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   advancedProps: 0
@@ -3648,8 +3648,7 @@ MonoBehaviour:
   friendlyGestures: []
   projection: 0
   projectionNormal: {x: 0, y: 0, z: 1}
-  minPointsDistance: .5
-  rotationThreshold: 3
+  movementThreshold: .5
 --- !u!114 &242358474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3662,7 +3661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Fullscreen @ Char Camera
-  type: 1
+  type: 0
   _camera: {fileID: 613290138}
 --- !u!1 &242792767
 GameObject:
