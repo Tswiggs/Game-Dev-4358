@@ -44,9 +44,20 @@ public class AimPlayerBall : MonoBehaviour {
 		case Gesture.GestureState.Began:
 		case Gesture.GestureState.Changed:
 			var gesture = (SimplePanGesture)sender;
-			
-			float deltaPos = gesture.LocalDeltaPosition.x;
-			if (deltaPos != 0) localRotationToGo.x += deltaPos;
+
+			if (Math.Abs(gesture.LocalDeltaPosition.x) > 0.01)
+			{
+				if (transform.parent == null)
+				{
+					localRotationToGo = Quaternion.AngleAxis(gesture.LocalDeltaPosition.x, Vector3.up) * localRotationToGo;
+				} else
+				{
+					localRotationToGo = Quaternion.AngleAxis(gesture.LocalDeltaPosition.x, transform.parent.InverseTransformDirection(Vector3.up)) * localRotationToGo;
+				}
+			}
+
+//			float deltaPos = gesture.LocalDeltaPosition.x;
+//			if (deltaPos != 0) localRotationToGo.y += deltaPos;
 			break;
 		}
 	}
