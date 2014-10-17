@@ -25,11 +25,14 @@ public class SteeringController : MonoBehaviour {
 	public static event postRollAction rollCompleted;
 
 	// Use this for initialization
-	void OnEnabled () {
+	void OnEnable() {
 		tilt=new Vector3(0f, 0f, 0f);
 		standingUp=new Quaternion();
+		timeSpinning = 0;
 		isRolling=true;
+		isHopping = false;
 		stopBuffer=0;
+		hopStart = 0;
 	}
 
 	
@@ -68,7 +71,8 @@ public class SteeringController : MonoBehaviour {
 			if(timeSpinning>timeToSpin && transform.position.y<hopStart && rigidbody.velocity.y<=0){
 				isHopping=false;
 				rigidbody.Sleep();
-				GetComponent<SteeringController>().enabled=false;
+				GetComponent<SteeringController>().enabled= false;
+				GetComponent<LaunchController>().enabled = true;
 				if(rollCompleted != null)
 				{
 					rollCompleted();
