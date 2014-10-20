@@ -8,6 +8,7 @@ using UnityEngine;
 public class AimPlayerBall : MonoBehaviour {
 
 	public float aimSpeed=1;
+	public SimplePanGesture panGesture;
 
 	private Quaternion lastLocalRotation;
 	private Quaternion localRotationToGo;
@@ -19,12 +20,13 @@ public class AimPlayerBall : MonoBehaviour {
 
 	private void OnEnable()
 	{
-		if (GetComponent<SimplePanGesture>() != null) GetComponent<SimplePanGesture>().StateChanged += panStateChanged;
+		if (panGesture != null) panGesture.StateChanged += panStateChanged;
+		//if (camera.GetComponent<SimplePanGesture>() != null) GetComponent<SimplePanGesture>().StateChanged += panStateChanged;
 	}
-	
+
 	private void OnDisable()
 	{
-		if (GetComponent<SimplePanGesture>() != null) GetComponent<SimplePanGesture>().StateChanged -= panStateChanged;
+		if (panGesture != null) panGesture.StateChanged -= panStateChanged;
 	}
 
 	// Update is called once per frame
