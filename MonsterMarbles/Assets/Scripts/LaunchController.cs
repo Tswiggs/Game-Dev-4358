@@ -7,6 +7,7 @@ public class LaunchController : MonoBehaviour {
 	new public Camera camera;
 	public AudioSource audioSource;
 	public AudioClip explosionSound; 
+	public GameObject characterGui;
 	public float speed=1;
 	public float launchScalar=1;
 	public float launchSpin=1;
@@ -28,12 +29,13 @@ public class LaunchController : MonoBehaviour {
 		if(shouldLaunch)
 		{
 			Vector3 launchVector= new Vector3();
-			launchVector=(transform.position-camera.transform.position).normalized*power*launchScalar;
+			launchVector=(transform.position-camera.transform.position)*power*launchScalar;
 			launchVector.y=0f;
 			rigidbody.AddForce(launchVector);
 			rigidbody.AddRelativeTorque(power*launchSpin, 0f, 0f);
 			audioSource.PlayOneShot(explosionSound);
 			shouldLaunch=false;
+			characterGui.SetActive(false);
 			GetComponent<SteeringController>().enabled=true;
 			GetComponent<LaunchController>().enabled=false;
 
@@ -48,16 +50,16 @@ public class LaunchController : MonoBehaviour {
 	private void OnEnable()
 	{
 		// subscribe to gesture's Panned event
-
-		GetComponent<TapGesture>().Tapped += pressHandler;
+		power=0f;
+		GetComponent<TapGesture>().StateChanged += pressHandler;
 		GetComponent<FlickGesture>().Flicked += flickHandler;
-		power = 0;
+
 	}
 	
 	private void OnDisable()
 	{
 		// don't forget to unsubscribe
-		GetComponent<TapGesture>().Tapped -= pressHandler;
+		GetComponent<TapGesture>().StateChanged -= pressHandler;
 		GetComponent<FlickGesture>().Flicked -= flickHandler;
 	}
 	
