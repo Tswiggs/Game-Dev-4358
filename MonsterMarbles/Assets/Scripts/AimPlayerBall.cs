@@ -6,9 +6,10 @@ using UnityEngine;
 
 
 public class AimPlayerBall : MonoBehaviour {
-
 	public float aimSpeed=1;
+	public float aimSnappiness=1;
 	public SimplePanGesture panGesture;
+	public TapGesture reverseButtonTap;
 
 	private Quaternion lastLocalRotation;
 	private Quaternion localRotationToGo;
@@ -21,12 +22,14 @@ public class AimPlayerBall : MonoBehaviour {
 	private void OnEnable()
 	{
 		if (panGesture != null) panGesture.StateChanged += panStateChanged;
+		if (reverseButtonTap != null) reverseButtonTap.Tapped += reverseButtonTapped;
 		//if (camera.GetComponent<SimplePanGesture>() != null) GetComponent<SimplePanGesture>().StateChanged += panStateChanged;
 	}
 
 	private void OnDisable()
 	{
 		if (panGesture != null) panGesture.StateChanged -= panStateChanged;
+		if (reverseButtonTap != null) reverseButtonTap.Tapped -= reverseButtonTapped;
 	}
 
 	// Update is called once per frame
@@ -51,16 +54,27 @@ public class AimPlayerBall : MonoBehaviour {
 			{
 				if (transform.parent == null)
 				{
-					localRotationToGo = Quaternion.AngleAxis(gesture.LocalDeltaPosition.x, Vector3.up) * localRotationToGo;
+					localRotationToGo = Quaternion.AngleAxis(gesture.LocalDeltaPosition.x * aimSpeed, Vector3.up) * localRotationToGo ;
 				} else
 				{
-					localRotationToGo = Quaternion.AngleAxis(gesture.LocalDeltaPosition.x, transform.parent.InverseTransformDirection(Vector3.up)) * localRotationToGo;
+					localRotationToGo = Quaternion.AngleAxis(gesture.LocalDeltaPosition.x * aimSpeed, transform.parent.InverseTransformDirection(Vector3.up)) * localRotationToGo;
 				}
 			}
 
 //			float deltaPos = gesture.LocalDeltaPosition.x;
 //			if (deltaPos != 0) localRotationToGo.y += deltaPos;
 			break;
+		}
+	}
+
+	private void reverseButtonTapped(object sender, EventArgs e)
+	{
+		if (transform.parent == null)
+		{
+			localRotationToGo = Quaternion.AngleAxis(179.999f, Vector3.up) * localRotationToGo ;
+		} else
+		{
+			localRotationToGo = Quaternion.AngleAxis(179.999f, transform.parent.InverseTransformDirection(Vector3.up)) * localRotationToGo;
 		}
 	}
 }

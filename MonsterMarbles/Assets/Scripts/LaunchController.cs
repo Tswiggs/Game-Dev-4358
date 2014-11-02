@@ -7,6 +7,7 @@ public class LaunchController : MonoBehaviour {
 	new public Camera camera;
 	public AudioSource audioSource;
 	public AudioClip explosionSound; 
+	public GameObject characterGui;
 	public float speed=1;
 	public float launchScalar=1;
 	public float launchSpin=1;
@@ -34,6 +35,7 @@ public class LaunchController : MonoBehaviour {
 			rigidbody.AddRelativeTorque(power*launchSpin, 0f, 0f);
 			audioSource.PlayOneShot(explosionSound);
 			shouldLaunch=false;
+			characterGui.SetActive(false);
 			GetComponent<SteeringController>().enabled=true;
 			GetComponent<LaunchController>().enabled=false;
 
@@ -48,7 +50,7 @@ public class LaunchController : MonoBehaviour {
 	private void OnEnable()
 	{
 		// subscribe to gesture's Panned event
-
+		power=0f;
 		GetComponent<TapGesture>().StateChanged += pressHandler;
 		GetComponent<FlickGesture>().Flicked += flickHandler;
 
