@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic; 
-public class PlayerTurnController : MonoBehaviour {
+public class RingerController : MonoBehaviour {
 
 	/// <summary>specifies whether the game will be conducted online</summary>
 	public enum MULTIPLAYER_MODE
@@ -12,7 +12,7 @@ public class PlayerTurnController : MonoBehaviour {
 	/// <summary>
 	/// The players.
 	/// </summary>
-	public List<Player> players; 
+	public IList players; 
 	/// <summary>
 	/// The active player.
 	/// </summary>
