@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using AssemblyCSharp;
 
 public class MainMenuController : MonoBehaviour {
 	
@@ -81,7 +82,7 @@ public class MainMenuController : MonoBehaviour {
 		
 	}
 
-	/*void passLoginInformation(User loginInformation)
+	public void passLoginInformation(User loginInformation)
 	{
 		if (loginInformation == null) {
 			interfaceType = LOGGED_OUT;
@@ -92,7 +93,7 @@ public class MainMenuController : MonoBehaviour {
 			//else
 			interfaceType = LOGGED_IN_NO_GAMES;
 		}
-	}*/
+	}
 	
 	// Update is called once per frame
 	void Update () {

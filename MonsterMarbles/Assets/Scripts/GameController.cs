@@ -1,9 +1,15 @@
 using UnityEngine;
 using System.Collections;
+using AssemblyCSharp;
 
 public class GameController : MonoBehaviour {
 
-	public MonoBehaviour mainMenu;
+	//References to every scene
+	public MainMenuController mainMenu;
+	public RingerController ringerController;
+
+
+
 	//private MatchData activeMatches[];
 	private AssemblyCSharp.User user;
 	//private Settings settings;
@@ -11,9 +17,14 @@ public class GameController : MonoBehaviour {
 	// This Object should be attached to the main menu scene
 	void Start () {
 		DontDestroyOnLoad (transform.gameObject);
+
 		//Check for saved login data
 		login ();
-		//if login is successfull show game buttons
+
+		//initialize the mainmenu controller
+		mainMenu=new MainMenuController(this);
+		mainMenu.passLoginInformation(user);
+
 		//else show login form
 	}
 	
@@ -32,7 +43,15 @@ public class GameController : MonoBehaviour {
 	void loadMatch(){
 
 	}
+	void newMatch(string gameMode, string multiplayerMode, IList team1, IList team2, User user2){
+		//TODO: change this so that it checks that the game mode is a valid type and then loads that level.
+		if(gameMode==Constants.SCENE_PILA_PLAINS){
+			Application.LoadLevel(gameMode);
+			Destroy(mainMenu);
+			ringerController=new RingerController(multiplayerMode, team1, team2, )
+		}
 
+	}
 	void saveMatch(){
 
 	}

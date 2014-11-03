@@ -15609,15 +15609,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: e99bf1ac587557d4eb2693253aaba482, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -59.9750519
+      value: -59.8576164
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e99bf1ac587557d4eb2693253aaba482, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -42.0920029
+      value: -42.0919952
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e99bf1ac587557d4eb2693253aaba482, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 92.8269043
+      value: 92.8181
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e99bf1ac587557d4eb2693253aaba482, type: 2}
       propertyPath: m_LocalRotation.x
@@ -15638,6 +15638,18 @@ Prefab:
     - target: {fileID: 400000, guid: e99bf1ac587557d4eb2693253aaba482, type: 2}
       propertyPath: m_RootOrder
       value: 61
+      objectReference: {fileID: 0}
+    - target: {fileID: 13600000, guid: e99bf1ac587557d4eb2693253aaba482, type: 2}
+      propertyPath: m_Center.y
+      value: .0299999993
+      objectReference: {fileID: 0}
+    - target: {fileID: 13600000, guid: e99bf1ac587557d4eb2693253aaba482, type: 2}
+      propertyPath: m_Center.z
+      value: -.0299999993
+      objectReference: {fileID: 0}
+    - target: {fileID: 13600000, guid: e99bf1ac587557d4eb2693253aaba482, type: 2}
+      propertyPath: m_Center.x
+      value: .0299999993
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e99bf1ac587557d4eb2693253aaba482, type: 2}
@@ -24405,7 +24417,7 @@ Transform:
   m_PrefabInternal: {fileID: 1252318831}
   m_GameObject: {fileID: 1896962129}
   m_LocalRotation: {x: .180060714, y: -.302964777, z: .00339301443, w: .935830653}
-  m_LocalPosition: {x: -59.9750519, y: -42.0920029, z: 92.8269043}
+  m_LocalPosition: {x: -59.8576164, y: -42.0919952, z: 92.8181}
   m_LocalScale: {x: 27.2990093, y: 16.0375309, z: 27.2990723}
   m_Children:
   - {fileID: 1796741041}
@@ -24424,7 +24436,7 @@ CapsuleCollider:
   m_Radius: .25999999
   m_Height: .899999976
   m_Direction: 1
-  m_Center: {x: .0599999987, y: .0599999987, z: .0299999993}
+  m_Center: {x: .0299999993, y: .0299999993, z: -.0299999993}
 --- !u!1 &1907050027
 GameObject:
   m_ObjectHideFlags: 0
