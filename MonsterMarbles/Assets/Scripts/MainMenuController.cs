@@ -39,21 +39,29 @@ public class MainMenuController : MonoBehaviour {
 			
 			if(interfaceNavigation == 0){
 				if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), "Play!", redStyle)) {
-					Application.LoadLevel(Constants.SCENE_PILA_PLAINS);
-				}
-				if (GUI.Button (new Rect (Screen.width/8 * 3 - 90, (Screen.height/2) + 100, 180, 90), "Options", redStyle)) {
 					interfaceNavigation = 1;
 				}
-				if (GUI.Button (new Rect (Screen.width/8 * 5 - 90, (Screen.height/2) + 100, 180, 90), "Credits", redStyle)) {
+				if (GUI.Button (new Rect (Screen.width/8 * 3 - 90, (Screen.height/2) + 100, 180, 90), "Options", redStyle)) {
 					interfaceNavigation = 2;
 				}
+				if (GUI.Button (new Rect (Screen.width/8 * 5 - 90, (Screen.height/2) + 100, 180, 90), "Credits", redStyle)) {
+					interfaceNavigation = 3;
+				}
 			}
-			else if (interfaceNavigation == 1){ //Options Menu
+			else if (interfaceNavigation == 1){ //Game Mode Menu
+				if (GUI.Button (new Rect (Screen.width/2 - 150, (Screen.height/2), 300, 120), "Ringer Royale", redStyle)) {
+					interfaceNavigation = 0;
+				}
 				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 100, 180, 90), "Return", redStyle)) {
 					interfaceNavigation = 0;
 				}
 			}
-			else if (interfaceNavigation == 2){ //Credits Menu
+			else if (interfaceNavigation == 2){ //Options Menu
+				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 100, 180, 90), "Return", redStyle)) {
+					interfaceNavigation = 0;
+				}
+			}
+			else if (interfaceNavigation == 3){ //Credits Menu
 				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 100, 180, 90), "Return", redStyle)) {
 					interfaceNavigation = 0;
 				}
