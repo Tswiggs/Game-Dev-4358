@@ -16,6 +16,8 @@ public class LaunchController : MonoBehaviour {
 	public delegate void postLaunchAction();
 	public static event postLaunchAction launchCompleted;
 
+
+
 	private bool shouldLaunch=false;
 	private float power=0;
 	// Use this for initialization
@@ -38,6 +40,7 @@ public class LaunchController : MonoBehaviour {
 			characterGui.SetActive(false);
 			GetComponent<SteeringController>().enabled=true;
 			GetComponent<LaunchController>().enabled=false;
+			camera=Camera.main;
 
 			if(launchCompleted != null)
 			{

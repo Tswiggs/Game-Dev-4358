@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic; 
+using AssemblyCSharp;
 public class RingerController : MonoBehaviour {
 
 	/// <summary>specifies whether the game will be conducted online</summary>
@@ -28,7 +29,8 @@ public class RingerController : MonoBehaviour {
 	/// The "net" that catches game objects when they fall off of the arena. 
 	/// </summary>
 	public GameObject objectCatcher; 
-
+	public GameController gameController;
+	public PlayerBallCreator ballSpawner;
 
 	void Start () {
 		players = new ArrayList (); 
@@ -38,7 +40,24 @@ public class RingerController : MonoBehaviour {
 		players.Add (player1); 
 		players.Add (player2); 
 	}
-	
+
+	public void initialize(GameController gameController, string multiplayerMode, ArrayList players){
+		this.gameController=gameController;
+
+		//TODO: change so that both RingerController and GameController are using the enum MULTIPLAYER_MODE
+		gameMode=MULTIPLAYER_MODE.HOTSEAT;
+
+		this.players=players;
+		if(players.Count==0){print("Player List not initialized"); return;}
+		activePlayer=players[0] as Player;
+		foreach( Player player in players){
+			foreach( PlayerBallCreator.MONSTER_PREFABS character in player.getTeamSelection()){
+				PlayerBall ball=new PlayerBall(player, ballSpawner.createPlayerBall(character));
+				player.addPlayerBall(ball);
+			}
+		}
+
+	}
 
 	void Update () {
 	

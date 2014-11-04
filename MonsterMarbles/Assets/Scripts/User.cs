@@ -29,94 +29,66 @@ namespace AssemblyCSharp
 			this.skybits = skybits;
 			this.zoogiBucks = zoogiBucks;
 		}
-		string FbID {
-			get {
-				return this.fbID;
-			}
-			set {
-				fbID = value;
-			}
-		}
 
-		string FirstName {
-			get {
-				return this.firstName;
-			}
-			set {
-				firstName = value;
-			}
+		public string getFbID() {
+			return fbID;
 		}
-
-		string LastName {
-			get {
-				return this.lastName;
-			}
-			set {
-				lastName = value;
-			}
+		public void setFbID(string fbID) {
+			this.fbID = fbID;
 		}
-
-		string Language {
-			get {
-				return this.language;
-			}
-			set {
-				language = value;
-			}
+		public string getFirstName() {
+			return firstName;
 		}
-
-		string City {
-			get {
-				return this.city;
-			}
-			set {
-				city = value;
-			}
+		public void setFirstName(string firstName) {
+			this.firstName = firstName;
 		}
-
-		string Picture {
-			get {
-				return this.picture;
-			}
-			set {
-				picture = value;
-			}
+		public string getLastName() {
+			return lastName;
 		}
-
-		string Creation_timestamp {
-			get {
-				return this.creation_timestamp;
-			}
-			set {
-				creation_timestamp = value;
-			}
+		public void setLastName(string lastName) {
+			this.lastName = lastName;
 		}
-
-		IList Unlockables {
-			get {
-				return this.unlockables;
-			}
-			set {
-				unlockables = value;
-			}
+		public string getLanguage() {
+			return language;
 		}
-
-		int Skybits {
-			get {
-				return this.skybits;
-			}
-			set {
-				skybits = value;
-			}
+		public void setLanguage(string language) {
+			this.language = language;
 		}
-
-		int ZoogiBucks {
-			get {
-				return this.zoogiBucks;
-			}
-			set {
-				zoogiBucks = value;
-			}
+		public string getCity() {
+			return city;
+		}
+		public void setCity(string city) {
+			this.city = city;
+		}
+		public string getPicture() {
+			return picture;
+		}
+		public void setPicture(string picture) {
+			this.picture = picture;
+		}
+		public string getCreation_timestamp() {
+			return creation_timestamp;
+		}
+		public void setCreation_timestamp(string creation_timestamp) {
+			this.creation_timestamp = creation_timestamp;
+		}
+		public IList getUnlockables() {
+			return unlockables;
+		}
+		public void setUnlockables(IList unlockables) {
+			this.unlockables = unlockables;
+		}
+		public int getSkybits() {
+			return skybits;
+		}
+		public void setSkybits(int skybits) {
+			this.skybits = skybits;
+		}
+		public int getZoogiBucks() {
+			return zoogiBucks;
+		}
+		public void setZoogiBucks(int zoogiBucks) {
+			this.zoogiBucks = zoogiBucks;
 		}
 
 	}

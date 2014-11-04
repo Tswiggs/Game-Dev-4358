@@ -1,12 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerBall : MonoBehaviour {
+namespace AssemblyCSharp{
+
+public class PlayerBall {
+
+		public PlayerBall(Player owner, GameObject ballObject){
+			this.playerOwner=owner;
+			this.ballObject=ballObject;
+			onGameBoard=false;
+		}
 
 	///<summary>
 	/// the different players that can possibly own a player ball. 
 	/// </summary>
-	public enum PLAYERS
+	public  enum PLAYERS
 	{
 		player1, player2
 	}
@@ -14,24 +22,15 @@ public class PlayerBall : MonoBehaviour {
 	/// <summary>
 	/// The player that owns this ball.
 	/// </summary>
-	public PLAYERS playerOwner; 
+		private Player playerOwner; 
 
 	/// <summary>
 	/// <c>true</c> if the ball is on the game board, <c> false if it is not.</c>
 	/// </summary>
-	public bool onGameBoard; 
+	private bool onGameBoard; 
 
+	private GameObject ballObject;
 
-
-	// Use this for initialization
-	void Start () {
-		onGameBoard = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	/// <summary>
 	/// toggles player control of the game ball.  
@@ -40,6 +39,14 @@ public class PlayerBall : MonoBehaviour {
 	/// </param>
 	public void setActive (bool active)
 	{
-		this.gameObject.SetActive (active);
+		//this.gameObject.SetActive (active);
 	}
+
+		public Player getPlayer(){return playerOwner;}
+		public void setPlayer(Player newOwner){playerOwner=newOwner;}
+		public bool isOnBoard(){return onGameBoard;}
+		public void setOnGameBoard(bool onGameBoard){this.onGameBoard= onGameBoard;}
+		public GameObject getBallObject(){return ballObject;}
+		public void setBallObject(GameObject ballObject){this.ballObject=ballObject;}
+}
 }
