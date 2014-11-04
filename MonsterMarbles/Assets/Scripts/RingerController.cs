@@ -47,7 +47,6 @@ public class RingerController : MonoBehaviour {
 		gameMode=MULTIPLAYER_MODE.HOTSEAT;
 
 		this.players=players;
-
 	}
 
 	void Update () {
