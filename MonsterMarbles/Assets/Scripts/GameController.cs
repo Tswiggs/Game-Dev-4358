@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour {
 		//else show login form
 	}
 	
-	User getUser() {
+	public User getUser() {
 		return user;
 	}
 
@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour {
 	void loadMatch(){
 
 	}
-	void newMatch(string gameMode, string multiplayerMode, List<PlayerBall> team1, List<PlayerBall> team2, User user1, User user2){
+	public void newMatch(string gameMode, string multiplayerMode, List<PlayerBallCreator.MONSTER_PREFABS> team1, List<PlayerBallCreator.MONSTER_PREFABS> team2, User user1, User user2){
 		//TODO: change this so that it checks that the game mode is a valid type and then loads that level.
 		if(gameMode==Constants.SCENE_PILA_PLAINS){
 			mainMenu.enabled=false;
@@ -56,11 +56,11 @@ public class GameController : MonoBehaviour {
 			//Populate the player list
 			ArrayList players=new ArrayList();
 			if(multiplayerMode=="HOTSEAT"){
-				players.Add(new Player(team1, 0, "Player1"));
-				players.Add(new Player(team2, 0, "Player2"));
+				//players.Add(new Player(team1, 0, "Player1"));
+				//players.Add(new Player(team2, 0, "Player2"));
 			}else{
-				players.Add(new Player(team1, 0,user1.getFbID() )) ;
-				players.Add(new Player(team2, 0, user2.getFbID() ));
+				//players.Add(new Player(team1, 0,user1.getFbID() )) ;
+				//players.Add(new Player(team2, 0, user2.getFbID() ));
 			}
 
 			ringerController.initialize(this, multiplayerMode, players);

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using AssemblyCSharp;
+using System.Collections.Generic;
 
 public class MainMenuController : MonoBehaviour {
 	
@@ -11,8 +12,8 @@ public class MainMenuController : MonoBehaviour {
 	private int interfaceType;
 	private int interfaceNavigation;
 	
-	public Texture button_unpushed;
-	public Texture button_pushed;
+	public GUIStyle mainMenuStyle;
+	public GUITexture title;
 	
 	private const int NO_INTERFACE = 0;
 	private const int LOGGED_OUT = 1;
@@ -28,66 +29,75 @@ public class MainMenuController : MonoBehaviour {
 	
 	void OnEnable() {
 		interfaceNavigation = 0;
+		title.enabled = true;
+	}
+	
+	void OnDisable() {
+		title.enabled = false;
 	}
 
 	void OnGUI(){
 		
-		GUIStyle redStyle = new GUIStyle(GUI.skin.button);
-		redStyle.fontSize = 36;
-		redStyle.alignment = TextAnchor.MiddleCenter;
-		redStyle.hover.textColor = Color.red;
 		
 		GUI.backgroundColor = new Color (27, 27, 27);
-	
+		
+		
 		if(interfaceType == NO_INTERFACE){
 			
 		}
 		else if(interfaceType == LOGGED_OUT){
-			if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), new GUIContent("Login with Facebook",button_unpushed), redStyle)) {
+			if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), "Login with Facebook", mainMenuStyle)) {
 			}
 		}
 		else if(interfaceType == LOGGED_IN_NO_GAMES){
 			
 			if(interfaceNavigation == 0){
-				if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), new GUIContent("Play!",button_unpushed), redStyle)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), "Play!", mainMenuStyle)) {
 					interfaceNavigation = 1;
 				}
-				if (GUI.Button (new Rect (Screen.width/8 * 3 - 90, (Screen.height/2) + 100, 180, 90), "Options", redStyle)) {
+				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height/2) + 100, 180, 90), "Options", mainMenuStyle)) {
 					interfaceNavigation = 2;
 				}
-				if (GUI.Button (new Rect (Screen.width/8 * 5 - 90, (Screen.height/2) + 100, 180, 90), "Credits", redStyle)) {
+				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height/2) + 200, 180, 90), "Credits", mainMenuStyle)) {
 					interfaceNavigation = 3;
 				}
 			}
 			else if (interfaceNavigation == 1){ //Game Mode Menu
-				if (GUI.Button (new Rect (Screen.width/2 - 150, (Screen.height/2), 300, 120), "Ringer Royale", redStyle)) {
+				if (GUI.Button (new Rect (Screen.width/2 - 150, (Screen.height/2), 300, 120), "Ringer Royale", mainMenuStyle)) {
 					characterSelectController.enabled = true;
 					this.enabled = false;
 				}
-				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 100, 180, 90), "Return", redStyle)) {
+				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 100, 180, 90), "Return", mainMenuStyle)) {
 					interfaceNavigation = 0;
 				}
 			}
 			else if (interfaceNavigation == 2){ //Options Menu
-				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 100, 180, 90), "Return", redStyle)) {
+				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 100, 180, 90), "Return", mainMenuStyle)) {
 					interfaceNavigation = 0;
 				}
 			}
 			else if (interfaceNavigation == 3){ //Credits Menu
-				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 100, 180, 90), "Return", redStyle)) {
+			
+				GUIStyle creditsStyle = new GUIStyle();
+				creditsStyle.alignment = TextAnchor.UpperCenter;
+				creditsStyle.fontSize = 28;
+				creditsStyle.normal.textColor = Color.black;
+			
+				GUI.Label (new Rect(Screen.width/5, Screen.height/2+50, Screen.width/5*3, Screen.height/4), "PRODUCED BY PIXEL ROCKET", creditsStyle);
+				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 100, 180, 90), "Return", mainMenuStyle)) {
 					interfaceNavigation = 0;
 				}
 			}
 		}
 		else if(interfaceType == LOGGED_IN_GAMES_IN_PROGRESS){
-			if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), "View Games In Progress", redStyle)) {
+			if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), "View Games In Progress", mainMenuStyle)) {
 				Application.LoadLevel(Constants.SCENE_PILA_PLAINS);
 			}
-			if (GUI.Button (new Rect (Screen.width/8 * 3 - 60, (Screen.height/2) + 100, 180, 50), "Options", redStyle)) {
-				
+			if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height/2) + 100, 180, 90), "Options", mainMenuStyle)) {
+			
 			}
-			if (GUI.Button (new Rect (Screen.width/8 * 5 - 60, (Screen.height/2) + 100, 180, 50), "Credits", redStyle)) {
-				
+			if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height/2) + 200, 180, 90), "Credits", mainMenuStyle)) {
+			
 			}
 		}  
 		
@@ -103,6 +113,15 @@ public class MainMenuController : MonoBehaviour {
 			//interfaceType = LOGGED_IN_GAMES_IN_PROGRESS
 			//else
 			interfaceType = LOGGED_IN_NO_GAMES;
+		}
+	}
+	
+	public void newMatch(string gameMode, string multiplayerMode, List<PlayerBallCreator.MONSTER_PREFABS> team1, List<PlayerBallCreator.MONSTER_PREFABS> team2){
+		if(team2 != null){
+			gameController.newMatch(gameMode,multiplayerMode,team1,team2,gameController.getUser(),gameController.getUser());
+		}
+		else {
+			gameController.newMatch(gameMode,multiplayerMode,team1,team1,gameController.getUser(),gameController.getUser());
 		}
 	}
 	
