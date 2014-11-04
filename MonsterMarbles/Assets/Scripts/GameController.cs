@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using AssemblyCSharp;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
 
@@ -43,12 +44,23 @@ public class GameController : MonoBehaviour {
 	void loadMatch(){
 
 	}
-	void newMatch(string gameMode, string multiplayerMode, IList team1, IList team2, User user2){
+	void newMatch(string gameMode, string multiplayerMode, List<PlayerBall> team1, List<PlayerBall> team2, User user1, User user2){
 		//TODO: change this so that it checks that the game mode is a valid type and then loads that level.
 		if(gameMode==Constants.SCENE_PILA_PLAINS){
+			mainMenu.enabled=false;
 			Application.LoadLevel(gameMode);
-			Destroy(mainMenu);
-			ringerController=new RingerController(multiplayerMode, team1, team2, )
+
+			//Populate the player list
+			ArrayList players=new ArrayList();
+			if(multiplayerMode=="HOTSEAT"){
+				players.Add(new Player(team1, 0, "Player1"));
+				players.Add(new Player(team2, 0, "Player2"));
+			}else{
+				players.Add(new Player(team1, 0,user1.getFbID() )) ;
+				players.Add(new Player(team2, 0, user2.getFbID() ));
+			}
+
+			ringerController=new RingerController(this, multiplayerMode, players);
 		}
 
 	}

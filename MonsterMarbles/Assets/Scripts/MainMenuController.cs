@@ -6,6 +6,7 @@ public class MainMenuController : MonoBehaviour {
 	
 	// Use this for initialization
 	private Camera camera;
+	private GameController gameController;
 	private int interfaceType;
 	private int interfaceNavigation;
 	
@@ -15,9 +16,14 @@ public class MainMenuController : MonoBehaviour {
 	private const int LOGGED_IN_GAMES_IN_PROGRESS = 3;
 
 	void Start () {
+
 		interfaceType = LOGGED_IN_NO_GAMES;
 		interfaceNavigation = 0;
 		
+	}
+
+	public MainMenuController(GameController gameController):base(){
+		this.gameController=gameController;
 	}
 
 	void OnGUI(){
