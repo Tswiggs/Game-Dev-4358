@@ -16315,9 +16315,9 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1382960002}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 147c57c8340c5704ead634821f3c69de, type: 3}
+  m_Script: {fileID: 11500000, guid: 1de2b96979aef5f48902348e7f715b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1382960005

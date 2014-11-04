@@ -20,13 +20,15 @@ public class CharacterSelectController : MonoBehaviour {
 		numberOfCharacters = 2;
 		
 		unlockedCharacters = new ArrayList();
+		unlockedCharacters[0] = true;
+		unlockedCharacters[1] = true;
 		charactersSelected = new ArrayList();
 	}
 	
 	void OnGUI(){
 		
 		GUIStyle redStyle = new GUIStyle(GUI.skin.button);
-		redStyle.fontSize = 36;
+		redStyle.fontSize = 28;
 		redStyle.alignment = TextAnchor.UpperCenter;
 		redStyle.hover.textColor = Color.red;
 		
