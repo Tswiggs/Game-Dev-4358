@@ -394,6 +394,26 @@ Prefab:
       propertyPath: target
       value: 
       objectReference: {fileID: 2017468855}
+    - target: {fileID: 11400008, guid: 2eb751c73bdfb674bbf08690714ebf96, type: 2}
+      propertyPath: followScript
+      value: 
+      objectReference: {fileID: 740825912}
+    - target: {fileID: 11400008, guid: 2eb751c73bdfb674bbf08690714ebf96, type: 2}
+      propertyPath: launchScript
+      value: 
+      objectReference: {fileID: 740825908}
+    - target: {fileID: 11400008, guid: 2eb751c73bdfb674bbf08690714ebf96, type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 2017468855}
+    - target: {fileID: 11400008, guid: 2eb751c73bdfb674bbf08690714ebf96, type: 2}
+      propertyPath: defaultTarget
+      value: 
+      objectReference: {fileID: 2017468855}
+    - target: {fileID: 11400004, guid: 2eb751c73bdfb674bbf08690714ebf96, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2eb751c73bdfb674bbf08690714ebf96, type: 2}
   m_RootGameObject: {fileID: 740825907}
@@ -9091,7 +9111,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 24339218}
   m_GameObject: {fileID: 740825907}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1063bbdd981e14509b49016a762be9b8, type: 3}
   m_Name: 
@@ -9144,6 +9164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92b2b0a035e01b544b925f72b6b4a502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 2017468855}
+  defaultTarget: {fileID: 2017468855}
+  followScript: {fileID: 740825912}
+  launchScript: {fileID: 740825908}
 --- !u!1 &742089549
 GameObject:
   m_ObjectHideFlags: 0
@@ -14753,6 +14777,9 @@ MonoBehaviour:
   launchSpin: 6000
   maxPower: 15
   powerFade: 0
+  hopLandingYThreshold: 4.99999987e-05
+  timeToSpin: 1
+  hopHeight: 3000
 --- !u!114 &1198180688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25556,6 +25583,14 @@ Prefab:
       propertyPath: camera
       value: 
       objectReference: {fileID: 613290138}
+    - target: {fileID: 11400014, guid: c33c1113f0192454db06a7f9d7ea2e71, type: 2}
+      propertyPath: hopHeight
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400014, guid: c33c1113f0192454db06a7f9d7ea2e71, type: 2}
+      propertyPath: hopLandingYThreshold
+      value: 4.99999987e-05
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c33c1113f0192454db06a7f9d7ea2e71, type: 2}
   m_RootGameObject: {fileID: 242358470}

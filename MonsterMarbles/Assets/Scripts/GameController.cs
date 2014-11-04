@@ -72,8 +72,8 @@ public class GameController : MonoBehaviour {
 		if (level==1){
 			ringerController=GameObject.Find("SceneController").GetComponent<RingerController>();
 			ringerController.initialize(this, multiplayerMode, players);
-			multiplayerMode=null;
-			players=new ArrayList();
+			//multiplayerMode=null;
+			//players=new ArrayList();
 		}
 	}
 	void saveMatch(){

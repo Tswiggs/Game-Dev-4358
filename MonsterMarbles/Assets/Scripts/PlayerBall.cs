@@ -37,9 +37,10 @@ public class PlayerBall {
 	/// </summary>
 	/// <param name="active"> if set to <c>true</c> gives the player control of the game ball 
 	/// </param>
-	public void setActive (bool active)
+	public void possess ()
 	{
-		//this.gameObject.SetActive (active);
+			getBallObject().GetComponent<AimPlayerBall>().enabled=true;
+			getBallObject().GetComponentInChildren<LaunchController>().enabled=true;
 	}
 
 		public Player getPlayer(){return playerOwner;}

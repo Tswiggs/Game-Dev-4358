@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SteeringController : MonoBehaviour {
 
-	new public Camera camera;
+	public Camera camera;
 	public float steerStrength=1f;
 	public float stopSpeed=1f;
 	public float smooth=10f;
@@ -24,8 +24,13 @@ public class SteeringController : MonoBehaviour {
 	public delegate void postRollAction();
 	public static event postRollAction rollCompleted;
 
+	void OnStart(){
+		camera=Camera.main;
+	}
+
 	// Use this for initialization
 	void OnEnable() {
+		camera=Camera.main;
 		tilt=new Vector3(0f, 0f, 0f);
 		standingUp=new Quaternion();
 		timeSpinning = 0;

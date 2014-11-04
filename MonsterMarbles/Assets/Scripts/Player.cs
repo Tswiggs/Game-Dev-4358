@@ -10,6 +10,7 @@ public class Player
 	/// </summary>
 	private IList<PlayerBall> playerBalls=new List<PlayerBall>(); 
 	private IList<PlayerBallCreator.MONSTER_PREFABS> teamSelection;
+	private int activeBallIndex=0;
 	/// <summary>
 	/// The player's score.
 	/// </summary>
@@ -44,15 +45,24 @@ public class Player
 	public Player(List<PlayerBallCreator.MONSTER_PREFABS> teamSelection, string newUserID){
 		this.teamSelection=teamSelection;
 		userID=newUserID;
+		activeBallIndex=0;
 	}
 	/// <summary>
-	/// Gets the next ball.
+	/// Gets the active ball.
 	/// </summary>
-	/// <returns>The next ball.</returns>
-	public PlayerBall getNextBall()
+	/// <returns>The active ball.</returns>
+	public PlayerBall getActiveBall()
 	{
-		return null;
+		return playerBalls[activeBallIndex];
 	}
+		public void nextBall(){
+			if((activeBallIndex+1)<playerBalls.Count)
+			{
+				activeBallIndex++;
+			}else{
+				activeBallIndex=0;
+			}
+		}
 
 	/// <summary>
 	/// Gets the score.

@@ -16,11 +16,22 @@ public class LaunchController : MonoBehaviour {
 	public delegate void postLaunchAction();
 	public static event postLaunchAction launchCompleted;
 
+	//Variables used for the correctional hop
+	private Quaternion standingUp=new Quaternion();
+	private bool isHopping =false;
+	private float hopStart= 0f;
+	private float timeSpinning= 0f;
+	public float hopLandingYThreshold=.00005f;
+	public float timeToSpin=1f;
+	public float hopHeight=3000f;
+
+
 	private bool shouldLaunch=false;
 	private float power=0;
 	// Use this for initialization
 	void Start () {
-
+		camera=Camera.main;
+		audioSource=camera.GetComponent<AudioSource>();
 	}
 	// Update is called once per frame
 	void Update () {
@@ -45,6 +56,33 @@ public class LaunchController : MonoBehaviour {
 				launchCompleted();
 			}
 		}
+		if(isHopping){
+			transform.rotation =Quaternion.Slerp(transform.rotation, standingUp, timeSpinning/timeToSpin);
+			timeSpinning+=Time.deltaTime;
+			
+			//If the slerp is within 1 degree of completion activate protocol to complete the turn
+			if(timeSpinning>timeToSpin && transform.position.y<hopStart && rigidbody.velocity.y<=0){
+				isHopping=false;
+				rigidbody.Sleep();
+				GetComponent<SteeringController>().enabled= false;
+				GetComponent<LaunchController>().enabled = true;
+							
+			}
+		}
+	}
+
+	public void hopUpright(){
+		isHopping=true;
+		rigidbody.Sleep();
+		rigidbody.WakeUp();
+		standingUp.x=0f;
+		standingUp.y=transform.rotation.y;
+		standingUp.z=0f;
+		if(Quaternion.Angle(transform.rotation, standingUp)>=0.003f)
+		{
+			rigidbody.AddForce(0f, hopHeight, 0f);
+		}
+		hopStart=transform.position.y+hopLandingYThreshold;
 	}
 
 
@@ -72,6 +110,7 @@ public class LaunchController : MonoBehaviour {
 
 
 	}
+
 
 	private void flickHandler(object sender, EventArgs e)
 	{
