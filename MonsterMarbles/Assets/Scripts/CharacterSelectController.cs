@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using AssemblyCSharp;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ public class CharacterSelectController : MonoBehaviour {
 	public GUIStyle invertedCharacterSelectStyle;
 	public GUIStyle mainMenuStyle;
 	
+	private Texture[] characterPortraits;
+	
 	private int interfaceNavigation;
 	private int mode;
 	private int currentPlayer;
@@ -25,11 +28,14 @@ public class CharacterSelectController : MonoBehaviour {
 	private List<PlayerBallCreator.MONSTER_PREFABS> player0;
 	private List<PlayerBallCreator.MONSTER_PREFABS> player1;
 	
-	private const int CHARACTER_SELECT_BOX_WIDTH = 160;
-	private const int CHARACTER_SELECT_BOX_HEIGHT = 160;
+	private const int CHARACTER_SELECT_BOX_WIDTH = 200;
+	private const int CHARACTER_SELECT_BOX_HEIGHT = 200;
 	
 	private const int HOTSEAT_MODE = 0;
 	private const int INTERNET_MODE = 1;
+	
+	private Texture unknownPortrait;
+	
 	// Use this for initialization
 	void Start () {
 		interfaceNavigation = 0;
@@ -47,12 +53,18 @@ public class CharacterSelectController : MonoBehaviour {
 		
 		unlockedCharacters = new bool[30];
 		charactersSelected = new bool[30];
+		characterPortraits = new Texture[30];
 		for(int x = 0; x <30; x++){
 			unlockedCharacters[x] = false;
 			charactersSelected[x] = false;
 		}
 		unlockedCharacters[0] = true;
 		unlockedCharacters[1] = true;
+		
+		characterPortraits[0] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Temporary_Assets/Wolfgang_Portrait.png", typeof(Texture));
+		characterPortraits[1] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Temporary_Assets/Hotstreak_Portrait.png", typeof(Texture));
+		
+		unknownPortrait = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Temporary_Assets/Unknown_Portrait.png", typeof(Texture));
 	}
 	
 	void OnEnable() {
@@ -171,12 +183,21 @@ public class CharacterSelectController : MonoBehaviour {
 					xPos = 0;
 					yPos+= CHARACTER_SELECT_BOX_HEIGHT;
 				}
+				
+				Texture portrait;
+				if(characterPortraits[num] == null){
+					portrait = unknownPortrait;
+				}
+				else{
+					portrait = characterPortraits[num];
+				}
+				
 				if(charactersSelected[num] == true){
-					if (GUI.Button(new Rect(xPos,yPos,CHARACTER_SELECT_BOX_WIDTH,CHARACTER_SELECT_BOX_HEIGHT), Constants.CHARACTER_INDEX[num], invertedCharacterSelectStyle)){
+					if (GUI.Button(new Rect(xPos,yPos,CHARACTER_SELECT_BOX_WIDTH,CHARACTER_SELECT_BOX_HEIGHT), new GUIContent(Constants.CHARACTER_INDEX[num], portrait), invertedCharacterSelectStyle)){
 						deselectCharacter(num);
 					}
 				}
-				else if (GUI.Button(new Rect(xPos,yPos,CHARACTER_SELECT_BOX_WIDTH,CHARACTER_SELECT_BOX_HEIGHT), Constants.CHARACTER_INDEX[num], characterSelectStyle)){
+				else if (GUI.Button(new Rect(xPos,yPos,CHARACTER_SELECT_BOX_WIDTH,CHARACTER_SELECT_BOX_HEIGHT), new GUIContent(Constants.CHARACTER_INDEX[num], portrait), characterSelectStyle)){
 					selectCharacter(num);
 				}
 				xPos += CHARACTER_SELECT_BOX_WIDTH;

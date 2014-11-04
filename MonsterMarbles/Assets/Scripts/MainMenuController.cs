@@ -83,7 +83,7 @@ public class MainMenuController : MonoBehaviour {
 				creditsStyle.fontSize = 28;
 				creditsStyle.normal.textColor = Color.black;
 			
-				GUI.Label (new Rect(Screen.width/5, Screen.height/2+50, Screen.width/5*3, Screen.height/4), "PRODUCED BY PIXEL ROCKET", creditsStyle);
+				GUI.Label (new Rect(Screen.width/5, Screen.height/2+50, Screen.width/5*3, Screen.height/4), "Produced by Pixel Rocket\nSTART Music by Kevin MacLeod", creditsStyle);
 				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 100, 180, 90), "Return", mainMenuStyle)) {
 					interfaceNavigation = 0;
 				}
