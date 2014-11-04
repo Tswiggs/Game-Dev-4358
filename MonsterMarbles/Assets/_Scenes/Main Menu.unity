@@ -14297,7 +14297,6 @@ GameObject:
   - 114: {fileID: 1193954124}
   - 114: {fileID: 1193954128}
   - 114: {fileID: 1193954127}
-  - 114: {fileID: 1193954126}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -14317,7 +14316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 1193954128}
-  ringerController: {fileID: 1193954126}
+  ringerController: {fileID: 0}
 --- !u!4 &1193954125
 Transform:
   m_ObjectHideFlags: 0
@@ -14330,21 +14329,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
---- !u!114 &1193954126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1193954123}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd52f08bb5f7215458a651ca3df6606f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameMode: 0
-  gameCamera: {fileID: 0}
-  objectCatcher: {fileID: 0}
-  gameController: {fileID: 0}
 --- !u!114 &1193954127
 MonoBehaviour:
   m_ObjectHideFlags: 0
