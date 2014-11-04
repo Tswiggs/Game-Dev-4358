@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CharacterSelectController : MonoBehaviour {
 	
+	public MonoBehaviour parentMenu;
+	
 	private Vector2 scrollPosition;
 	private ArrayList unlockedCharacters;
 	private ArrayList charactersSelected;
@@ -36,7 +38,7 @@ public class CharacterSelectController : MonoBehaviour {
 		
 		float scrollBoxWidth = Mathf.Floor(((Screen.width - Screen.width/4)/CHARACTER_SELECT_BOX_WIDTH)) * CHARACTER_SELECT_BOX_WIDTH; 
 		
-		scrollPosition = GUI.BeginScrollView(new Rect(Screen.width/8, Screen.height/8, Screen.width - Screen.width/4, Screen.height-Screen.height/4),scrollPosition,new Rect(0,0, scrollBoxWidth, Screen.height*2));
+		scrollPosition = GUI.BeginScrollView(new Rect(Screen.width/8, Screen.height/8, Screen.width - Screen.width/4, Screen.height-Screen.height/3),scrollPosition,new Rect(0,0, scrollBoxWidth, Screen.height*2));
 		int xPos = 0;
 		int yPos = 0;
 		
@@ -52,6 +54,11 @@ public class CharacterSelectController : MonoBehaviour {
 		
 		}
 		GUI.EndScrollView();
+		
+		if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 100, 180, 90), "Return", redStyle)) {
+			parentMenu.enabled = true;
+			this.enabled = false;
+		}
 		
 		
 	}

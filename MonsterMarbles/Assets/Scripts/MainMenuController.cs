@@ -7,8 +7,12 @@ public class MainMenuController : MonoBehaviour {
 	// Use this for initialization
 	private Camera camera;
 	public GameController gameController;
+	public CharacterSelectController characterSelectController;
 	private int interfaceType;
 	private int interfaceNavigation;
+	
+	public Texture button_unpushed;
+	public Texture button_pushed;
 	
 	private const int NO_INTERFACE = 0;
 	private const int LOGGED_OUT = 1;
@@ -20,6 +24,10 @@ public class MainMenuController : MonoBehaviour {
 		interfaceType = LOGGED_IN_NO_GAMES;
 		interfaceNavigation = 0;
 		
+	}
+	
+	void OnEnable() {
+		interfaceNavigation = 0;
 	}
 
 	void OnGUI(){
@@ -35,13 +43,13 @@ public class MainMenuController : MonoBehaviour {
 			
 		}
 		else if(interfaceType == LOGGED_OUT){
-			if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), "Login with Facebook", redStyle)) {
+			if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), new GUIContent("Login with Facebook",button_unpushed), redStyle)) {
 			}
 		}
 		else if(interfaceType == LOGGED_IN_NO_GAMES){
 			
 			if(interfaceNavigation == 0){
-				if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), "Play!", redStyle)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), new GUIContent("Play!",button_unpushed), redStyle)) {
 					interfaceNavigation = 1;
 				}
 				if (GUI.Button (new Rect (Screen.width/8 * 3 - 90, (Screen.height/2) + 100, 180, 90), "Options", redStyle)) {
@@ -53,7 +61,8 @@ public class MainMenuController : MonoBehaviour {
 			}
 			else if (interfaceNavigation == 1){ //Game Mode Menu
 				if (GUI.Button (new Rect (Screen.width/2 - 150, (Screen.height/2), 300, 120), "Ringer Royale", redStyle)) {
-					interfaceNavigation = 0;
+					characterSelectController.enabled = true;
+					this.enabled = false;
 				}
 				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 100, 180, 90), "Return", redStyle)) {
 					interfaceNavigation = 0;
