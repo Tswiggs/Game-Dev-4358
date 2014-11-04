@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using TouchScript.Gestures;
 using System.Collections;
+using System;
 /// <summary>
 /// Listens for the user to tap the screen, then activates the special ability.
 /// </summary>
@@ -33,7 +35,8 @@ public class WolfgangPower : MonoBehaviour {
 	private bool isActivated = false; 
 	// Use this for initialization
 	void Start () {
-
+		GetComponent<TapGesture> ().Tapped += createGangOfWolves;
+		SteeringController.rollCompleted += rollComplete;
 	}
 	
 	// Update is called once per frame
@@ -46,13 +49,16 @@ public class WolfgangPower : MonoBehaviour {
 				}
 	}
 
-	public void createGangOfWolves()
+	public void createGangOfWolves(object sender, EventArgs e)
 	{
-
-		wolfGangBall2 = Instantiate (wolfGangBallOriginal, wolfGangBallOriginal.transform.position + new Vector3(2,0,-2), wolfGangBallOriginal.transform.rotation) as GameObject; 
-		wolfGangBall3 = Instantiate (wolfGangBallOriginal, wolfGangBallOriginal.transform.position  + new Vector3(-2,0,2), wolfGangBallOriginal.transform.rotation) as GameObject;
-
-		isActivated = true; 
+		if ((!isActivated) && (GetComponent<SteeringController>().isRolling == true) && gameObject.rigidbody.velocity.magnitude > 1f) {
+						wolfGangBall2 = Instantiate (wolfGangBallOriginal, wolfGangBallOriginal.transform.position + new Vector3 (2, 0, -2), wolfGangBallOriginal.transform.rotation) as GameObject; 
+			wolfGangBall2.GetComponent<WolfgangPower>().enabled = false; 
+						wolfGangBall3 = Instantiate (wolfGangBallOriginal, wolfGangBallOriginal.transform.position + new Vector3 (-2, 0, 2), wolfGangBallOriginal.transform.rotation) as GameObject;
+			wolfGangBall3.GetComponent<WolfgangPower>().enabled = false; 
+		
+			                             isActivated = true; 
+				}
 
 	}
 
