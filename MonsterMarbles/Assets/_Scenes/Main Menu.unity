@@ -14356,6 +14356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 314f2f4191d54bb4cb82f0ae8ef97405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentMenu: {fileID: 1193954128}
 --- !u!114 &1193954128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14368,6 +14369,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 1193954124}
+  characterSelectController: {fileID: 1193954127}
+  button_unpushed: {fileID: 2800000, guid: ed34ed663c4d08c45844474620074669, type: 3}
+  button_pushed: {fileID: 2800000, guid: f4fc8a06a9a2abc4da3f7a89a19f0567, type: 3}
 --- !u!1 &1214113258
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,6 +29,9 @@ public class GameController : MonoBehaviour {
 		//else show login form
 	}
 	
+	User getUser() {
+		return user;
+	}
 
 	void Update () {
 		
