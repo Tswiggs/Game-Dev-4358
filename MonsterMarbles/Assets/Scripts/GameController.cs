@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour {
 		login ();
 
 		//initialize the mainmenu controller
-		mainMenu=new MainMenuController(this);
+		mainMenu.enabled=true;
 		mainMenu.passLoginInformation(user);
 
 		//else show login form
@@ -60,7 +60,8 @@ public class GameController : MonoBehaviour {
 				players.Add(new Player(team2, 0, user2.getFbID() ));
 			}
 
-			ringerController=new RingerController(this, multiplayerMode, players);
+			ringerController.initialize(this, multiplayerMode, players);
+			ringerController.enabled=true;
 		}
 
 	}

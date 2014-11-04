@@ -40,7 +40,7 @@ public class RingerController : MonoBehaviour {
 		players.Add (player2); 
 	}
 
-	public RingerController(GameController gameController, string multiplayerMode, ArrayList players){
+	public void initialize(GameController gameController, string multiplayerMode, ArrayList players){
 		this.gameController=gameController;
 
 		//TODO: change so that both RingerController and GameController are using the enum MULTIPLAYER_MODE
