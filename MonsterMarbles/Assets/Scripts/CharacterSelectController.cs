@@ -22,8 +22,8 @@ public class CharacterSelectController : MonoBehaviour {
 	private int mode;
 	private int currentPlayer;
 	
-	private List<int> player0;
-	private List<int> player1;
+	private List<PlayerBallCreator.MONSTER_PREFABS> player0;
+	private List<PlayerBallCreator.MONSTER_PREFABS> player1;
 	
 	private const int CHARACTER_SELECT_BOX_WIDTH = 160;
 	private const int CHARACTER_SELECT_BOX_HEIGHT = 160;
@@ -40,8 +40,8 @@ public class CharacterSelectController : MonoBehaviour {
 		
 		currentPlayer = 0;
 		
-		player0 = new List<int>();
-		player1 = new List<int>();
+		player0 = new List<PlayerBallCreator.MONSTER_PREFABS>();
+		player1 = new List<PlayerBallCreator.MONSTER_PREFABS>();
 		
 		mode = HOTSEAT_MODE;
 		
@@ -62,8 +62,8 @@ public class CharacterSelectController : MonoBehaviour {
 		
 		currentPlayer = 0;
 		
-		player0 = new List<int>();
-		player1 = new List<int>();
+		player0 = new List<PlayerBallCreator.MONSTER_PREFABS>();
+		player1 = new List<PlayerBallCreator.MONSTER_PREFABS>();
 		
 		mode = HOTSEAT_MODE;
 		
@@ -84,10 +84,10 @@ public class CharacterSelectController : MonoBehaviour {
 				numberOfSelectedCharacters += 1;
 				
 				if(currentPlayer == 0){
-					player0.Add(index);
+					player0.Add((PlayerBallCreator.MONSTER_PREFABS)index);
 				}
 				else{
-					player1.Add(index);
+					player1.Add((PlayerBallCreator.MONSTER_PREFABS)index);
 				}
 				
 				return true;
@@ -104,10 +104,10 @@ public class CharacterSelectController : MonoBehaviour {
 				
 				
 				if(currentPlayer == 0){
-					return player0.Remove(index);
+					return player0.Remove((PlayerBallCreator.MONSTER_PREFABS)index);
 				}
 				else{
-					return player1.Remove(index);
+					return player1.Remove((PlayerBallCreator.MONSTER_PREFABS)index);
 				}
 				
 			}

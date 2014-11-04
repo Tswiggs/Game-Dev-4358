@@ -116,7 +116,7 @@ public class MainMenuController : MonoBehaviour {
 		}
 	}
 	
-	public void newMatch(string gameMode, string multiplayerMode, List<int> team1, List<int> team2){
+	public void newMatch(string gameMode, string multiplayerMode, List<PlayerBallCreator.MONSTER_PREFABS> team1, List<PlayerBallCreator.MONSTER_PREFABS> team2){
 		if(team2 != null){
 			gameController.newMatch(gameMode,multiplayerMode,team1,team2,gameController.getUser(),gameController.getUser());
 		}

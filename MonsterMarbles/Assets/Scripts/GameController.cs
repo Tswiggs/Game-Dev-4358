@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour {
 	void loadMatch(){
 
 	}
-	public void newMatch(string gameMode, string multiplayerMode, List<int> team1, List<int> team2, User user1, User user2){
+	public void newMatch(string gameMode, string multiplayerMode, List<PlayerBallCreator.MONSTER_PREFABS> team1, List<PlayerBallCreator.MONSTER_PREFABS> team2, User user1, User user2){
 		//TODO: change this so that it checks that the game mode is a valid type and then loads that level.
 		if(gameMode==Constants.SCENE_PILA_PLAINS){
 			mainMenu.enabled=false;

@@ -14344,6 +14344,7 @@ GameObject:
   - 114: {fileID: 1193954124}
   - 114: {fileID: 1193954128}
   - 114: {fileID: 1193954127}
+  - 114: {fileID: 1193954126}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -14363,7 +14364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 1193954128}
-  ringerController: {fileID: 0}
+  ringerController: {fileID: 1193954126}
 --- !u!4 &1193954125
 Transform:
   m_ObjectHideFlags: 0
@@ -14376,6 +14377,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!114 &1193954126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1193954123}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd52f08bb5f7215458a651ca3df6606f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameMode: 0
+  gameCamera: {fileID: 0}
+  objectCatcher: {fileID: 0}
+  gameController: {fileID: 0}
 --- !u!114 &1193954127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14391,13 +14407,13 @@ MonoBehaviour:
   characterSelectStyle:
     m_Name: 
     m_Normal:
-      m_Background: {fileID: 2800000, guid: bbe3231a1f46bfc4ba9b5f02b6f71549, type: 3}
+      m_Background: {fileID: 2800000, guid: 7adda24f26e84cc439be0a4f358f6286, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
-      m_Background: {fileID: 2800000, guid: aab7712354e6e3049ac79251aa7352a2, type: 3}
+      m_Background: {fileID: 2800000, guid: 5665e4c699042c743ba1fda02e067f7c, type: 3}
       m_TextColor: {r: 1, g: 0, b: 0, a: 1}
     m_Active:
-      m_Background: {fileID: 2800000, guid: 42e946d6be8213f469c733ad91bb31a2, type: 3}
+      m_Background: {fileID: 2800000, guid: 5665e4c699042c743ba1fda02e067f7c, type: 3}
       m_TextColor: {r: 1, g: 0, b: 0, a: 1}
     m_Focused:
       m_Background: {fileID: 0}
@@ -14450,13 +14466,13 @@ MonoBehaviour:
   invertedCharacterSelectStyle:
     m_Name: 
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 42e946d6be8213f469c733ad91bb31a2, type: 3}
+      m_Background: {fileID: 2800000, guid: 5665e4c699042c743ba1fda02e067f7c, type: 3}
       m_TextColor: {r: 1, g: 1, b: 1, a: 1}
     m_Hover:
-      m_Background: {fileID: 2800000, guid: 42e946d6be8213f469c733ad91bb31a2, type: 3}
+      m_Background: {fileID: 2800000, guid: 5665e4c699042c743ba1fda02e067f7c, type: 3}
       m_TextColor: {r: 1, g: 0, b: 0, a: 1}
     m_Active:
-      m_Background: {fileID: 2800000, guid: bbe3231a1f46bfc4ba9b5f02b6f71549, type: 3}
+      m_Background: {fileID: 2800000, guid: 7adda24f26e84cc439be0a4f358f6286, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Focused:
       m_Background: {fileID: 0}
@@ -14509,10 +14525,10 @@ MonoBehaviour:
   mainMenuStyle:
     m_Name: 
     m_Normal:
-      m_Background: {fileID: 2800000, guid: ed34ed663c4d08c45844474620074669, type: 3}
+      m_Background: {fileID: 2800000, guid: 427a00eaf321c7f4b8bcf4d39d84221d, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
-      m_Background: {fileID: 2800000, guid: ed34ed663c4d08c45844474620074669, type: 3}
+      m_Background: {fileID: 2800000, guid: 427a00eaf321c7f4b8bcf4d39d84221d, type: 3}
       m_TextColor: {r: 1, g: 1, b: 1, a: 1}
     m_Active:
       m_Background: {fileID: 2800000, guid: f4fc8a06a9a2abc4da3f7a89a19f0567, type: 3}
@@ -14581,10 +14597,10 @@ MonoBehaviour:
   mainMenuStyle:
     m_Name: 
     m_Normal:
-      m_Background: {fileID: 2800000, guid: ed34ed663c4d08c45844474620074669, type: 3}
+      m_Background: {fileID: 2800000, guid: 427a00eaf321c7f4b8bcf4d39d84221d, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
-      m_Background: {fileID: 2800000, guid: ed34ed663c4d08c45844474620074669, type: 3}
+      m_Background: {fileID: 2800000, guid: 427a00eaf321c7f4b8bcf4d39d84221d, type: 3}
       m_TextColor: {r: 1, g: 1, b: 1, a: 1}
     m_Active:
       m_Background: {fileID: 2800000, guid: f4fc8a06a9a2abc4da3f7a89a19f0567, type: 3}
