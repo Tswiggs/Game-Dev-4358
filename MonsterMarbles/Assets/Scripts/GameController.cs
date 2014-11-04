@@ -8,8 +8,10 @@ public class GameController : MonoBehaviour {
 	//References to every scene
 	public MainMenuController mainMenu;
 	public RingerController ringerController;
+	public GameObject ringerControllerPrefab;
 
-
+	private string multiplayerMode;
+	ArrayList players=new ArrayList();
 
 	//private MatchData activeMatches[];
 	private AssemblyCSharp.User user;
@@ -51,22 +53,28 @@ public class GameController : MonoBehaviour {
 		//TODO: change this so that it checks that the game mode is a valid type and then loads that level.
 		if(gameMode==Constants.SCENE_PILA_PLAINS){
 			mainMenu.enabled=false;
-			Application.LoadLevel(gameMode);
+
 
 			//Populate the player list
-			ArrayList players=new ArrayList();
 			if(multiplayerMode=="HOTSEAT"){
-				//players.Add(new Player(team1, 0, "Player1"));
-				//players.Add(new Player(team2, 0, "Player2"));
+				players.Add(new Player(team1,  "Player1"));
+				players.Add(new Player(team2,  "Player2"));
 			}else{
 				//players.Add(new Player(team1, 0,user1.getFbID() )) ;
 				//players.Add(new Player(team2, 0, user2.getFbID() ));
 			}
-
-			ringerController.initialize(this, multiplayerMode, players);
-			ringerController.enabled=true;
+			Application.LoadLevel(gameMode);
 		}
 
+	}
+
+	void OnLevelWasLoaded(int level){
+		if (level==1){
+			ringerController=GameObject.Find("SceneController").GetComponent<RingerController>();
+			ringerController.initialize(this, multiplayerMode, players);
+			multiplayerMode=null;
+			players=new ArrayList();
+		}
 	}
 	void saveMatch(){
 

@@ -6354,6 +6354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca35812053b19c54daffd5d640d00d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnLocation: {fileID: 0}
   characterPrefabs: {fileID: 0}
 --- !u!1 &1465257409
 GameObject:
@@ -8422,6 +8423,7 @@ MonoBehaviour:
   gameCamera: {fileID: 1758280485}
   objectCatcher: {fileID: 1701874795}
   gameController: {fileID: 0}
+  ballSpawner: {fileID: 1827763792}
 --- !u!4 &1827763791
 Transform:
   m_ObjectHideFlags: 0
@@ -8445,6 +8447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca35812053b19c54daffd5d640d00d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnLocation: {fileID: 1461070651}
   characterPrefabs: {fileID: 1827763789}
 --- !u!1 &1840222625
 GameObject:

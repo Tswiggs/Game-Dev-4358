@@ -33,7 +33,7 @@ public class PlayerBallCreator : MonoBehaviour {
 //		GameObject defaultPlayerBall = GameObject.Find ("Player Ball"); 
 //		PlayerBall newBall = Instantiate (defaultPlayerBall, spawnLocation.position , spawnLocation.rotation) as PlayerBall; 
 
-		GameObject newBall= new GameObject();
+		GameObject newBall;
 		switch (prefabToUse) 
 		{
 		case MONSTER_PREFABS.HOTSTREAK: 

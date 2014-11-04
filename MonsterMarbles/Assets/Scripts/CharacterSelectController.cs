@@ -128,12 +128,12 @@ public class CharacterSelectController : MonoBehaviour {
 			}
 			else if(currentPlayer == 1){
 				this.enabled = false;
-				mainMenuController.newMatch(Constants.SCENE_PILA_PLAINS,"ll",player0,player1);
+				mainMenuController.newMatch(Constants.SCENE_PILA_PLAINS,"HOTSEAT",player0,player1);
 			}
 		}
 		else{
 		this.enabled = false;
-			mainMenuController.newMatch(Constants.SCENE_PILA_PLAINS,"ll",player0,player0);
+			mainMenuController.newMatch(Constants.SCENE_PILA_PLAINS,"HOTSEAT",player0,player0);
 		}
 	}
 	

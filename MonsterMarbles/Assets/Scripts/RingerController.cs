@@ -48,6 +48,7 @@ public class RingerController : MonoBehaviour {
 		gameMode=MULTIPLAYER_MODE.HOTSEAT;
 
 		this.players=players;
+		if(players.Count==0){print("Player List not initialized"); return;}
 		activePlayer=players[0] as Player;
 		foreach( Player player in players){
 			foreach( PlayerBallCreator.MONSTER_PREFABS character in player.getTeamSelection()){
