@@ -30,6 +30,7 @@ public class RingerController : MonoBehaviour {
 	/// </summary>
 	public GameObject objectCatcher; 
 	public GameController gameController;
+	public PlayerBallCreator ballSpawner;
 
 	void Start () {
 		players = new ArrayList (); 
@@ -47,6 +48,14 @@ public class RingerController : MonoBehaviour {
 		gameMode=MULTIPLAYER_MODE.HOTSEAT;
 
 		this.players=players;
+		activePlayer=players[0] as Player;
+		foreach( Player player in players){
+			foreach( PlayerBallCreator.MONSTER_PREFABS character in player.getTeamSelection()){
+				PlayerBall ball=new PlayerBall(player, ballSpawner.createPlayerBall(character));
+				player.addPlayerBall(ball);
+			}
+		}
+
 	}
 
 	void Update () {

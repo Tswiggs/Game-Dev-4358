@@ -38,6 +38,7 @@ public class LaunchController : MonoBehaviour {
 			characterGui.SetActive(false);
 			GetComponent<SteeringController>().enabled=true;
 			GetComponent<LaunchController>().enabled=false;
+			camera=Camera.main;
 
 			if(launchCompleted != null)
 			{

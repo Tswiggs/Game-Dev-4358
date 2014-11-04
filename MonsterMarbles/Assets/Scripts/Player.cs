@@ -2,12 +2,14 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+namespace AssemblyCSharp{
 public class Player
 {
 	/// <summary>
 	/// The zugie balls that the player has at their disposal for this game.
 	/// </summary>
 	private IList<PlayerBall> playerBalls; 
+	private IList<PlayerBallCreator.MONSTER_PREFABS> teamSelection;
 	/// <summary>
 	/// The player's score.
 	/// </summary>
@@ -38,6 +40,10 @@ public class Player
 		playerBalls = playerballs; 
 		score = newScore; 
 
+	}
+	public Player(List<PlayerBallCreator.MONSTER_PREFABS> teamSelection, string newUserID){
+		this.teamSelection=teamSelection;
+		userID=newUserID;
 	}
 	/// <summary>
 	/// Gets the next ball.
@@ -74,7 +80,8 @@ public class Player
 	{
 		return userID;
 	}
-
-
+	public IList<PlayerBallCreator.MONSTER_PREFABS> getTeamSelection(){return teamSelection;}
+	public void setTeamSelection(IList<PlayerBallCreator.MONSTER_PREFABS> teamSelection){ this.teamSelection=teamSelection;}
+	public void addPlayerBall(PlayerBall playerBall){playerBalls.Add(playerBall);}
 }
-
+}
