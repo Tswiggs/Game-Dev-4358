@@ -35,6 +35,7 @@ public class WolfgangPower : MonoBehaviour {
 	private bool isActivated = false; 
 	// Use this for initialization
 	void Start () {
+		wolfGangBallOriginal = gameObject;
 		GetComponent<TapGesture> ().Tapped += createGangOfWolves;
 		SteeringController.rollCompleted += rollComplete;
 	}
@@ -51,7 +52,7 @@ public class WolfgangPower : MonoBehaviour {
 
 	public void createGangOfWolves(object sender, EventArgs e)
 	{
-		if ((!isActivated) && (GetComponent<SteeringController>().isRolling == true) && gameObject.rigidbody.velocity.magnitude > 1f) {
+		if ((!isActivated) && (GetComponent<SteeringController>().isRolling == true)) {
 						wolfGangBall2 = Instantiate (wolfGangBallOriginal, wolfGangBallOriginal.transform.position + new Vector3 (2, 0, -2), wolfGangBallOriginal.transform.rotation) as GameObject; 
 			wolfGangBall2.GetComponent<WolfgangPower>().enabled = false; 
 						wolfGangBall3 = Instantiate (wolfGangBallOriginal, wolfGangBallOriginal.transform.position + new Vector3 (-2, 0, 2), wolfGangBallOriginal.transform.rotation) as GameObject;
