@@ -358,8 +358,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: 0, y: -.929813385, z: 0, w: .368031532}
-  m_LocalPosition: {x: 2.59846115, y: -.0558433533, z: 2.82370758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400026}
@@ -887,6 +887,9 @@ MonoBehaviour:
   launchSpin: 6000
   maxPower: 15
   powerFade: 0
+  hopLandingYThreshold: 4.99999987e-05
+  timeToSpin: 1
+  hopHeight: 3000
 --- !u!114 &11400016
 MonoBehaviour:
   m_ObjectHideFlags: 1
