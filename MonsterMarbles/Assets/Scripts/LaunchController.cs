@@ -33,6 +33,8 @@ public class LaunchController : MonoBehaviour {
 		camera=Camera.main;
 		audioSource=camera.GetComponent<AudioSource>();
 	}
+
+
 	// Update is called once per frame
 	void Update () {
 		power=Mathf.Clamp(power, 0f, maxPower);
@@ -90,6 +92,7 @@ public class LaunchController : MonoBehaviour {
 	{
 		// subscribe to gesture's Panned event
 		power=0f;
+		characterGui.SetActive(true);
 		GetComponent<TapGesture>().StateChanged += pressHandler;
 		GetComponent<FlickGesture>().Flicked += flickHandler;
 
@@ -98,6 +101,7 @@ public class LaunchController : MonoBehaviour {
 	private void OnDisable()
 	{
 		// don't forget to unsubscribe
+		characterGui.SetActive(false);
 		GetComponent<TapGesture>().StateChanged -= pressHandler;
 		GetComponent<FlickGesture>().Flicked -= flickHandler;
 	}

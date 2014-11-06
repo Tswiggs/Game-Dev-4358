@@ -135,6 +135,7 @@ GameObject:
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400010}
   - 114: {fileID: 11400006}
+  - 114: {fileID: 11400016}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -671,7 +672,7 @@ MonoBehaviour:
   explosionSound: {fileID: 8300000, guid: 20d6636b6fb875d41a29a206e4bc7a9e, type: 3}
   characterGui: {fileID: 100020}
   speed: 3
-  launchScalar: 600
+  launchScalar: 400
   launchSpin: 6000
   maxPower: 15
   powerFade: 0
@@ -738,6 +739,19 @@ MonoBehaviour:
   aimSnappiness: 5
   panGesture: {fileID: 11400002}
   reverseButtonTap: {fileID: 11400012}
+--- !u!114 &11400016
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f807dd960d434c3479f2fd7c5d553de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  onCollisionPowerIncrease: 3000
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -77,7 +77,7 @@ public class SteeringController : MonoBehaviour {
 				isHopping=false;
 				rigidbody.Sleep();
 				GetComponent<SteeringController>().enabled= false;
-				GetComponent<LaunchController>().enabled = true;
+				//GetComponent<LaunchController>().enabled = true;
 				if(rollCompleted != null)
 				{
 					rollCompleted();

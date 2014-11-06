@@ -11,6 +11,7 @@ public class AimPlayerBall : MonoBehaviour {
 	public SimplePanGesture panGesture;
 	public TapGesture reverseButtonTap;
 
+
 	private Quaternion lastLocalRotation;
 	private Quaternion localRotationToGo;
 
