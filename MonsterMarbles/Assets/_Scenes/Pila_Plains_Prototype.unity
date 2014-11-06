@@ -7878,7 +7878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1701874798}
-  counter: {fileID: 0}
+  counter: {fileID: 145115784}
   playerBall: {fileID: 0}
 --- !u!82 &1701874798
 AudioSource:

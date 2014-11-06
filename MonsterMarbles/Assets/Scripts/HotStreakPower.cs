@@ -12,8 +12,8 @@ public class HotStreakPower : MonoBehaviour {
 
 	private bool isActivated = false;
 	void Start () {
-		HotStreakBall = gameObject;
-		GetComponent<TapGesture> ().Tapped += groundSlam;
+		HotStreakBall = transform.FindChild("Ball").gameObject;
+		HotStreakBall.GetComponent<TapGesture> ().Tapped += groundSlam;
 		SteeringController.rollCompleted += rollComplete;
 	}
 	

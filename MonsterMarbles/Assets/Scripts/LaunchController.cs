@@ -8,6 +8,7 @@ public class LaunchController : MonoBehaviour {
 	public AudioSource audioSource;
 	public AudioClip explosionSound; 
 	public GameObject characterGui;
+	public GameObject root;
 	public float speed=1;
 	public float launchScalar=1;
 	public float launchSpin=1;
@@ -67,6 +68,7 @@ public class LaunchController : MonoBehaviour {
 			//If the slerp is within 1 degree of completion activate protocol to complete the turn
 			if(timeSpinning>timeToSpin && transform.position.y<hopStart && rigidbody.velocity.y<=0){
 				isHopping=false;
+				characterGui.SetActive(true);
 				rigidbody.Sleep();
 				GetComponent<SteeringController>().enabled= false;
 				GetComponent<LaunchController>().enabled = true;
@@ -92,10 +94,10 @@ public class LaunchController : MonoBehaviour {
 
 	private void OnEnable()
 	{
-		// subscribe to gesture's Panned event
+		if(transform.up!=root.transform.up){hopUpright();}
+		else{characterGui.SetActive(true);}
 		power=0f;
-		characterGui.SetActive(true);
-		GetComponent<TapGesture>().StateChanged += pressHandler;
+		GetComponent<TapGesture>().Tapped += pressHandler;
 		GetComponent<FlickGesture>().Flicked += flickHandler;
 
 	}
@@ -104,7 +106,7 @@ public class LaunchController : MonoBehaviour {
 	{
 		// don't forget to unsubscribe
 		characterGui.SetActive(false);
-		GetComponent<TapGesture>().StateChanged -= pressHandler;
+		GetComponent<TapGesture>().Tapped -= pressHandler;
 		GetComponent<FlickGesture>().Flicked -= flickHandler;
 	}
 	

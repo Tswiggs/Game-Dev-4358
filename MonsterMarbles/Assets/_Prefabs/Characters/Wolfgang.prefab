@@ -781,11 +781,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4eb327bf67017174e91d230eb4d35428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wolfGangBallOriginal: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -896,6 +897,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   explosionSound: {fileID: 8300000, guid: 20d6636b6fb875d41a29a206e4bc7a9e, type: 3}
   characterGui: {fileID: 100016}
+  root: {fileID: 100038}
   speed: 3
   launchScalar: 400
   launchSpin: 6000
@@ -945,6 +947,7 @@ MonoBehaviour:
   stopBufferCount: 3
   hopLandingYThreshold: 4.99999987e-05
   timeToSpin: 1
+  isRolling: 1
 --- !u!114 &11400020
 MonoBehaviour:
   m_ObjectHideFlags: 1

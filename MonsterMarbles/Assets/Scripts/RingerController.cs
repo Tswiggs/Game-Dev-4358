@@ -39,6 +39,8 @@ public class RingerController : MonoBehaviour {
 	void Start () {
 		//players = new ArrayList (); 
 		gameMode = MULTIPLAYER_MODE.HOTSEAT; 
+		OutOfBoundsHandler.pointCollected += incrementScoreForCurrentPlayer;
+		OutOfBoundsHandler.playerCollected += playerKOed;
 	}
 
 	public void initialize(GameController gameController, string multiplayerMode, ArrayList players){
@@ -49,15 +51,14 @@ public class RingerController : MonoBehaviour {
 
 		this.players=players;
 		if(players.Count==0){print("Player List not initialized"); return;}
-		activePlayer=players[0] as Player;
+		activePlayer=players[activePlayerIndex] as Player;
 		foreach( Player player in players){
 			foreach( PlayerBallCreator.MONSTER_PREFABS character in player.getTeamSelection()){
 				PlayerBall ball=new PlayerBall(player, ballSpawner.createPlayerBall(character));
 				player.addPlayerBall(ball);
 			}
 		}
-		possess(activePlayer.getActiveBall());
-		focusCameraForTurnStart(activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").gameObject);
+		waitForTurn();
 	}
 
 	void Update () {
@@ -75,30 +76,20 @@ public class RingerController : MonoBehaviour {
 
 	public void possess(PlayerBall nextBall)
 	{
-		if(!nextBall.isOnBoard())
-		{
 
-			//nextBall.getBallObject().transform.position=ballSpawner.transform.position;
-			//nextBall.getBallObject().transform.rotation=ballSpawner.transform.rotation;
-			nextBall.getBallObject().SetActive(true);
-
-
-		}
-		LaunchController.launchCompleted+=shootingAction;
-		nextBall.possess();
-		focusCameraForTurnStart(activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").gameObject);
 	}
 
 	void shootingAction(){
 		isShooting=true;
 		LaunchController.launchCompleted-=shootingAction;
-		SteeringController.rollCompleted+=endOfTurnAction;
+		SteeringController.rollCompleted+=endOfTurnAction; 
 	}
 
 	void endOfTurnAction(){
 		SteeringController.rollCompleted-=endOfTurnAction;
 		StartCoroutine(delaySeconds(5));
 		activePlayer.nextBall();
+		advanceToNextPlayerTurn();
 		waitForTurn();
 	}
 
@@ -111,32 +102,52 @@ public class RingerController : MonoBehaviour {
 	public void waitForTurn()
 	{
 	if (gameMode == MULTIPLAYER_MODE.ONLINE) {
+		//show waiting screen
+		//ping server until it is this players turn again
 
 		} else if(gameMode == MULTIPLAYER_MODE.HOTSEAT) {
-			if((activePlayerIndex+1) < players.Count)
-			{
-				activePlayerIndex++;
-				//this is a change
-			
-				print(activePlayerIndex.ToString());
-				activePlayer=players[activePlayerIndex] as Player;
-			}else{
-				activePlayer=players[0] as Player;
-			}
+
 		}
 
 		startOfTurn();
 	}
 
 	void startOfTurn(){
-		//Show which players turn it is.
-		//Have them tap a button to begin.
-		possess(activePlayer.getActiveBall());
+		//TODO: Show which players turn it is.
+		//TODO: Have them tap a button to begin.
+		if(!activePlayer.getActiveBall().isOnBoard())
+		{
+			
+			activePlayer.getActiveBall().getBallObject().transform.position=ballSpawner.spawnLocation.position;
+			activePlayer.getActiveBall().getBallObject().transform.rotation=ballSpawner.spawnLocation.rotation;
+			activePlayer.getActiveBall().getBallObject().SetActive(true);
+			
+			
+		}
+		LaunchController.launchCompleted+=shootingAction;
+		activePlayer.getActiveBall().possess();
+		focusCameraForTurnStart(activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").gameObject);
 
+	}
+
+	void advanceToNextPlayerTurn(){
+		if((activePlayerIndex+1) < players.Count)
+		{
+			activePlayerIndex++;
+		}else{
+			activePlayerIndex=0;
+		}
+		activePlayer=players[activePlayerIndex] as Player;
 	}
 
 	public void incrementScoreForCurrentPlayer()
 	{
 		activePlayer.setScore (activePlayer.getScore () + POINTS_FOR_SKY_BIT);
+	}
+	public void playerKOed(GameObject collectedPlayer){
+		//TODO: Implement the detection of who this ball belonged to.
+		// then add a power charge to the character who KOed it if it was
+		// an enemy ball. Also maintain the playerball that was KOed to prepare 
+		// it to be put back on the launch area.
 	}
 }
