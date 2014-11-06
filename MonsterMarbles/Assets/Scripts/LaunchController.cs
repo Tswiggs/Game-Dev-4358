@@ -26,6 +26,8 @@ public class LaunchController : MonoBehaviour {
 	public float hopHeight=3000f;
 
 
+
+
 	private bool shouldLaunch=false;
 	private float power=0;
 	// Use this for initialization

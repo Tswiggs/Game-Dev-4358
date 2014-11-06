@@ -13,7 +13,7 @@ public class SteeringController : MonoBehaviour {
 	public float timeToSpin=1f;
 
 	private Vector3 tilt;
-	private bool isRolling=true;
+	public bool isRolling=true;
 	private bool isHopping=false;
 	private Quaternion standingUp;
 	private int stopBuffer=0;
