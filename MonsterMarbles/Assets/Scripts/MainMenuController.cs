@@ -9,21 +9,24 @@ public class MainMenuController : MonoBehaviour {
 	private Camera camera;
 	public GameController gameController;
 	public CharacterSelectController characterSelectController;
-	private int interfaceType;
+	private UserInterface interfaceType;
 	private int interfaceNavigation;
 	
-	public GUIStyle mainMenuStyle;
+	private GUIStyle mainMenuStyle;
 	public GUITexture title;
 	
-	private const int NO_INTERFACE = 0;
-	private const int LOGGED_OUT = 1;
-	private const int LOGGED_IN_NO_GAMES = 2;
-	private const int LOGGED_IN_GAMES_IN_PROGRESS = 3;
+	private enum UserInterface {
+		NO_INTERFACE,LOGGED_OUT,LOGGED_IN_NO_GAMES,LOGGED_IN_GAMES_IN_PROGRESS
+	}
+	
 
 	void Start () {
-
-		interfaceType = LOGGED_IN_NO_GAMES;
+		
+		Constants.setupConstants();
+		
+		interfaceType = UserInterface.LOGGED_IN_NO_GAMES;
 		interfaceNavigation = 0;
+		mainMenuStyle = GUIStyles.getMainMenuStyle();
 		
 	}
 	
@@ -42,14 +45,14 @@ public class MainMenuController : MonoBehaviour {
 		GUI.backgroundColor = new Color (27, 27, 27);
 		
 		
-		if(interfaceType == NO_INTERFACE){
+		if(interfaceType == UserInterface.NO_INTERFACE){
 			
 		}
-		else if(interfaceType == LOGGED_OUT){
+		else if(interfaceType == UserInterface.LOGGED_OUT){
 			if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), "Login with Facebook", mainMenuStyle)) {
 			}
 		}
-		else if(interfaceType == LOGGED_IN_NO_GAMES){
+		else if(interfaceType == UserInterface.LOGGED_IN_NO_GAMES){
 			
 			if(interfaceNavigation == 0){
 				if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), "Play!", mainMenuStyle)) {
@@ -89,7 +92,7 @@ public class MainMenuController : MonoBehaviour {
 				}
 			}
 		}
-		else if(interfaceType == LOGGED_IN_GAMES_IN_PROGRESS){
+		else if(interfaceType == UserInterface.LOGGED_IN_GAMES_IN_PROGRESS){
 			if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), "View Games In Progress", mainMenuStyle)) {
 				Application.LoadLevel(Constants.SCENE_PILA_PLAINS);
 			}
@@ -106,13 +109,13 @@ public class MainMenuController : MonoBehaviour {
 	public void passLoginInformation(User loginInformation)
 	{
 		if (loginInformation == null) {
-			interfaceType = LOGGED_OUT;
+			interfaceType = UserInterface.LOGGED_OUT;
 		}
 		else {
 			//Process to see if login information shows games in progress
-			//interfaceType = LOGGED_IN_GAMES_IN_PROGRESS
+			//interfaceType = UserInterface.LOGGED_IN_GAMES_IN_PROGRESS
 			//else
-			interfaceType = LOGGED_IN_NO_GAMES;
+			interfaceType = UserInterface.LOGGED_IN_NO_GAMES;
 		}
 	}
 	
@@ -127,6 +130,16 @@ public class MainMenuController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		if(Debug.isDebugBuild){
+			if(Input.GetKeyDown("space")){
+				List<PlayerBallCreator.MONSTER_PREFABS> team1 = new List<PlayerBallCreator.MONSTER_PREFABS>();
+				team1.Add(PlayerBallCreator.MONSTER_PREFABS.WOLFGANG);
+				
+				List<PlayerBallCreator.MONSTER_PREFABS> team2 = new List<PlayerBallCreator.MONSTER_PREFABS>();
+				team2.Add(PlayerBallCreator.MONSTER_PREFABS.HOTSTREAK);
+				
+				newMatch (Constants.SCENE_PILA_PLAINS, "HOTSEAT", team1, team2);
+			}
+		}
 	}
 }

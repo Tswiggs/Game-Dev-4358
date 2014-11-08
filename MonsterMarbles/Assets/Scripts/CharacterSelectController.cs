@@ -15,9 +15,9 @@ public class CharacterSelectController : MonoBehaviour {
 	private int maxNumberOfCharacters;
 	private int numberOfSelectedCharacters;
 	
-	public GUIStyle characterSelectStyle;
-	public GUIStyle invertedCharacterSelectStyle;
-	public GUIStyle mainMenuStyle;
+	private GUIStyle characterSelectStyle;
+	private GUIStyle invertedCharacterSelectStyle;
+	private GUIStyle mainMenuStyle;
 	
 	private Texture[] characterPortraits;
 	
@@ -28,8 +28,8 @@ public class CharacterSelectController : MonoBehaviour {
 	private List<PlayerBallCreator.MONSTER_PREFABS> player0;
 	private List<PlayerBallCreator.MONSTER_PREFABS> player1;
 	
-	private const int CHARACTER_SELECT_BOX_WIDTH = 200;
-	private const int CHARACTER_SELECT_BOX_HEIGHT = 200;
+	private const int CHARACTER_SELECT_BOX_WIDTH = 180;
+	private const int CHARACTER_SELECT_BOX_HEIGHT = 180;
 	
 	private const int HOTSEAT_MODE = 0;
 	private const int INTERNET_MODE = 1;
@@ -38,11 +38,14 @@ public class CharacterSelectController : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+	
+		mainMenuStyle = GUIStyles.getMainMenuStyle();
+		characterSelectStyle = GUIStyles.getCharacterSelectStyle();
+		invertedCharacterSelectStyle = GUIStyles.getInvertedCharacterSelectStyle();
+	
 		interfaceNavigation = 0;
 		maxNumberOfCharacters = 2;
 		numberOfSelectedCharacters = 0;
-		
-		Constants.setupConstants();
 		
 		currentPlayer = 0;
 		
@@ -60,6 +63,8 @@ public class CharacterSelectController : MonoBehaviour {
 		}
 		unlockedCharacters[0] = true;
 		unlockedCharacters[1] = true;
+		unlockedCharacters[2] = true;
+		unlockedCharacters[3] = true;
 		
 		characterPortraits[0] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Temporary_Assets/Wolfgang_Portrait.png", typeof(Texture));
 		characterPortraits[1] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Temporary_Assets/Hotstreak_Portrait.png", typeof(Texture));
@@ -173,7 +178,7 @@ public class CharacterSelectController : MonoBehaviour {
 		
 		float scrollBoxWidth = Mathf.Floor(((Screen.width - Screen.width/4)/CHARACTER_SELECT_BOX_WIDTH)) * CHARACTER_SELECT_BOX_WIDTH; 
 		
-		scrollPosition = GUI.BeginScrollView(new Rect(Screen.width/8, Screen.height/8, Screen.width - Screen.width/4, Screen.height-Screen.height/3),scrollPosition,new Rect(0,0, scrollBoxWidth, Screen.height*2),false,false);
+		scrollPosition = GUI.BeginScrollView(new Rect(Screen.width/10, Screen.height/8, Screen.width - Screen.width/5, Screen.height-Screen.height/3),scrollPosition,new Rect(0,0, scrollBoxWidth, Screen.height*2),false,false);
 		int xPos = 0;
 		int yPos = 0;
 		
