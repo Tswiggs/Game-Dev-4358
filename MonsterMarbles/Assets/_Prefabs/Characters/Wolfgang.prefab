@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400002}
-  - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: Wolfgang
   m_TagString: Untagged
@@ -221,6 +220,7 @@ GameObject:
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400016}
   - 114: {fileID: 11400008}
+  - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -780,7 +780,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
+  m_GameObject: {fileID: 100026}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4eb327bf67017174e91d230eb4d35428, type: 3}
