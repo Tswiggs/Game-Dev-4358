@@ -94,7 +94,7 @@ public class LaunchController : MonoBehaviour {
 
 	private void OnEnable()
 	{
-		if(transform.up!=Vector3.up){hopUpright();}
+		if(transform.up!=root.transform.up){hopUpright();}
 		else{characterGui.SetActive(true);}
 		power=0f;
 		GetComponent<TapGesture>().Tapped += pressHandler;

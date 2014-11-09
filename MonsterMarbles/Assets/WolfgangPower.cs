@@ -16,7 +16,7 @@ using System;
  * complete. Delete this part of the comment whenever it's been finished.  
  **/ 
 public class WolfgangPower : MonoBehaviour {
-	
+
 	/// <summary>
 	/// the original wolf gang ball. Point this to Wolfgang's "Ball" object. 
 	/// </summary>
@@ -35,34 +35,34 @@ public class WolfgangPower : MonoBehaviour {
 	private bool isActivated = false; 
 	// Use this for initialization
 	void Start () {
-		wolfGangBallOriginal = gameObject;
-		GetComponent<TapGesture> ().Tapped += createGangOfWolves;
+		wolfGangBallOriginal = transform.FindChild("Ball").gameObject;
+		wolfGangBallOriginal.GetComponent<TapGesture> ().Tapped += createGangOfWolves;
 		SteeringController.rollCompleted += rollComplete;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (isActivated) {
-			wolfGangBall2.transform.rotation = wolfGangBallOriginal.transform.rotation; 
-			wolfGangBall2.rigidbody.velocity = wolfGangBallOriginal.rigidbody.velocity;
-			wolfGangBall3.transform.rotation = wolfGangBallOriginal.transform.rotation;
-			wolfGangBall3.rigidbody.velocity = wolfGangBallOriginal.rigidbody.velocity;
-		}
+						wolfGangBall2.transform.rotation = wolfGangBallOriginal.transform.rotation; 
+						wolfGangBall2.rigidbody.velocity = wolfGangBallOriginal.rigidbody.velocity;
+						wolfGangBall3.transform.rotation = wolfGangBallOriginal.transform.rotation;
+						wolfGangBall3.rigidbody.velocity = wolfGangBallOriginal.rigidbody.velocity;
+				}
 	}
-	
+
 	public void createGangOfWolves(object sender, EventArgs e)
 	{
-		if ((!isActivated) && (GetComponent<SteeringController>().isRolling == true)) {
-			wolfGangBall2 = Instantiate (wolfGangBallOriginal, wolfGangBallOriginal.transform.position + new Vector3 (2, 0, -2), wolfGangBallOriginal.transform.rotation) as GameObject; 
+		if ((!isActivated) && (wolfGangBallOriginal.GetComponent<SteeringController>().isRolling == true)) {
+						wolfGangBall2 = Instantiate (wolfGangBallOriginal, wolfGangBallOriginal.transform.position + new Vector3 (2, 0, -2), wolfGangBallOriginal.transform.rotation) as GameObject; 
 			wolfGangBall2.GetComponent<WolfgangPower>().enabled = false; 
-			wolfGangBall3 = Instantiate (wolfGangBallOriginal, wolfGangBallOriginal.transform.position + new Vector3 (-2, 0, 2), wolfGangBallOriginal.transform.rotation) as GameObject;
+						wolfGangBall3 = Instantiate (wolfGangBallOriginal, wolfGangBallOriginal.transform.position + new Vector3 (-2, 0, 2), wolfGangBallOriginal.transform.rotation) as GameObject;
 			wolfGangBall3.GetComponent<WolfgangPower>().enabled = false; 
-			
-			isActivated = true; 
-		}
 		
+			                             isActivated = true; 
+				}
+
 	}
-	
+
 	public void rollComplete()
 	{
 		Destroy (wolfGangBall2); 

@@ -17,10 +17,9 @@ public class FollowPositionAndRotation : MonoBehaviour {
 		{
 			transform.rotation=Quaternion.LookRotation(target.rigidbody.velocity);
 		}
-		else if(target.up.y>10f)
+		else if(target.rotation.x<=90f && target.rotation.x >= 270)
 		{
-			Vector3 forward=new Vector3(target.forward.x, 0, target.forward.z);
-			transform.rotation=Quaternion.LookRotation(forward, Vector3.up);
+			transform.rotation=target.transform.rotation;
 		}
 	}
 }
