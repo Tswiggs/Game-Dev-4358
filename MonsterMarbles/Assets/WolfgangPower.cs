@@ -7,13 +7,7 @@ using System;
 /// </summary>
 
 /**
- * This class can be attached to any part of wolfgang, so put it wherever it will allow access to the 
- * touch event. After placing it on his prefab just make sure that the wolfGangBallOriginal variable is pointing to Wolfgang's "Ball" object.
- * This can be done through unity by dragging and dropping the "Ball" object into the wolfGangBallOriginal variable slot through
- * the editor. 
- *
- * The next step is to detect whether or not the touch occured, and if it has then call the method createGangOfWolves, and call the rollComplete method when the roll is 
- * complete. Delete this part of the comment whenever it's been finished.  
+ * This class should never be directly applied to a prefab. It is automatically mapped by the "AddZugiePower" script, which is what should be added to prefabs. 
  **/ 
 public class WolfgangPower : MonoBehaviour {
 
