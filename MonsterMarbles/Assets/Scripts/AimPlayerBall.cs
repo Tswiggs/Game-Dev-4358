@@ -8,6 +8,7 @@ using UnityEngine;
 public class AimPlayerBall : MonoBehaviour {
 	public float aimSpeed=1;
 	public float aimSnappiness=1;
+	public float keyAimSpeed=1;
 	public SimplePanGesture panGesture;
 	public TapGesture reverseButtonTap;
 
@@ -36,6 +37,12 @@ public class AimPlayerBall : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		var fraction = aimSpeed*Time.deltaTime;
+		if(Input.GetKeyDown(KeyCode.A)){
+			localRotationToGo=Quaternion.AngleAxis(-keyAimSpeed,Vector3.up)*localRotationToGo;
+		}
+		if(Input.GetKeyDown(KeyCode.D)){
+			localRotationToGo=Quaternion.AngleAxis(keyAimSpeed,Vector3.up)*localRotationToGo;
+		}
 		if (transform.localRotation != lastLocalRotation)
 		{
 			localRotationToGo = transform.localRotation;
