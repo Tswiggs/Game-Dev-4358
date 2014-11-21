@@ -101,7 +101,7 @@ public class GUIStyles{
 			characterSelectStyle.active.textColor = Color.red;
 			characterSelectStyle.active.background = (Texture2D)getCharacterSelectButtonSelected();
 			
-			characterSelectStyle.padding = new RectOffset(30,30,30,30);
+			characterSelectStyle.padding = new RectOffset(20,20,20,20);
 			
 			characterSelectStyle.fontSize = 28;
 			
@@ -131,7 +131,7 @@ public class GUIStyles{
 			invertedCharacterSelectStyle.active.textColor = Color.white;
 			invertedCharacterSelectStyle.active.background = (Texture2D)getCharacterSelectButtonSelected();
 			
-			invertedCharacterSelectStyle.padding = new RectOffset(30,30,30,30);
+			invertedCharacterSelectStyle.padding = new RectOffset(10,10,20,20);
 			
 			invertedCharacterSelectStyle.fontSize = 28;
 			

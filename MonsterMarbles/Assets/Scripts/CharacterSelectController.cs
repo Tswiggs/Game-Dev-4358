@@ -66,10 +66,10 @@ public class CharacterSelectController : MonoBehaviour {
 		unlockedCharacters[2] = true;
 		unlockedCharacters[3] = true;
 		
-		characterPortraits[0] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Temporary_Assets/Wolfgang_Portrait.png", typeof(Texture));
-		characterPortraits[1] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Temporary_Assets/Hotstreak_Portrait.png", typeof(Texture));
+		characterPortraits[0] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Wolfgang_Portrait.png", typeof(Texture));
+		characterPortraits[1] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Hotstreak_Portrait.png", typeof(Texture));
 		
-		unknownPortrait = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Temporary_Assets/Unknown_Portrait.png", typeof(Texture));
+		unknownPortrait = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Unknown_Portrait.png", typeof(Texture));
 	}
 	
 	void OnEnable() {

@@ -9,13 +9,14 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400002}
+  - 114: {fileID: 11400010}
   m_Layer: 0
   m_Name: Wolfgang
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 1
@@ -223,7 +224,7 @@ GameObject:
   - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Marble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -359,8 +360,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: 0, y: -.929813385, z: 0, w: .368031532}
-  m_LocalPosition: {x: 2.59846115, y: -.0558433533, z: 2.82370758}
+  m_LocalRotation: {x: 0, y: -.963236094, z: 0, w: .268656552}
+  m_LocalPosition: {x: 23.7259579, y: 54.9958916, z: 44.2283859}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400026}
@@ -462,7 +463,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -.400000006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400042}
@@ -476,7 +477,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: -2.84239101}
+  m_LocalPosition: {x: 0, y: 0, z: -2.5}
   m_LocalScale: {x: .230000019, y: 1, z: .230000004}
   m_Children: []
   m_Father: {fileID: 400016}
@@ -633,7 +634,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100042}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: 0, y: -.278438568, z: 5.84745979}
+  m_LocalPosition: {x: 0, y: 0, z: 5.5}
   m_LocalScale: {x: .25999999, y: .400000006, z: .899999976}
   m_Children: []
   m_Father: {fileID: 400016}
@@ -786,7 +787,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eb327bf67017174e91d230eb4d35428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wolfGangBallOriginal: {fileID: 0}
+  powerReady: 0
+  wolfgangBallOriginal: {fileID: 0}
+  ghostWolfgangPrefab: {fileID: 0}
+  ghostDistance: {x: 2, y: -.5}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -859,6 +863,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
   onCollisionPowerIncrease: 3000
+--- !u!114 &11400010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb327bf67017174e91d230eb4d35428, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerReady: 1
+  wolfgangBallOriginal: {fileID: 0}
+  ghostWolfgangPrefab: {fileID: 100024, guid: 92b67b2c8ae009a428ce16c9509c0033, type: 2}
+  ghostDistance: {x: 2, y: -.5}
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1

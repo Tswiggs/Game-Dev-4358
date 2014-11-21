@@ -55,18 +55,18 @@ public class MainMenuController : MonoBehaviour {
 		else if(interfaceType == UserInterface.LOGGED_IN_NO_GAMES){
 			
 			if(interfaceNavigation == 0){
-				if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), "Play!", mainMenuStyle)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - 150, ((Screen.height/5)*3) - 80, 300, 160), "Play!", mainMenuStyle)) {
 					interfaceNavigation = 1;
 				}
-				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height/2) + 100, 180, 90), "Options", mainMenuStyle)) {
+				if (GUI.Button (new Rect (Screen.width/2 - 90, ((Screen.height/5)*3) + 100, 180, 90), "Options", mainMenuStyle)) {
 					interfaceNavigation = 2;
 				}
-				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height/2) + 200, 180, 90), "Credits", mainMenuStyle)) {
+				if (GUI.Button (new Rect (Screen.width/2 - 90, ((Screen.height/5)*3) + 200, 180, 90), "Credits", mainMenuStyle)) {
 					interfaceNavigation = 3;
 				}
 			}
 			else if (interfaceNavigation == 1){ //Game Mode Menu
-				if (GUI.Button (new Rect (Screen.width/2 - 150, (Screen.height/2), 300, 120), "Ringer Royale", mainMenuStyle)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - 150, ((Screen.height/5)*3) - 70, 300, 140), "Ringer Royale", mainMenuStyle)) {
 					characterSelectController.enabled = true;
 					this.enabled = false;
 				}
@@ -93,14 +93,14 @@ public class MainMenuController : MonoBehaviour {
 			}
 		}
 		else if(interfaceType == UserInterface.LOGGED_IN_GAMES_IN_PROGRESS){
-			if (GUI.Button (new Rect (Screen.width / 2 - 110, (Screen.height/2) - 60, 220, 120), "View Games In Progress", mainMenuStyle)) {
-				Application.LoadLevel(Constants.SCENE_PILA_PLAINS);
+			if (GUI.Button (new Rect (Screen.width / 2 - 150, (Screen.height/5*3) - 90, 300, 180), "View Games In Progress", mainMenuStyle)) {
+				interfaceNavigation = 1;
 			}
-			if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height/2) + 100, 180, 90), "Options", mainMenuStyle)) {
-			
+			if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height/5*3) + 100, 180, 90), "Options", mainMenuStyle)) {
+				interfaceNavigation = 2;
 			}
-			if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height/2) + 200, 180, 90), "Credits", mainMenuStyle)) {
-			
+			if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height/5*3) + 200, 180, 90), "Credits", mainMenuStyle)) {
+				interfaceNavigation = 3;
 			}
 		}  
 		

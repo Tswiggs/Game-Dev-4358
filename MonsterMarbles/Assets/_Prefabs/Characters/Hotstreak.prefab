@@ -136,10 +136,9 @@ GameObject:
   - 114: {fileID: 11400010}
   - 114: {fileID: 11400006}
   - 114: {fileID: 11400016}
-  - 114: {fileID: 11400018}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Marble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,6 +171,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400018}
   - 114: {fileID: 11400014}
+  - 114: {fileID: 11400018}
   m_Layer: 0
   m_Name: Hotstreak
   m_TagString: Untagged
@@ -278,7 +278,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: 0, y: -.278438568, z: 5.84745979}
+  m_LocalPosition: {x: 0, y: 0, z: 5.5}
   m_LocalScale: {x: .25999999, y: .400000006, z: .899999976}
   m_Children: []
   m_Father: {fileID: 400020}
@@ -303,7 +303,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: -2.84239101}
+  m_LocalPosition: {x: -0, y: 0, z: -2.5}
   m_LocalScale: {x: .230000019, y: 1, z: .230000004}
   m_Children: []
   m_Father: {fileID: 400020}
@@ -314,8 +314,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100018}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.1257076, y: 54.6135635, z: 50.393074}
+  m_LocalRotation: {x: 0, y: -.958856285, z: 0, w: .283891976}
+  m_LocalPosition: {x: 24.1928844, y: 54.7944031, z: 41.574646}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400014}
@@ -329,7 +329,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -.400000006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400012}
@@ -760,13 +760,16 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100014}
-  m_Enabled: 0
+  m_GameObject: {fileID: 100018}
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5d0cacbbaedb8b4a941d63e10b25b4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HotStreakBall: {fileID: 0}
+  HotStreakBall: {fileID: 100014}
+  groundSlamParticles: {fileID: 100016, guid: 6ed10d5bb5e91764b8632ffbc3b144c8, type: 2}
+  slamRadius: 5
+  slamPower: 75
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1
