@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// This class should be added directly to a zugie prefab. After adding it, make sure that you modify the zugieName variable 
+/// in UNITY to match the name of the zugie it is applied to, e.x. "wolfgang". The addPower function will then map the correct zugie power based on 
+/// the zugie name. 
+/// </summary>
 public class AddZugiePower : MonoBehaviour {
 
 	/// <summary>
