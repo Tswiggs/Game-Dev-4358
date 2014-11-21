@@ -5,6 +5,7 @@ using System.Collections;
 public class WolfgangCinematicController : MonoBehaviour {
 
 	public Animator animator;
+	public GameObject meteorEffect;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +25,14 @@ public class WolfgangCinematicController : MonoBehaviour {
 		if(Input.GetKeyDown (KeyCode.Alpha3))
 		{
 			animator.SetTrigger("ShouldHowl");
+		}
+		if(Input.GetKeyDown (KeyCode.Alpha4))
+		{
+			animator.SetTrigger("ShouldScratch");
+		}
+		if(Input.GetKeyDown (KeyCode.Alpha5))
+		{
+			meteorEffect.SetActive(!meteorEffect.activeSelf);
 		}
 	}
 }
