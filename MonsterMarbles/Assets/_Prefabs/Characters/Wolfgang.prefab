@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 1
@@ -361,7 +361,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: -.963236094, z: 0, w: .268656552}
-  m_LocalPosition: {x: 23.7259579, y: 54.9958916, z: 44.2283859}
+  m_LocalPosition: {x: 14.9474564, y: 56.0077171, z: 42.5838127}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400026}
@@ -804,6 +804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimSpeed: 5
   aimSnappiness: 5
+  keyAimSpeed: 1
   panGesture: {fileID: 11400006}
   reverseButtonTap: {fileID: 11400004}
 --- !u!114 &11400004
