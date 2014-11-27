@@ -23,13 +23,13 @@ public class CameraBoomController : MonoBehaviour {
 		SteeringController.rollCompleted += rollCompleteAction;
 	}
 
-	void switchToFollow()
+	public void switchToFollow()
 	{
 		launchScript.enabled=false;
 		followScript.enabled=true;
 		followScript.target=target;
 	}
-	void rollCompleteAction()
+	public void rollCompleteAction()
 	{
 		followScript.enabled=false;
 		StartCoroutine(delayEndOfTurn());

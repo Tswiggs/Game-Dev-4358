@@ -8343,7 +8343,7 @@ MonoBehaviour:
   Name: Char Camera 3D
   layerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 32
 --- !u!82 &1758280479
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9684,6 +9684,10 @@ Prefab:
     - target: {fileID: 400000, guid: 2eb751c73bdfb674bbf08690714ebf96, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 2eb751c73bdfb674bbf08690714ebf96, type: 2}
+      propertyPath: layerMask.m_Bits
+      value: 32
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2eb751c73bdfb674bbf08690714ebf96, type: 2}

@@ -31,6 +31,13 @@ public class PlayerBall {
 
 	private GameObject ballObject;
 
+	public void initialize(){
+		AimPlayerBall aimScript =this.ballObject.GetComponentInChildren<AimPlayerBall>() as AimPlayerBall;
+		if(aimScript!=null){
+			aimScript.playerBall=this;
+		}
+	}
+
 
 	/// <summary>
 	/// toggles player control of the game ball.  
@@ -39,7 +46,7 @@ public class PlayerBall {
 	/// </param>
 	public void possess ()
 	{
-			getBallObject().GetComponent<AimPlayerBall>().enabled=true;
+			getBallObject().GetComponentInChildren<AimPlayerBall>().enabled=true;
 			getBallObject().GetComponentInChildren<LaunchController>().enabled=true;
 	}
 
@@ -48,6 +55,13 @@ public class PlayerBall {
 		public bool isOnBoard(){return onGameBoard;}
 		public void setOnGameBoard(bool onGameBoard){this.onGameBoard= onGameBoard;}
 		public GameObject getBallObject(){return ballObject;}
-		public void setBallObject(GameObject ballObject){this.ballObject=ballObject;}
+		public void setBallObject(GameObject ballObject)
+		{
+			this.ballObject=ballObject;
+			AimPlayerBall aimScript =this.ballObject.GetComponentInChildren<AimPlayerBall>() as AimPlayerBall;
+			if(aimScript!=null){
+				aimScript.playerBall=this;
+			}
+		}
 }
 }

@@ -15,14 +15,14 @@ public class OutOfBoundsHandler : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider collectedObject) {
-		if(collectedObject.CompareTag("Marble")){
+		if(collectedObject.CompareTag(Constants.TAG_MARBLE)){
 			audioSource.Play();
 			Destroy(collectedObject.gameObject);
 			pointCollected();
 		}
-		if (collectedObject.CompareTag("Player"))
+		if (collectedObject.CompareTag(Constants.TAG_PLAYER))
         {
-			collectedObject.gameObject.SetActive(false);
+			collectedObject.transform.parent.gameObject.SetActive(false);
 			playerCollected( collectedObject.gameObject);
         }
 	}
