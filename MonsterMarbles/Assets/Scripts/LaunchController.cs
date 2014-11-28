@@ -90,6 +90,29 @@ public class LaunchController : MonoBehaviour {
 		}
 		hopStart=transform.position.y+hopLandingYThreshold;
 	}
+	
+	private void performLaunch(float powerFraction){
+		Vector3 launchVector= new Vector3();
+		launchVector=(transform.position-camera.transform.position)*maxPower*powerFraction*launchScalar;
+		launchVector.y=0f;
+		rigidbody.AddForce(launchVector);
+		rigidbody.AddRelativeTorque(maxPower*powerFraction*launchSpin, 0f, 0f);
+		audioSource.PlayOneShot(explosionSound);
+		shouldLaunch=false;
+		characterGui.SetActive(false);
+		GetComponent<SteeringController>().enabled=true;
+		GetComponent<LaunchController>().enabled=false;
+		camera=Camera.main;
+		
+		if(launchCompleted != null)
+		{
+			launchCompleted();
+		}
+	}
+	
+	private void updateLaunchInformation(float powerFraction){
+		power = maxPower*powerFraction;
+	}
 
 
 	private void OnEnable()
@@ -99,6 +122,9 @@ public class LaunchController : MonoBehaviour {
 		power=0f;
 		GetComponent<LongPressGesture>().LongPressed += pressHandler;
 		GetComponent<FlickGesture>().Flicked += flickHandler;
+		
+		PullTestScript.launchActivated += performLaunch;
+		PullTestScript.launchInformation += updateLaunchInformation;
 
 	}
 	
@@ -108,6 +134,9 @@ public class LaunchController : MonoBehaviour {
 		characterGui.SetActive(false);
 		GetComponent<LongPressGesture>().LongPressed -= pressHandler;
 		GetComponent<FlickGesture>().Flicked -= flickHandler;
+		
+		PullTestScript.launchActivated -= performLaunch;
+		PullTestScript.launchInformation -= updateLaunchInformation;
 	}
 	
 	private void pressHandler(object sender, EventArgs e)
