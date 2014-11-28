@@ -120,7 +120,7 @@ public class LaunchController : MonoBehaviour {
 		if(transform.up!=root.transform.up){hopUpright();}
 		else{characterGui.SetActive(true);}
 		power=0f;
-		GetComponent<LongPressGesture>().LongPressed += pressHandler;
+		//GetComponent<LongPressGesture>().LongPressed += pressHandler;
 		GetComponent<FlickGesture>().Flicked += flickHandler;
 		
 		PullTestScript.launchActivated += performLaunch;
@@ -132,7 +132,7 @@ public class LaunchController : MonoBehaviour {
 	{
 		// don't forget to unsubscribe
 		characterGui.SetActive(false);
-		GetComponent<LongPressGesture>().LongPressed -= pressHandler;
+		//GetComponent<LongPressGesture>().LongPressed -= pressHandler;
 		GetComponent<FlickGesture>().Flicked -= flickHandler;
 		
 		PullTestScript.launchActivated -= performLaunch;

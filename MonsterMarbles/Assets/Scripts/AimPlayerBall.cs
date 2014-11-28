@@ -1,4 +1,5 @@
 ﻿using System;
+using AssemblyCSharp;
 using TouchScript.Gestures;
 using TouchScript.Gestures.Simple;
 using TouchScript.Utils;
@@ -11,6 +12,7 @@ public class AimPlayerBall : MonoBehaviour {
 	public float keyAimSpeed=1;
 	public SimplePanGesture panGesture;
 	public TapGesture reverseButtonTap;
+	public PlayerBall playerBall;
 
 
 	private Quaternion lastLocalRotation;

@@ -73,7 +73,7 @@ public class SteeringController : MonoBehaviour {
 			timeSpinning+=Time.deltaTime;
 
 			//If the slerp is within 1 degree of completion activate protocol to complete the turn
-			if(timeSpinning>timeToSpin && transform.position.y<hopStart && rigidbody.velocity.y<=0){
+			if(timeSpinning>timeToSpin && transform.position.y<=hopStart && rigidbody.velocity.y<=0.01){
 				isHopping=false;
 				rigidbody.Sleep();
 				GetComponent<SteeringController>().enabled= false;
@@ -95,5 +95,9 @@ public class SteeringController : MonoBehaviour {
 			tilt.x=Input.GetAxis("Horizontal")*camera.transform.TransformDirection(rigidbody.velocity).y* -steerStrength/2;
 		}
 		rigidbody.AddForce(tilt);
+	}
+	public void forceEndTurn(){
+		GetComponent<SteeringController>().enabled= false;
+		rollCompleted();
 	}
 }

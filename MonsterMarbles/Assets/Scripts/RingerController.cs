@@ -121,6 +121,7 @@ public class RingerController : MonoBehaviour {
 			activePlayer.getActiveBall().getBallObject().transform.position=ballSpawner.spawnLocation.position;
 			activePlayer.getActiveBall().getBallObject().transform.rotation=ballSpawner.spawnLocation.rotation;
 			activePlayer.getActiveBall().getBallObject().SetActive(true);
+			activePlayer.getActiveBall().initialize();
 			
 			
 		}
@@ -149,5 +150,21 @@ public class RingerController : MonoBehaviour {
 		// then add a power charge to the character who KOed it if it was
 		// an enemy ball. Also maintain the playerball that was KOed to prepare 
 		// it to be put back on the launch area.
+
+		AimPlayerBall aimScript =collectedPlayer.GetComponent<AimPlayerBall>() as AimPlayerBall;
+		if(aimScript!=null){
+			if(aimScript.playerBall.Equals(this.activePlayer.getActiveBall())){
+				aimScript.gameObject.GetComponent<SteeringController>().forceEndTurn();
+			}
+			else if(aimScript.playerBall.getPlayer().Equals(this.activePlayer)){
+				//do nothing because you dont get superpowers for being a loser
+				// and knocking your own guys out.
+			}else{
+				//if it reaches this logic branch then the KOed ball belonged to another player
+
+				//TODO: Insert power up granting logic here
+
+			}
+		}
 	}
 }

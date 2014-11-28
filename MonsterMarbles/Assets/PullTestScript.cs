@@ -53,8 +53,6 @@ public class PullTestScript : MonoBehaviour {
 		if(Input.GetMouseButtonDown(0)) {
 			if(pullbackButton.GetScreenRect().Contains(Input.mousePosition)){
 				pullBackActivated();
-				//this.GetComponent<GUITexture>().color = Color.green;
-				Debug.Log ("Button Pushed.");
 			}
 		}
 		else if(Input.GetMouseButton(0)){
@@ -99,7 +97,7 @@ public class PullTestScript : MonoBehaviour {
 		
 		LaunchController.launchCompleted += disableGUI;
 		
-		pullbackButton = this.transform.FindChild("Launch Button").GetComponent<GUITexture>();
+		pullbackButton = this.transform.FindChild("Pullback Button").GetComponent<GUITexture>();
 		powerLevel = this.transform.FindChild ("Power Level").GetComponent<GUITexture>();
 		pullbackScreenProportion = pullbackButton.GetScreenRect().center.y/Screen.height;
 
