@@ -28,7 +28,11 @@ public class PullTestScript : MonoBehaviour {
 	
 	public delegate void preLaunchAction(float powerFraction);
 	public static event preLaunchAction launchActivated;
-	public static event preLaunchAction launchInformation;
+	public static event preLaunchAction pullbackInformation;
+	
+	public delegate void pullBackStatus();
+	public static event pullBackStatus pullbackStarted;
+	public static event pullBackStatus pullbackAborted;
 	
 	// Use this for initialization
 	void Start () {
@@ -37,19 +41,6 @@ public class PullTestScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		/*for(int x  =0; x  < Input.touchCount; x++){
-			if(Input.GetTouch(x).phase == TouchPhase.Began){
-				Vector2 touchPosition = Input.GetTouch(x).position;
-				Rect buttonBox = this.GetComponent<GUITexture>().pixelInset;
-				buttonBox.x += Screen.width*transform.localPosition.x;
-				buttonBox.y += Screen.height*transform.localPosition.y;
-				if (buttonBox.Contains(touchPosition))
-				{
-					this.GetComponent<GUITexture>().guiTexture.color= Color.green;
-					Debug.Log("WE PUSHED THAT BUTTON!");
-				}
-			}
-		}*/
 		if(Input.GetMouseButtonDown(0)) {
 			if(pullbackButton.GetScreenRect().Contains(Input.mousePosition)){
 				pullBackActivated();
@@ -62,12 +53,17 @@ public class PullTestScript : MonoBehaviour {
 			}
 		}
 		else{
-			pullBackResolve();
+			if(pullbackInProgress){
+				pullBackResolve();
+			}
 		}
 	}
 	
 	void pullBackActivated(){
 		startPosition = pullbackButton.GetScreenRect().center;
+		if(pullbackStarted != null){
+			pullbackStarted();
+		}
 		pullbackInProgress = true;
 	}
 	
@@ -77,7 +73,9 @@ public class PullTestScript : MonoBehaviour {
 		float colorBleed = 1 - pullbackFraction;
 		powerLevel.pixelInset = new Rect(powerLevel.pixelInset.x,powerLevel.pixelInset.y,powerLevel.pixelInset.width,-yDistance); 
 		pullbackButton.color = new Color(colorBleed,colorBleed,colorBleed);
-		launchInformation(pullbackFraction);
+		if(pullbackInformation != null){
+			pullbackInformation(pullbackFraction);
+		}
 		
 	}
 	
@@ -88,6 +86,11 @@ public class PullTestScript : MonoBehaviour {
 			pullbackInProgress = false;
 			if(pullbackFraction > noFireFractionCutoff){ 
 				launchActivated(pullbackFraction);
+			}
+		}
+		else{
+			if(pullbackAborted != null){
+				pullbackAborted();
 			}
 		}
 		

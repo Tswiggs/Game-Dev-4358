@@ -14,12 +14,12 @@ public class CameraBoomController : MonoBehaviour {
 	}
 
 	void OnEnable(){
-		LaunchController.launchCompleted += switchToFollow;
+		PullTestScript.pullbackStarted += switchToFollow;
 		SteeringController.rollCompleted += rollCompleteAction;
 	}
 
 	void OnDisable(){
-		LaunchController.launchCompleted -= switchToFollow;
+		PullTestScript.pullbackStarted -= switchToFollow;
 		SteeringController.rollCompleted += rollCompleteAction;
 	}
 

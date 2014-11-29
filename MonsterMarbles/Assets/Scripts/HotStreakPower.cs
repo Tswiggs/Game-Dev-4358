@@ -58,9 +58,7 @@ public class HotStreakPower : MonoBehaviour {
 	}
 	
 	void OnDrawGizmos(){
-		if(true){
-			Gizmos.DrawWireSphere(HotStreakBall.transform.position,slamRadius); 
-		}
+		
 	}
 	
 	private void rollComplete()

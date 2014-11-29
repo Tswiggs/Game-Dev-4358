@@ -33,6 +33,9 @@ public class RingerController : MonoBehaviour {
 	public GameObject objectCatcher; 
 	public GameController gameController;
 	public PlayerBallCreator ballSpawner;
+	
+	public GameObject GUIObject;
+	
 	public bool isShooting=false;
 	private int activePlayerIndex=0;
 
@@ -48,7 +51,9 @@ public class RingerController : MonoBehaviour {
 		this.cameraBoom=GameObject.Find("CameraBoom").GetComponent<CameraBoomController>();
 		//TODO: change so that both RingerController and GameController are using the enum MULTIPLAYER_MODE
 		gameMode=MULTIPLAYER_MODE.HOTSEAT;
-
+		
+		this.GUIObject = GameObject.Find("GUI");
+		
 		this.players=players;
 		if(players.Count==0){print("Player List not initialized"); return;}
 		activePlayer=players[activePlayerIndex] as Player;
@@ -127,6 +132,7 @@ public class RingerController : MonoBehaviour {
 		}
 		LaunchController.launchCompleted+=shootingAction;
 		activePlayer.getActiveBall().possess();
+		GUIObject.transform.FindChild("Launch GUI").gameObject.SetActive(true);
 		focusCameraForTurnStart(activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").gameObject);
 
 	}

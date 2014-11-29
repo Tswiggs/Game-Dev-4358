@@ -37,11 +37,13 @@ public class WolfgangPower : ZoogiPower {
 	/// Is the ability activated yet? 
 	/// </summary>
 	private bool isActivated = false; 
+	/// <summary>
+	/// Has the ball this ability is attached to launched yet? 
+	/// </summary>
+	private bool hasLaunched = false;
 	// Use this for initialization
 	void Start () {
-		wolfgangBallOriginal = transform.FindChild("Ball").gameObject;
-		//wolfGangBallOriginal.GetComponent<TapGesture> ().Tapped += createGangOfWolves;
-		SteeringController.rollCompleted += rollComplete;
+		
 	}
 	
 	// Update is called once per frame
@@ -50,22 +52,40 @@ public class WolfgangPower : ZoogiPower {
 		if(Input.GetKeyDown("space")){
 			activatePower ();
 		}
-		if (isActivated) {
-						wolfgangBall2.transform.rotation = wolfgangBallOriginal.transform.rotation; 
-						wolfgangBall2.rigidbody.velocity = wolfgangBallOriginal.rigidbody.velocity;
-						wolfgangBall3.transform.rotation = wolfgangBallOriginal.transform.rotation;
-						wolfgangBall3.rigidbody.velocity = wolfgangBallOriginal.rigidbody.velocity;
-				}
+		if (isActivated && !hasLaunched) {
+				wolfgangBall2.transform.rotation = wolfgangBallOriginal.transform.rotation; 
+				wolfgangBall2.rigidbody.velocity = wolfgangBallOriginal.rigidbody.velocity;
+				wolfgangBall3.transform.rotation = wolfgangBallOriginal.transform.rotation;
+				wolfgangBall3.rigidbody.velocity = wolfgangBallOriginal.rigidbody.velocity;
+		}
 	}
 	
 	override public bool activatePower(){
 		if(powerReady){
 			createGangOfWolves(this, new EventArgs());
+			LaunchController.sendLaunchInformation += launchGhostWolves;
+			powerReady = false;
 			return true;
 		}
 		else{
 			return false;
 		}
+	}
+	
+	public void launchGhostWolves(Vector3 launchVector, float xTorque, Vector3 position){
+		if(!hasLaunched){
+			wolfgangBall2.rigidbody.AddForce(launchVector);
+			wolfgangBall2.rigidbody.AddRelativeTorque(xTorque, 0f, 0f);
+			wolfgangBall3.rigidbody.AddForce(launchVector);
+			wolfgangBall3.rigidbody.AddRelativeTorque(xTorque, 0f, 0f);
+			LaunchController.sendLaunchInformation -= launchGhostWolves;
+			SteeringController.rollCompleted += rollComplete;
+			hasLaunched = true;
+		}
+	}
+	
+	public void launchCompleted(){
+
 	}
 
 	public void createGangOfWolves(object sender, EventArgs e)
@@ -93,6 +113,18 @@ public class WolfgangPower : ZoogiPower {
 		if(wolfgangBall3 != null){
 			Destroy (wolfgangBall3.transform.parent.gameObject);
 		}
-		isActivated = false; 
+		isActivated = false;
+		hasLaunched = false;
+		SteeringController.rollCompleted -= rollComplete;
+	}
+	
+	private void onEnable(){
+		wolfgangBallOriginal = transform.FindChild("Ball").gameObject;
+		LaunchController.launchCompleted += launchCompleted;
+	}
+	
+	private void onDisable(){
+		LaunchController.launchCompleted -= launchCompleted;
+		LaunchController.sendLaunchInformation -= launchGhostWolves;
 	}
 }

@@ -48,7 +48,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: .0441596285, y: -.000461972086, z: .00169370347, w: .99902302}
-  m_LocalPosition: {x: .187200412, y: 11.5096207, z: -3.67161036}
+  m_LocalPosition: {x: 0, y: 2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400002}
@@ -59,9 +59,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_LocalRotation: {x: 0, y: -.929813385, z: 0, w: .368031532}
-  m_LocalPosition: {x: 18.7777023, y: 55.1413994, z: 42.7908249}
-  m_LocalScale: {x: .278094918, y: .27809462, z: .27809462}
+  m_LocalRotation: {x: .108569004, y: -.529056072, z: .0684758425, w: .838822782}
+  m_LocalPosition: {x: 429.900665, y: 442.31308, z: -641.069275}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400000}
   m_Father: {fileID: 0}
@@ -90,7 +90,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967039
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -197,14 +197,14 @@ MonoBehaviour:
   Name: Char Camera 3D
   layerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967039
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1063bbdd981e14509b49016a762be9b8, type: 3}
   m_Name: 
@@ -227,10 +227,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  distance: 4
-  height: 1
-  heightDamping: 2
-  rotationDamping: 3
+  distance: 12
+  height: 10
+  heightDamping: .5
+  rotationDamping: 1
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -242,6 +242,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92b2b0a035e01b544b925f72b6b4a502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  defaultTarget: {fileID: 0}
+  followScript: {fileID: 11400006}
+  launchScript: {fileID: 11400004}
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

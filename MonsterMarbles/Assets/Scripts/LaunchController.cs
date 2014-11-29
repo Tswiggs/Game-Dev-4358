@@ -10,13 +10,17 @@ public class LaunchController : MonoBehaviour {
 	public GameObject characterGui;
 	public GameObject root;
 	public float speed=1;
-	public float launchScalar=1;
+	private float launchScalar=1;
 	public float launchSpin=1;
 	public float maxPower=100;
 	public float powerFade=1;
 	public delegate void postLaunchAction();
 	public static event postLaunchAction launchCompleted;
-
+	public delegate void launchInformation(Vector3 launchVector, float xTorque, Vector3 position);
+	public static event launchInformation sendLaunchInformation;
+	
+	private static float LAUNCH_SCALE = 1800;
+	
 	//Variables used for the correctional hop
 	private Quaternion standingUp=new Quaternion();
 	private bool isHopping =false;
@@ -35,6 +39,7 @@ public class LaunchController : MonoBehaviour {
 	void Start () {
 		camera=Camera.main;
 		audioSource=camera.GetComponent<AudioSource>();
+		launchScalar = LAUNCH_SCALE;
 	}
 
 
@@ -42,25 +47,6 @@ public class LaunchController : MonoBehaviour {
 	void Update () {
 		power=Mathf.Clamp(power, 0f, maxPower);
 		transform.Rotate(power,0f,0f);
-		if(shouldLaunch)
-		{
-			Vector3 launchVector= new Vector3();
-			launchVector=(transform.position-camera.transform.position)*power*launchScalar;
-			launchVector.y=0f;
-			rigidbody.AddForce(launchVector);
-			rigidbody.AddRelativeTorque(power*launchSpin, 0f, 0f);
-			audioSource.PlayOneShot(explosionSound);
-			shouldLaunch=false;
-			characterGui.SetActive(false);
-			GetComponent<SteeringController>().enabled=true;
-			GetComponent<LaunchController>().enabled=false;
-			camera=Camera.main;
-
-			if(launchCompleted != null)
-			{
-				launchCompleted();
-			}
-		}
 		if(isHopping){
 			transform.rotation =Quaternion.Slerp(transform.rotation, standingUp, timeSpinning/timeToSpin);
 			timeSpinning+=Time.deltaTime;
@@ -93,7 +79,8 @@ public class LaunchController : MonoBehaviour {
 	
 	private void performLaunch(float powerFraction){
 		Vector3 launchVector= new Vector3();
-		launchVector=(transform.position-camera.transform.position)*maxPower*powerFraction*launchScalar;
+		//launchVector=(transform.position-camera.transform.position)*maxPower*powerFraction*launchScalar;
+		launchVector=transform.parent.FindChild("Character Root").forward*maxPower*powerFraction*launchScalar;
 		launchVector.y=0f;
 		rigidbody.AddForce(launchVector);
 		rigidbody.AddRelativeTorque(maxPower*powerFraction*launchSpin, 0f, 0f);
@@ -107,6 +94,9 @@ public class LaunchController : MonoBehaviour {
 		if(launchCompleted != null)
 		{
 			launchCompleted();
+		}
+		if(sendLaunchInformation != null){
+			sendLaunchInformation(launchVector, maxPower*powerFraction*launchSpin, transform.position);
 		}
 	}
 	
@@ -124,7 +114,7 @@ public class LaunchController : MonoBehaviour {
 		GetComponent<FlickGesture>().Flicked += flickHandler;
 		
 		PullTestScript.launchActivated += performLaunch;
-		PullTestScript.launchInformation += updateLaunchInformation;
+		PullTestScript.pullbackInformation += updateLaunchInformation;
 
 	}
 	
@@ -136,7 +126,7 @@ public class LaunchController : MonoBehaviour {
 		GetComponent<FlickGesture>().Flicked -= flickHandler;
 		
 		PullTestScript.launchActivated -= performLaunch;
-		PullTestScript.launchInformation -= updateLaunchInformation;
+		PullTestScript.pullbackInformation -= updateLaunchInformation;
 	}
 	
 	private void pressHandler(object sender, EventArgs e)
