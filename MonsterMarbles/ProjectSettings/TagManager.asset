@@ -16,9 +16,9 @@ TagManager:
   Builtin Layer 7: 
   User Layer 8: 3D GUI
   User Layer 9: Terrain
-  User Layer 10: 
-  User Layer 11: 
-  User Layer 12: 
+  User Layer 10: Interactible
+  User Layer 11: Player
+  User Layer 12: Camera
   User Layer 13: 
   User Layer 14: 
   User Layer 15: 
