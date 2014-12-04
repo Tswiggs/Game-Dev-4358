@@ -26,6 +26,13 @@ public class SmoothFollowCSharp : MonoBehaviour
 	// How much we 
 	public float heightDamping = 2.0f;
 	public float rotationDamping = 3.0f;
+	public float distanceDamping = 2.0f;
+	
+	private float currentRotationAngle;
+	private float currentHeight;
+	private float currentDistance;
+	
+	private Collider recentlyCollided;
 	
 	void  LateUpdate ()
 	{
@@ -36,8 +43,11 @@ public class SmoothFollowCSharp : MonoBehaviour
 		// Calculate the current rotation angles
 		float wantedRotationAngle = target.eulerAngles.y;
 		float wantedHeight = target.position.y + height;
-		float currentRotationAngle = transform.eulerAngles.y;
-		float currentHeight = transform.position.y;
+		float wantedDistance = distance;
+		currentRotationAngle = transform.eulerAngles.y;
+		currentHeight = transform.position.y;
+		currentDistance = Vector2.Distance(new Vector2(transform.position.x,transform.position.z),new Vector2(target.position.x,target.position.z));
+
 		
 		// Damp the rotation around the y-axis
 		currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
@@ -48,10 +58,15 @@ public class SmoothFollowCSharp : MonoBehaviour
 		// Convert the angle into a rotation
 		Quaternion currentRotation = Quaternion.Euler (0, currentRotationAngle, 0);
 		
+		
+		currentDistance = Mathf.Lerp(currentDistance,wantedDistance, distanceDamping * Time.deltaTime);
+		
+		
 		// Set the position of the camera on the x-z plane to:
 		// distance meters behind the target
 		transform.position = target.position;
-		transform.position -= currentRotation * Vector3.forward * distance;
+		transform.position -= currentRotation * Vector3.forward * currentDistance;
+		
 		
 		// Set the height of the camera
 		transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
@@ -59,4 +74,5 @@ public class SmoothFollowCSharp : MonoBehaviour
 		// Always look at the target
 		transform.LookAt (target);
 	}
+	
 }

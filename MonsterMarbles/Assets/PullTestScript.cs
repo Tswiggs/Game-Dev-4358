@@ -22,7 +22,7 @@ public class PullTestScript : MonoBehaviour {
 	public float noFireFractionCutoff = .05f;
 	
 	/// <summary>
-	/// Amount pullback is stretched back, out of total potential stretch. 
+	/// Amount pullback is stretched back from 0 to 1. 
 	/// </summary>
 	private float pullbackFraction;
 	
@@ -85,7 +85,14 @@ public class PullTestScript : MonoBehaviour {
 			powerLevel.pixelInset = new Rect(powerLevel.pixelInset.x,powerLevel.pixelInset.y,powerLevel.pixelInset.width,0); 
 			pullbackInProgress = false;
 			if(pullbackFraction > noFireFractionCutoff){ 
-				launchActivated(pullbackFraction);
+				if(launchActivated != null){
+					launchActivated(pullbackFraction);
+				}
+			}
+			else{
+				if(pullbackAborted != null){
+					pullbackAborted();
+				}
 			}
 		}
 		else{
