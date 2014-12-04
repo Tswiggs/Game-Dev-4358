@@ -8,11 +8,12 @@ public class MarbleCollisionHandler : MonoBehaviour {
 
 	public float onCollisionPowerIncrease;
 	public float onCollisionPowerMultiplier;
+	public float onCollisionBumperPower;
 	
 	public bool useDefaults = true;
 	
-	public static float DEFAULT_COLLISION_POWER_INCREASE = 10;
-	public static float DEFAULT_COLLISION_POWER_MULTIPLIER = 10;
+	public static float DEFAULT_COLLISION_POWER_INCREASE = 10f;
+	public static float DEFAULT_COLLISION_POWER_MULTIPLIER = 10f;
 
 	// Use this for initialization
 	void Start () {
@@ -57,6 +58,15 @@ public class MarbleCollisionHandler : MonoBehaviour {
 		}
 		else{
 			return onCollisionPowerMultiplier;
+		}
+	}
+	
+	private float getBumperPowerMultiplier(){
+		if(useDefaults){
+			return Constants.DEFAULT_BUMPER_POWER;
+		}
+		else {
+			return onCollisionBumperPower;
 		}
 	}
 	

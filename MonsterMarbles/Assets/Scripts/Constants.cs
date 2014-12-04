@@ -12,6 +12,9 @@ public class Constants : MonoBehaviour {
 	
 	public static string[] CHARACTER_INDEX = new string[30];
 	
+	public const float DEFAULT_BUMPER_POWER = 100f;
+	public const float DEFAULT_MARBLE_COLLISION_POWER_MULTIPLIER = 3f;
+	
 	
 	public static void setupConstants(){
 		CHARACTER_INDEX[0] = "Wolfgang";

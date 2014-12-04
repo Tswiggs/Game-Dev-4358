@@ -11,7 +11,7 @@ public class PlayerBallCreator : MonoBehaviour {
 	///<summary> the different zugies that can be created.</summary>
 	public enum MONSTER_PREFABS 
 	{
-		WOLFGANG, HOTSTREAK
+		WOLFGANG, HOTSTREAK, LARS
 	}
 	// Use this for initialization
 	void Start () {
@@ -44,6 +44,11 @@ public class PlayerBallCreator : MonoBehaviour {
 		case MONSTER_PREFABS.WOLFGANG:
 			newBall = Instantiate (characterPrefabs.Wolfgang, spawnLocation.position , spawnLocation.rotation) as GameObject;
 			break;
+			
+		case MONSTER_PREFABS.LARS:
+			newBall = Instantiate (characterPrefabs.Lars, spawnLocation.position , spawnLocation.rotation) as GameObject;
+			break;
+			
 
 		default: 
 			return null;

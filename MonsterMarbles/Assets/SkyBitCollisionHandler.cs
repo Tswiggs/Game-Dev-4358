@@ -57,6 +57,10 @@ public class SkyBitCollisionHandler : MonoBehaviour {
 			
 		}
 		if (collision.collider.CompareTag(Constants.TAG_BUMPER)) {
+			if(audioSource != null){
+				audioSource.Play();
+			}
+			
 			Vector3 forceVector = collision.contacts[0].normal;
 			//forceVector = forceVector - Vector3.Scale(forceVector, new Vector3(2,2,2));
 			//forceVector = forceVector.normalized * getPowerIncrease();

@@ -136,7 +136,7 @@ public class MainMenuController : MonoBehaviour {
 				team1.Add(PlayerBallCreator.MONSTER_PREFABS.WOLFGANG);
 				
 				List<PlayerBallCreator.MONSTER_PREFABS> team2 = new List<PlayerBallCreator.MONSTER_PREFABS>();
-				team2.Add(PlayerBallCreator.MONSTER_PREFABS.HOTSTREAK);
+				team2.Add(PlayerBallCreator.MONSTER_PREFABS.LARS);
 				
 				newMatch (Constants.SCENE_PILA_PLAINS, "HOTSEAT", team1, team2);
 			}

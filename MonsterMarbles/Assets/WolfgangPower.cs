@@ -25,6 +25,9 @@ public class WolfgangPower : ZoogiPower {
 	/// The second value is the z value (forward/backward) and is the same for both. 
 	/// </summary>
 	public Vector2 ghostDistance = new Vector2(2f,-0.5f);
+	
+	public AudioClip ghostCloudSound;
+	
 	/// <summary>
 	/// wolfgang's first duplicate. 
 	/// </summary>
@@ -65,6 +68,9 @@ public class WolfgangPower : ZoogiPower {
 			createGangOfWolves(this, new EventArgs());
 			LaunchController.sendLaunchInformation += launchGhostWolves;
 			powerReady = false;
+			
+			wolfgangBallOriginal.GetComponent<AudioSource>().PlayOneShot(ghostCloudSound);
+			
 			return true;
 		}
 		else{

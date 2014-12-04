@@ -5,4 +5,5 @@ public class Characters : MonoBehaviour {
 
 	public GameObject Wolfgang;
 	public GameObject Hotstreak;
+	public GameObject Lars;
 }
