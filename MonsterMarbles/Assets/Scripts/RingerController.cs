@@ -33,7 +33,15 @@ public class RingerController : MonoBehaviour {
 	public GameObject objectCatcher; 
 	public GameController gameController;
 	public PlayerBallCreator ballSpawner;
-	
+
+	/// <summary>
+	/// The game object in unity that displays the score.
+	/// </summary>
+	public GUIText scoreText; 
+	/// <summary>
+	/// The score that must be achieved to win the game. 
+	/// </summary>
+	public int winningScore = 15; 
 	public GameObject GUIObject;
 	
 	public delegate void playerChange(int playerIndex);
@@ -47,6 +55,7 @@ public class RingerController : MonoBehaviour {
 		gameMode = MULTIPLAYER_MODE.HOTSEAT; 
 		OutOfBoundsHandler.pointCollected += incrementScoreForCurrentPlayer;
 		OutOfBoundsHandler.playerCollected += playerKOed;
+		scoreText = "X 0"; 
 	}
 
 	public void initialize(GameController gameController, string multiplayerMode, ArrayList players){
@@ -90,12 +99,25 @@ public class RingerController : MonoBehaviour {
 
 	void endOfTurnAction(){
 		SteeringController.rollCompleted-=endOfTurnAction;
-		StartCoroutine(delaySeconds(5));
-		activePlayer.nextBall();
-		advanceToNextPlayerTurn();
-		waitForTurn();
+		if (!isGameOver ()) {
+						StartCoroutine (delaySeconds (5));
+						activePlayer.nextBall ();
+						advanceToNextPlayerTurn ();
+						waitForTurn ();
+				} else {
+			Rect displayRect = new Rect(0,0,Screen.width, Screen.height); 
+			GUI.Label(displayRect, "Player " + activePlayer.getUserID() + " Has won!");
+				}
 	}
 
+	bool isGameOver()
+	{
+		if (activePlayer.getScore () >= winningScore) {
+						return true;		
+				} else {
+						return false; 
+				}
+	}
 	IEnumerator delaySeconds(int seconds){
 		yield return new WaitForSeconds(seconds);
 	}
@@ -146,11 +168,18 @@ public class RingerController : MonoBehaviour {
 			PlayerChangeEvent(activePlayerIndex);
 		}
 		activePlayer=players[activePlayerIndex] as Player;
+		updateScore ();
+	}
+
+	public void updateScore()
+	{
+		scoreText.text = "X " + activePlayer.getScore ();
 	}
 
 	public void incrementScoreForCurrentPlayer()
 	{
 		activePlayer.setScore (activePlayer.getScore () + POINTS_FOR_SKY_BIT);
+		updateScore ();
 	}
 	public void playerKOed(GameObject collectedPlayer){
 		//TODO: Implement the detection of who this ball belonged to.
