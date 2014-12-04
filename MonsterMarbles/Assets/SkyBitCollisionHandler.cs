@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SkyBitCollisionHandler : MonoBehaviour {
+public class SkyBitCollisionHandler : MarbleCollisionHandler {
 	
 	
-	public AudioSource audioSource;
+	//public AudioSource audioSource;
 	
-	public float onCollisionPowerIncrease;
-	public float onCollisionPowerMultiplier;
+	//public float onCollisionPowerIncrease;
+	//public float onCollisionPowerMultiplier;
 	
-	public bool useDefaults = true;
+	//public bool useDefaults = true;
 	
 	public Color currentColor;
 	private int collisionCount = 0;
 	private float collisionTimer = 0f;
 	
-	public static float DEFAULT_COLLISION_POWER_INCREASE = 10f;
-	public static float DEFAULT_COLLISION_POWER_MULTIPLIER = 10f;
+	//public static float DEFAULT_COLLISION_POWER_INCREASE = 10f;
+	//public static float DEFAULT_COLLISION_POWER_MULTIPLIER = 10f;
 	
 	public static float COLLISION_DECAY_TIME = 3f;
 	
@@ -44,48 +44,42 @@ public class SkyBitCollisionHandler : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter(Collision collision) {
-		if (collision.collider.CompareTag(Constants.TAG_PLAYER) || collision.collider.CompareTag (Constants.TAG_MARBLE)) {
+		if (hasCollided){
+		
+		}
+		else if (collision.collider.CompareTag(Constants.TAG_PLAYER) || collision.collider.CompareTag (Constants.TAG_MARBLE)) {
 			if(audioSource != null){
 				audioSource.Play();
 			}
 			
 			Vector3 forceVector = collision.relativeVelocity *rigidbody.mass;
-			forceVector.Scale(new Vector3(getPowerMultiplier(),getPowerMultiplier(),getPowerMultiplier()));
+			forceVector.Scale(new Vector3(getPowerMultiplier(),0,getPowerMultiplier()));
 			rigidbody.AddForce(forceVector);
 			
+			hasCollided = true;
+			
 			incrementCollisionCount();
 			
 		}
-		if (collision.collider.CompareTag(Constants.TAG_BUMPER)) {
+		else if (collision.collider.CompareTag(Constants.TAG_BUMPER)) {
+			if(audioSource != null){
+				audioSource.Play();
+			}
+			
 			Vector3 forceVector = collision.contacts[0].normal;
-			//forceVector = forceVector - Vector3.Scale(forceVector, new Vector3(2,2,2));
-			//forceVector = forceVector.normalized * getPowerIncrease();
-			//forceDirection.Scale(new Vector3(-1,0,-1));
-			rigidbody.velocity = forceVector * (rigidbody.velocity.magnitude+getPowerIncrease());
-			//rigidbody.AddForce(forceVector);
+
+			rigidbody.velocity.Scale(new Vector3(-1,1,-1));
+			
+			rigidbody.velocity += forceVector * (rigidbody.velocity.magnitude+getBumperPower());
+			
+			hasCollided = true;
+			
 			incrementCollisionCount();
 		}
 		
 		
 	}
 	
-	private float getPowerIncrease(){
-		if(useDefaults){
-			return DEFAULT_COLLISION_POWER_INCREASE;
-		}
-		else{
-			return onCollisionPowerIncrease;
-		}
-	}
-	
-	private float getPowerMultiplier(){
-		if(useDefaults){
-			return DEFAULT_COLLISION_POWER_MULTIPLIER;
-		}
-		else{
-			return onCollisionPowerMultiplier;
-		}
-	}
 	
 	void incrementCollisionCount(){
 		collisionCount += 1;
@@ -95,6 +89,9 @@ public class SkyBitCollisionHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+	
+		hasCollided = false;
+		
 		if(collisionCount > 0){
 			collisionTimer += Time.deltaTime;
 			if(collisionTimer >= COLLISION_DECAY_TIME){

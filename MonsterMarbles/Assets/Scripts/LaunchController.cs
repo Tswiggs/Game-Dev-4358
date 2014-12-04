@@ -6,7 +6,8 @@ public class LaunchController : MonoBehaviour {
 
 	new public Camera camera;
 	public AudioSource audioSource;
-	public AudioClip explosionSound; 
+	public AudioClip explosionSound;
+	public AudioSource pullbackSource;
 	public GameObject characterGui;
 	public GameObject root;
 	public float speed=1;
@@ -84,12 +85,19 @@ public class LaunchController : MonoBehaviour {
 		launchVector.y=0f;
 		rigidbody.AddForce(launchVector);
 		rigidbody.AddRelativeTorque(maxPower*powerFraction*launchSpin, 0f, 0f);
-		audioSource.PlayOneShot(explosionSound);
+		
+		if(explosionSound != null){
+			audioSource.PlayOneShot(explosionSound);
+		}
 		shouldLaunch=false;
 		characterGui.SetActive(false);
 		GetComponent<SteeringController>().enabled=true;
 		GetComponent<LaunchController>().enabled=false;
 		camera=Camera.main;
+		
+		pullbackSource.Stop();
+		
+		
 		
 		if(launchCompleted != null)
 		{
@@ -101,6 +109,10 @@ public class LaunchController : MonoBehaviour {
 	}
 	
 	private void updateLaunchInformation(float powerFraction){
+		
+		if(!pullbackSource.isPlaying){
+			pullbackSource.Play();
+		}
 		power = maxPower*powerFraction;
 	}
 

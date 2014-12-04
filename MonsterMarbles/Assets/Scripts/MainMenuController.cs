@@ -36,7 +36,9 @@ public class MainMenuController : MonoBehaviour {
 	}
 	
 	void OnDisable() {
-		title.enabled = false;
+		if(title != null){
+			title.enabled = false;
+		}
 	}
 
 	void OnGUI(){

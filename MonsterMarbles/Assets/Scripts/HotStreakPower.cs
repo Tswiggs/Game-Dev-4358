@@ -12,6 +12,8 @@ public class HotStreakPower : MonoBehaviour {
 	
 	public GameObject groundSlamParticles;
 	
+	public AudioClip groundSlamSound;
+	
 	public float slamRadius = 20f;
 	public float slamPower = 75f;
 	
@@ -26,7 +28,9 @@ public class HotStreakPower : MonoBehaviour {
 	void Update () {
 	
 		if(Input.GetKeyDown("space")){
-			groundSlam(this, new EventArgs());
+			if(HotStreakBall.GetComponent<SteeringController>().enabled){
+				groundSlam(this, new EventArgs());
+			}
 		}
 	
 	}
@@ -35,6 +39,7 @@ public class HotStreakPower : MonoBehaviour {
 	{
 		if (isActivated == false /*&& (GetComponent<SteeringController>().isRolling == true)*/) {
 			isActivated = true;
+						HotStreakBall.GetComponent<AudioSource>().PlayOneShot(groundSlamSound);
 						Collider[] colliders = Physics.OverlapSphere (HotStreakBall.transform.position, slamRadius);
 						if(groundSlamParticles != null){
 							GameObject slamParticles = Instantiate(groundSlamParticles,HotStreakBall.transform.position, HotStreakBall.transform.rotation) as GameObject;
@@ -46,12 +51,12 @@ public class HotStreakPower : MonoBehaviour {
 								if (c.rigidbody == null) {
 										continue; 
 								} else {
-									if(!c.gameObject.CompareTag(Constants.TAG_MARBLE) || c.gameObject.Equals(HotStreakBall)){
+									if( c.gameObject.Equals(HotStreakBall)){
 										continue;
 									}
-									else {
+									else if (c.gameObject.CompareTag(Constants.TAG_MARBLE) || c.gameObject.CompareTag(Constants.TAG_PLAYER)){
 										c.rigidbody.AddExplosionForce (slamPower, HotStreakBall.transform.position, slamRadius*2, 0, ForceMode.Impulse);
-									}
+									}	
 								}
 						}
 				}

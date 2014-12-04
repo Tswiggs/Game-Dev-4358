@@ -36,6 +36,9 @@ public class RingerController : MonoBehaviour {
 	
 	public GameObject GUIObject;
 	
+	public delegate void playerChange(int playerIndex);
+	public static event playerChange PlayerChangeEvent;
+	
 	public bool isShooting=false;
 	private int activePlayerIndex=0;
 
@@ -138,6 +141,9 @@ public class RingerController : MonoBehaviour {
 			activePlayerIndex++;
 		}else{
 			activePlayerIndex=0;
+		}
+		if(PlayerChangeEvent != null){
+			PlayerChangeEvent(activePlayerIndex);
 		}
 		activePlayer=players[activePlayerIndex] as Player;
 	}

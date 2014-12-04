@@ -25,6 +25,9 @@ public class WolfgangPower : ZoogiPower {
 	/// The second value is the z value (forward/backward) and is the same for both. 
 	/// </summary>
 	public Vector2 ghostDistance = new Vector2(2f,-0.5f);
+	
+	public AudioClip ghostCloudSound;
+	
 	/// <summary>
 	/// wolfgang's first duplicate. 
 	/// </summary>
@@ -61,10 +64,12 @@ public class WolfgangPower : ZoogiPower {
 	}
 	
 	override public bool activatePower(){
-		if(powerReady){
+		if(powerReady && wolfgangBallOriginal.GetComponent<LaunchController>().enabled){
 			createGangOfWolves(this, new EventArgs());
 			LaunchController.sendLaunchInformation += launchGhostWolves;
 			powerReady = false;
+			
+			
 			return true;
 		}
 		else{
@@ -90,7 +95,7 @@ public class WolfgangPower : ZoogiPower {
 
 	public void createGangOfWolves(object sender, EventArgs e)
 	{
-		if ((!isActivated) && (wolfgangBallOriginal.GetComponent<SteeringController>().isRolling == true)) {
+		if (!isActivated) {
 			wolfgangBall2 = Instantiate (ghostWolfgangPrefab, wolfgangBallOriginal.transform.position /*+ new Vector3 (2, 0, -2)*/, wolfgangBallOriginal.transform.rotation) as GameObject;
 			wolfgangBall2.transform.parent = wolfgangBallOriginal.transform.parent;
 			wolfgangBall2.transform.localPosition = new Vector3(wolfgangBall2.transform.localPosition.x+ghostDistance.x,wolfgangBall2.transform.localPosition.y,wolfgangBall2.transform.localPosition.z+ghostDistance.y);
@@ -100,6 +105,8 @@ public class WolfgangPower : ZoogiPower {
 			wolfgangBall3.transform.localPosition = new Vector3(wolfgangBall3.transform.localPosition.x-ghostDistance.x,wolfgangBall3.transform.localPosition.y,wolfgangBall3.transform.localPosition.z+ghostDistance.y);
 			wolfgangBall3 = wolfgangBall3.transform.Find("Ball").gameObject;
      		isActivated = true; 
+     		
+			wolfgangBallOriginal.GetComponent<AudioSource>().PlayOneShot(ghostCloudSound);
 		}
 
 	}
