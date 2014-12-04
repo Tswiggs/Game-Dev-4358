@@ -79,11 +79,6 @@ public class RingerController : MonoBehaviour {
 		cameraBoom.startOfTurn(objectToFocusOn.transform);
 	}
 
-	public void possess(PlayerBall nextBall)
-	{
-
-	}
-
 	void shootingAction(){
 		isShooting=true;
 		LaunchController.launchCompleted-=shootingAction;
@@ -159,6 +154,7 @@ public class RingerController : MonoBehaviour {
 
 		AimPlayerBall aimScript =collectedPlayer.GetComponent<AimPlayerBall>() as AimPlayerBall;
 		if(aimScript!=null){
+			aimScript.playerBall.setOnGameBoard(false);
 			if(aimScript.playerBall.Equals(this.activePlayer.getActiveBall())){
 				aimScript.gameObject.GetComponent<SteeringController>().forceEndTurn();
 			}
