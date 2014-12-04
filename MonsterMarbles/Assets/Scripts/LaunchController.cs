@@ -85,7 +85,10 @@ public class LaunchController : MonoBehaviour {
 		launchVector.y=0f;
 		rigidbody.AddForce(launchVector);
 		rigidbody.AddRelativeTorque(maxPower*powerFraction*launchSpin, 0f, 0f);
-		audioSource.PlayOneShot(explosionSound);
+		
+		if(explosionSound != null){
+			audioSource.PlayOneShot(explosionSound);
+		}
 		shouldLaunch=false;
 		characterGui.SetActive(false);
 		GetComponent<SteeringController>().enabled=true;

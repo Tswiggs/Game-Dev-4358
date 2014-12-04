@@ -28,7 +28,9 @@ public class HotStreakPower : MonoBehaviour {
 	void Update () {
 	
 		if(Input.GetKeyDown("space")){
-			groundSlam(this, new EventArgs());
+			if(HotStreakBall.GetComponent<SteeringController>().enabled){
+				groundSlam(this, new EventArgs());
+			}
 		}
 	
 	}

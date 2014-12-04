@@ -12,6 +12,7 @@ public class BumperExpandOnCollision : MonoBehaviour {
 	public AudioSource bumpSound;
 	
 	private float originalScale;
+	private float scaleToBe;
 	
 	private enum SproingState{
 		NONE,UPSWING,DOWNSWING 
@@ -20,6 +21,8 @@ public class BumperExpandOnCollision : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		sproingState = SproingState.NONE;
+		originalScale = model.transform.localScale.x;
+		scaleToBe = originalScale * sproingScale;
 	}
 	
 	// Update is called once per frame
@@ -29,10 +32,8 @@ public class BumperExpandOnCollision : MonoBehaviour {
 			
 		}
 		else if(sproingState == SproingState.UPSWING){
-			if (model.transform.localScale.x < (sproingScale*0.9f)){
-				float newScale = Mathf.Lerp(model.transform.localScale.x,sproingScale,Time.deltaTime*bumperSpeed);
-				
-				Debug.Log(newScale);
+			if (model.transform.localScale.x < (scaleToBe*0.9f)){
+				float newScale = Mathf.Lerp(model.transform.localScale.x,scaleToBe,Time.deltaTime*bumperSpeed);
 				
 				model.transform.localScale = new Vector3(newScale,model.transform.localScale.y,newScale);
 			}
@@ -42,13 +43,13 @@ public class BumperExpandOnCollision : MonoBehaviour {
 		}
 		else if(sproingState == SproingState.DOWNSWING){
 			if (model.transform.localScale.x > 1){
-				float newScale = Mathf.Lerp(model.transform.localScale.x,0.9f,Time.deltaTime*bumperSpeed);
+				float newScale = Mathf.Lerp(model.transform.localScale.x,originalScale*0.9f,Time.deltaTime*bumperSpeed);
 				
 				model.transform.localScale = new Vector3(newScale,model.transform.localScale.y,newScale);
 			}
 			else{
 				sproingState = SproingState.NONE;
-				model.transform.localScale = new Vector3(1,model.transform.localScale.y,1);
+				model.transform.localScale = new Vector3(originalScale,model.transform.localScale.y,1);
 				
 			}
 		}

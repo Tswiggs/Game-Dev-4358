@@ -11,7 +11,7 @@ GameObject:
   - 136: {fileID: 13600000}
   - 114: {fileID: 11400000}
   - 82: {fileID: 8200000}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Star Bumper
   m_TagString: Bumper
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.89402282, y: 55.0620689, z: 10.3004665}
+  m_LocalPosition: {x: 399.305908, y: 443.036194, z: -636.875244}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}

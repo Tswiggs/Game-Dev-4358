@@ -16741,7 +16741,7 @@ GameObject:
   - 136: {fileID: 714022424}
   - 114: {fileID: 714022425}
   - 82: {fileID: 714022426}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Star Bumper
   m_TagString: Bumper
   m_Icon: {fileID: 0}
@@ -22610,7 +22610,7 @@ MonoBehaviour:
   groundSlamParticles: {fileID: 100016, guid: 6ed10d5bb5e91764b8632ffbc3b144c8, type: 2}
   groundSlamSound: {fileID: 8300000, guid: 57ef67c27e9efad468d51c242898586d, type: 3}
   slamRadius: 5
-  slamPower: 500
+  slamPower: 250
 --- !u!1 &937536565
 GameObject:
   m_ObjectHideFlags: 0
@@ -34144,7 +34144,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400018, guid: cb242478285cc5340afc444cea7d22db, type: 2}
       propertyPath: slamPower
-      value: 500
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400018, guid: cb242478285cc5340afc444cea7d22db, type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb242478285cc5340afc444cea7d22db, type: 2}
@@ -34245,7 +34249,7 @@ Transform:
   m_PrefabInternal: {fileID: 1817565499}
   m_GameObject: {fileID: 1431017184}
   m_LocalRotation: {x: 0, y: .0498749577, z: 0, w: .998755515}
-  m_LocalPosition: {x: 11.0995045, y: 54.5401192, z: 22.023428}
+  m_LocalPosition: {x: 2.40427446, y: 54.5401192, z: 21.8830528}
   m_LocalScale: {x: .99999994, y: 1, z: 1}
   m_Children:
   - {fileID: 534743204}
@@ -40168,6 +40172,7 @@ MonoBehaviour:
   audioSource: {fileID: 1654982677}
   onCollisionPowerIncrease: 0
   onCollisionPowerMultiplier: 0
+  onCollisionBumperPower: 0
   useDefaults: 1
   currentColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!54 &1654982679
@@ -43685,7 +43690,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: c33c1113f0192454db06a7f9d7ea2e71, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 11.0995045
+      value: 2.40427446
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c33c1113f0192454db06a7f9d7ea2e71, type: 2}
       propertyPath: m_LocalPosition.y
@@ -43693,7 +43698,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c33c1113f0192454db06a7f9d7ea2e71, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 22.023428
+      value: 21.8830528
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c33c1113f0192454db06a7f9d7ea2e71, type: 2}
       propertyPath: m_LocalRotation.x

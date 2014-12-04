@@ -36,7 +36,9 @@ public class MainMenuController : MonoBehaviour {
 	}
 	
 	void OnDisable() {
-		title.enabled = false;
+		if(title != null){
+			title.enabled = false;
+		}
 	}
 
 	void OnGUI(){
@@ -136,7 +138,7 @@ public class MainMenuController : MonoBehaviour {
 				team1.Add(PlayerBallCreator.MONSTER_PREFABS.WOLFGANG);
 				
 				List<PlayerBallCreator.MONSTER_PREFABS> team2 = new List<PlayerBallCreator.MONSTER_PREFABS>();
-				team2.Add(PlayerBallCreator.MONSTER_PREFABS.LARS);
+				team2.Add(PlayerBallCreator.MONSTER_PREFABS.HOTSTREAK);
 				
 				newMatch (Constants.SCENE_PILA_PLAINS, "HOTSEAT", team1, team2);
 			}
