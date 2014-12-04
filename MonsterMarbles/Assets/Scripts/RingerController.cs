@@ -55,7 +55,7 @@ public class RingerController : MonoBehaviour {
 		gameMode = MULTIPLAYER_MODE.HOTSEAT; 
 		OutOfBoundsHandler.pointCollected += incrementScoreForCurrentPlayer;
 		OutOfBoundsHandler.playerCollected += playerKOed;
-		scoreText = "X 0"; 
+		scoreText.text = "X 0"; 
 	}
 
 	public void initialize(GameController gameController, string multiplayerMode, ArrayList players){
