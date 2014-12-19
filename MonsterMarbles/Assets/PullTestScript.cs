@@ -13,7 +13,6 @@ public class PullTestScript : MonoBehaviour {
 	/// </summary>
 	private float pullbackScreenProportion;
 	public GUITexture pullbackButton;
-	public GUITexture powerLevel;
 	private bool pullbackInProgress;
 	
 	/// <summary>
@@ -41,12 +40,15 @@ public class PullTestScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetMouseButtonDown(0)) {
+		
+		/*if(Input.GetMouseButtonDown(0)) {
 			if(pullbackButton.GetScreenRect().Contains(Input.mousePosition)){
 				pullBackActivated();
 			}
-		}
-		else if(Input.GetMouseButton(0)){
+		}*/
+		
+		
+		if(Input.GetMouseButton(0)){
 			if(pullbackInProgress){
 				pullBackUpdate(Input.mousePosition);
 			
@@ -70,9 +72,6 @@ public class PullTestScript : MonoBehaviour {
 	void pullBackUpdate(Vector2 position){
 		float yDistance = startPosition.y - position.y;
 		pullbackFraction = yDistance/(Screen.height * pullbackScreenProportion);
-		float colorBleed = 1 - pullbackFraction;
-		powerLevel.pixelInset = new Rect(powerLevel.pixelInset.x,powerLevel.pixelInset.y,powerLevel.pixelInset.width,-yDistance); 
-		pullbackButton.color = new Color(colorBleed,colorBleed,colorBleed);
 		if(pullbackInformation != null){
 			pullbackInformation(pullbackFraction);
 		}
@@ -81,8 +80,6 @@ public class PullTestScript : MonoBehaviour {
 	
 	void pullBackResolve(){
 		if(pullbackInProgress){
-			pullbackButton.color = new Color(1,1,1);
-			powerLevel.pixelInset = new Rect(powerLevel.pixelInset.x,powerLevel.pixelInset.y,powerLevel.pixelInset.width,0); 
 			pullbackInProgress = false;
 			if(pullbackFraction > noFireFractionCutoff){ 
 				if(launchActivated != null){
@@ -107,8 +104,9 @@ public class PullTestScript : MonoBehaviour {
 		
 		LaunchController.launchCompleted += disableGUI;
 		
+		AimPlayerBall.pullbackButtonTapped += pullBackActivated;
+		
 		pullbackButton = this.transform.FindChild("Pullback Button").GetComponent<GUITexture>();
-		powerLevel = this.transform.FindChild ("Power Level").GetComponent<GUITexture>();
 		pullbackScreenProportion = pullbackButton.GetScreenRect().center.y/Screen.height;
 
 		pullbackInProgress = false;

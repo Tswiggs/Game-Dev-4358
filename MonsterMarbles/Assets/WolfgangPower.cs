@@ -96,6 +96,8 @@ public class WolfgangPower : ZoogiPower {
 	public void createGangOfWolves(object sender, EventArgs e)
 	{
 		if (!isActivated) {
+			
+			
 			wolfgangBall2 = Instantiate (ghostWolfgangPrefab, wolfgangBallOriginal.transform.position /*+ new Vector3 (2, 0, -2)*/, wolfgangBallOriginal.transform.rotation) as GameObject;
 			wolfgangBall2.transform.parent = wolfgangBallOriginal.transform.parent;
 			wolfgangBall2.transform.localPosition = new Vector3(wolfgangBall2.transform.localPosition.x+ghostDistance.x,wolfgangBall2.transform.localPosition.y,wolfgangBall2.transform.localPosition.z+ghostDistance.y);

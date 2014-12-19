@@ -18,12 +18,17 @@ public class OutOfBoundsHandler : MonoBehaviour {
 		if(collectedObject.CompareTag(Constants.TAG_MARBLE)){
 			audioSource.Play();
 			Destroy(collectedObject.gameObject);
-			pointCollected();
+			if(pointCollected != null){
+				pointCollected();
+			}
 		}
 		if (collectedObject.CompareTag(Constants.TAG_PLAYER))
         {
 			collectedObject.transform.parent.gameObject.SetActive(false);
-			playerCollected( collectedObject.gameObject);
+			collectedObject.transform.position = new Vector3(transform.position.x,0, transform.position.z);
+			if(playerCollected != null){
+				playerCollected(collectedObject.gameObject);
+			}
         }
 	}
 

@@ -66,9 +66,9 @@ public class SkyBitCollisionHandler : MarbleCollisionHandler {
 				audioSource.Play();
 			}
 			
-			Vector3 forceVector = collision.contacts[0].normal;
-
-			rigidbody.velocity.Scale(new Vector3(-1,1,-1));
+			Vector3 forceVector = new Vector3(collision.contacts[0].normal.x,0,collision.contacts[0].normal.z);
+			
+			rigidbody.velocity = Vector3.Reflect(rigidbody.velocity,forceVector);
 			
 			rigidbody.velocity += forceVector * (rigidbody.velocity.magnitude+getBumperPower());
 			

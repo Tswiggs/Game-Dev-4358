@@ -150,9 +150,9 @@ GameObject:
   - 33: {fileID: 3300004}
   - 64: {fileID: 6400002}
   - 23: {fileID: 2300004}
-  - 114: {fileID: 11400004}
+  - 114: {fileID: 11400000}
   m_Layer: 5
-  m_Name: 180 Button
+  m_Name: Pullback Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,14 +354,30 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &100044
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400044}
+  - 114: {fileID: 11400002}
+  m_Layer: 5
+  m_Name: DirectionalArrowPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: 0, y: -.963236094, z: 0, w: .268656552}
-  m_LocalPosition: {x: 5.47701263, y: 54.8615685, z: 26.4962101}
+  m_LocalRotation: {x: 0, y: .0498749577, z: 0, w: .998755515}
+  m_LocalPosition: {x: 2.40427446, y: 54.5401192, z: 21.8830528}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400026}
@@ -466,8 +482,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -.400000006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 400042}
   - {fileID: 400018}
+  - {fileID: 400044}
   m_Father: {fileID: 400038}
   m_RootOrder: 0
 --- !u!4 &400018
@@ -476,12 +492,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100018}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.5}
-  m_LocalScale: {x: .230000019, y: 1, z: .230000004}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
+  m_LocalPosition: {x: 2.14836589e-07, y: -1.51991844e-06, z: -1.1814338}
+  m_LocalScale: {x: .150000006, y: 1, z: .100000001}
   m_Children: []
   m_Father: {fileID: 400016}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!4 &400020
 Transform:
   m_ObjectHideFlags: 1
@@ -633,12 +649,25 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100042}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: 0, y: 0, z: 5.5}
-  m_LocalScale: {x: .25999999, y: .400000006, z: .899999976}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.46478481e-08}
+  m_LocalPosition: {x: 2.11014353e-07, y: 0, z: 2.42726541}
+  m_LocalScale: {x: .25999999, y: .400000006, z: .5}
   m_Children: []
-  m_Father: {fileID: 400016}
+  m_Father: {fileID: 400044}
   m_RootOrder: 0
+--- !u!4 &400044
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100044}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.17200836e-08, y: -1.51991844e-06, z: 1.08695054}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 400042}
+  m_Father: {fileID: 400016}
+  m_RootOrder: 1
 --- !u!23 &2300000
 Renderer:
   m_ObjectHideFlags: 1
@@ -691,7 +720,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 1dab9b53072feb249bb17006b54b1905, type: 2}
+  - {fileID: 2100000, guid: 43e9a50fc6937684495ee674135c2a86, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -834,7 +863,7 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11400004
+--- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -842,7 +871,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100018}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1235405773, guid: 20c2a163775f09b4cafa29b19d0c9204, type: 3}
+  m_Script: {fileID: 1088824302, guid: 20c2a163775f09b4cafa29b19d0c9204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   advancedProps: 0
@@ -853,9 +882,21 @@ MonoBehaviour:
   sendMessageTarget: {fileID: 0}
   requireGestureToFail: {fileID: 0}
   friendlyGestures: []
-  numberOfTapsRequired: 1
-  timeLimit: Infinity
-  distanceLimit: Infinity
+  ignoreChildren: 0
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 561d2f98a71f3774889a36cf837d98f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zScaleFactor: .5
+  xScaleFactor: .100000001
+  directionalArrow: {fileID: 100042}
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1027,7 +1068,7 @@ MonoBehaviour:
   aimSnappiness: 5
   keyAimSpeed: 1
   panGesture: {fileID: 11400006}
-  reverseButtonTap: {fileID: 11400004}
+  beginPullbackPress: {fileID: 11400000}
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -79,7 +79,13 @@ public class RingerController : MonoBehaviour {
 	}
 
 	void Update () {
-	
+		if(Input.GetKeyDown(KeyCode.Escape)){
+			Application.Quit();
+		}
+		
+		if(Input.GetKeyDown (KeyCode.A)){
+			activePlayer.getActiveBall().getBallObject().SetActive(true);
+		}
 	}
 
 	public void addPlayer(Player player)
@@ -104,10 +110,10 @@ public class RingerController : MonoBehaviour {
 						activePlayer.nextBall ();
 						advanceToNextPlayerTurn ();
 						waitForTurn ();
-				} else {
+		} else {
 			Rect displayRect = new Rect(0,0,Screen.width, Screen.height); 
 			GUI.Label(displayRect, "Player " + activePlayer.getUserID() + " Has won!");
-				}
+		}
 	}
 
 	bool isGameOver()
@@ -140,11 +146,21 @@ public class RingerController : MonoBehaviour {
 	void startOfTurn(){
 		//TODO: Show which players turn it is.
 		//TODO: Have them tap a button to begin.
-		if(!activePlayer.getActiveBall().isOnBoard())
+		if(/*!activePlayer.getActiveBall().isOnBoard()*/!(activePlayer.getActiveBall().getBallObject().activeInHierarchy))
 		{
-			
 			activePlayer.getActiveBall().getBallObject().transform.position=ballSpawner.spawnLocation.position;
 			activePlayer.getActiveBall().getBallObject().transform.rotation=ballSpawner.spawnLocation.rotation;
+			
+			activePlayer.getActiveBall().getBallObject().transform.FindChild("Ball").localRotation = Quaternion.identity;
+			activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").localRotation = Quaternion.identity;
+			
+			activePlayer.getActiveBall().getBallObject().transform.FindChild("Ball").localPosition = Vector3.zero;
+			activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").localPosition = Vector3.zero;
+			
+			activePlayer.getActiveBall().getBallObject().transform.FindChild("Ball").rigidbody.velocity = Vector3.zero;
+			
+			activePlayer.getActiveBall().getBallObject().transform.FindChild("Ball").rigidbody.angularVelocity = Vector3.zero;
+			
 			activePlayer.getActiveBall().getBallObject().SetActive(true);
 			activePlayer.getActiveBall().initialize();
 			
@@ -153,6 +169,7 @@ public class RingerController : MonoBehaviour {
 		LaunchController.launchCompleted+=shootingAction;
 		activePlayer.getActiveBall().possess();
 		GUIObject.transform.FindChild("Launch GUI").gameObject.SetActive(true);
+		//activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").FindChild("CharacterGUI").gameObject.SetActive(true);
 		focusCameraForTurnStart(activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").gameObject);
 
 	}
@@ -173,7 +190,7 @@ public class RingerController : MonoBehaviour {
 
 	public void updateScore()
 	{
-		scoreText.text = "X " + activePlayer.getScore ();
+		//scoreText.text = "X " + activePlayer.getScore();
 	}
 
 	public void incrementScoreForCurrentPlayer()

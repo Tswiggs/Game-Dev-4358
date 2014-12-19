@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 using System.Collections;
 
-public class GUIStyles{
+public class GUIStyles : MonoBehaviour{
 	
 	private static Texture MENU_UNPUSHED_BUTTON;
 	private static Texture MENU_PUSHED_BUTTON;
@@ -10,13 +10,34 @@ public class GUIStyles{
 	private static Texture CHARACTER_SELECT_BUTTON_NORMAL;
 	private static Texture CHARACTER_SELECT_BUTTON_SELECTED;
 	
+	private static Font COOLVETICA;
+	
 	private static GUIStyle mainMenuStyle;
 	private static GUIStyle characterSelectStyle;
 	private static GUIStyle invertedCharacterSelectStyle;
+	private static GUIStyle textDisplayStyle;
+	
+	public Texture menuUnpushedButton;
+	public Texture menuPushedButton;
+	
+	public Texture characterSelectNormal;
+	public Texture characterSelectSelected;
+	
+	public Font coolvetica;
+	
+	void Start () {
+		MENU_UNPUSHED_BUTTON = menuUnpushedButton;
+		MENU_PUSHED_BUTTON = menuPushedButton;
+		
+		CHARACTER_SELECT_BUTTON_NORMAL = characterSelectNormal;
+		CHARACTER_SELECT_BUTTON_SELECTED = characterSelectSelected;
+		
+		COOLVETICA = coolvetica;
+	}
 	
 	public static Texture getMenuUnpushedButton(){
 		if(MENU_UNPUSHED_BUTTON == null){
-			MENU_UNPUSHED_BUTTON = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Button_Unpushed.png", typeof(Texture));
+			//MENU_UNPUSHED_BUTTON = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Button_Unpushed.png", typeof(Texture));
 			
 			return MENU_UNPUSHED_BUTTON;
 		}
@@ -27,7 +48,7 @@ public class GUIStyles{
 	
 	public static Texture getMenuPushedButton(){
 		if(MENU_PUSHED_BUTTON == null){
-			MENU_PUSHED_BUTTON = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Button_Pushed.png", typeof(Texture));
+			//MENU_PUSHED_BUTTON = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Button_Pushed.png", typeof(Texture));
 			
 			return MENU_PUSHED_BUTTON;
 		}
@@ -39,7 +60,7 @@ public class GUIStyles{
 	
 	public static Texture getCharacterSelectButtonNormal(){
 		if(CHARACTER_SELECT_BUTTON_NORMAL == null){
-			CHARACTER_SELECT_BUTTON_NORMAL = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Character_Select_Button_Normal_2.png", typeof(Texture));
+			//CHARACTER_SELECT_BUTTON_NORMAL = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Character_Select_Button_Normal_2.png", typeof(Texture));
 			
 			return CHARACTER_SELECT_BUTTON_NORMAL;
 		}
@@ -51,7 +72,7 @@ public class GUIStyles{
 	
 	public static Texture getCharacterSelectButtonSelected(){
 		if(CHARACTER_SELECT_BUTTON_SELECTED == null){
-			CHARACTER_SELECT_BUTTON_SELECTED = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Character_Select_Button_Selected_2.png", typeof(Texture));
+			//CHARACTER_SELECT_BUTTON_SELECTED = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Character_Select_Button_Selected_2.png", typeof(Texture));
 			
 			return CHARACTER_SELECT_BUTTON_SELECTED;
 		}
@@ -64,6 +85,9 @@ public class GUIStyles{
 	public static GUIStyle getMainMenuStyle(){
 		if(mainMenuStyle == null){
 			mainMenuStyle = new GUIStyle();
+			
+			mainMenuStyle.font = COOLVETICA;
+			
 			mainMenuStyle.normal.textColor = Color.white;
 			mainMenuStyle.normal.background = (Texture2D)getMenuUnpushedButton();
 			
@@ -92,6 +116,9 @@ public class GUIStyles{
 	public static GUIStyle getCharacterSelectStyle(){
 		if(characterSelectStyle == null){
 			characterSelectStyle = new GUIStyle();
+			
+			characterSelectStyle.font = COOLVETICA;
+			
 			characterSelectStyle.normal.textColor = Color.black;
 			characterSelectStyle.normal.background = (Texture2D)getCharacterSelectButtonNormal();
 			
@@ -122,6 +149,9 @@ public class GUIStyles{
 	public static GUIStyle getInvertedCharacterSelectStyle(){
 		if(invertedCharacterSelectStyle == null){
 			invertedCharacterSelectStyle = new GUIStyle();
+			
+			invertedCharacterSelectStyle.font = COOLVETICA;
+			
 			invertedCharacterSelectStyle.normal.textColor = Color.white;
 			invertedCharacterSelectStyle.normal.background = (Texture2D)getCharacterSelectButtonSelected();
 			
@@ -146,6 +176,27 @@ public class GUIStyles{
 		}
 		else{
 			return invertedCharacterSelectStyle;
+		}
+	}
+	
+	public static GUIStyle getTextDisplayStyle(){
+		if(textDisplayStyle == null){
+			textDisplayStyle = new GUIStyle();
+			
+			textDisplayStyle.font = COOLVETICA;
+			
+			textDisplayStyle.normal.textColor = Color.black;
+			
+			textDisplayStyle.fontSize = 28;
+			
+			textDisplayStyle.alignment = TextAnchor.MiddleCenter;
+			
+			
+			return textDisplayStyle;
+			
+		}
+		else{
+			return textDisplayStyle;
 		}
 	}
 	
