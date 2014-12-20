@@ -9,7 +9,7 @@ public class CameraBoomController : MonoBehaviour {
 	public LaunchCameraController launchScript;
 	
 	public enum CameraSetting{
-		ROTATE_STATE,PULLBACK_STATE,FOLLOW_BALL_STATE,WAIT_STATE
+		ROTATE_STATE,PULLBACK_STATE,FOLLOW_BALL_STATE,BIRD_EYE_STATE,WAIT_STATE
 	};
 	
 	public CameraSetting cameraState;
@@ -24,6 +24,7 @@ public class CameraBoomController : MonoBehaviour {
 		//PullTestScript.pullbackAborted += switchToRotate;
 		LaunchController.launchCompleted += switchToFollow;
 		SteeringController.rollCompleted += rollCompleteAction;
+		MapChangeButtonController.mapChangeButtonPressed += toggleBirdEye;
 	}
 
 	void OnDisable(){
@@ -38,6 +39,7 @@ public class CameraBoomController : MonoBehaviour {
 		switch(cameraState){
 			case CameraSetting.ROTATE_STATE:
 				launchScript.enabled=true;
+				launchScript.cameraState = "launch";
 				followScript.enabled=false;
 				break;
 			
@@ -51,6 +53,12 @@ public class CameraBoomController : MonoBehaviour {
 				launchScript.enabled=false;
 				followScript.enabled=true;
 				followScript.target=target;
+				break;
+			
+			case CameraSetting.BIRD_EYE_STATE:
+				launchScript.enabled=true;
+				launchScript.cameraState = "birdsEye";
+				followScript.enabled=false;
 				break;
 			
 			case CameraSetting.WAIT_STATE:
@@ -70,6 +78,15 @@ public class CameraBoomController : MonoBehaviour {
 	
 	public void switchToPullback(){
 		changeCameraState(CameraSetting.PULLBACK_STATE);
+	}
+	
+	public void toggleBirdEye(MapChangeButtonController.ViewType view){
+		if(view == MapChangeButtonController.ViewType.AERIAL_VIEW){
+			changeCameraState(CameraSetting.BIRD_EYE_STATE);
+		}
+		else {
+			changeCameraState(CameraSetting.ROTATE_STATE);
+		}
 	}
 	
 	public void rollCompleteAction()

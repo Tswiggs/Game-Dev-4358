@@ -41,12 +41,6 @@ public class PullTestScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		/*if(Input.GetMouseButtonDown(0)) {
-			if(pullbackButton.GetScreenRect().Contains(Input.mousePosition)){
-				pullBackActivated();
-			}
-		}*/
-		
 		
 		if(Input.GetMouseButton(0)){
 			if(pullbackInProgress){

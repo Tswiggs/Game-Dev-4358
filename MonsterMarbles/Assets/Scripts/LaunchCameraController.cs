@@ -7,8 +7,14 @@ public class LaunchCameraController : MonoBehaviour {
 	public float height = 1f;
 	public float heightDamping = 2.0f;
 	public float rotationDamping = 3.0f;
+	public float positionDamping = 5.0f;
 
 	public Transform target;
+	
+	public Transform birdEyeTarget;
+	public float birdEyeZoom = 20.0f;
+	
+	
 	public string cameraState="launch";
 
 	// Use this for initialization
@@ -23,19 +29,22 @@ public class LaunchCameraController : MonoBehaviour {
 		if (!target)
 			return;
 
+		float wantedRotationAngle;
+		float wantedHeight;
+		float currentRotationAngle;
+		float currentHeight;
+
 		//determine which mode the camera is in
-
-
 		switch (cameraState) {
-
+			
 			//camera is positioned for launching
 		case "launch": 
 						
 			// Calculate the current rotation angles
-			float wantedRotationAngle = target.eulerAngles.y;
-			float wantedHeight = target.position.y + height;
-			float currentRotationAngle = transform.eulerAngles.y;
-			float currentHeight = transform.position.y;
+			wantedRotationAngle = target.eulerAngles.y;
+			wantedHeight = target.position.y + height;
+			currentRotationAngle = transform.eulerAngles.y;
+			currentHeight = transform.position.y;
 			
 			// Damp the rotation around the y-axis
 			currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
@@ -59,6 +68,26 @@ public class LaunchCameraController : MonoBehaviour {
 			break;
 
 		case "birdsEye":
+		
+			// Calculate the current rotation angles
+			wantedHeight = birdEyeTarget.position.y + birdEyeZoom;
+			currentHeight = transform.position.y;
+			
+			Vector2 wantedPosition = new Vector2 (birdEyeTarget.transform.position.x-1,birdEyeTarget.transform.position.z);
+			Vector2 currentPosition = new Vector2 (transform.position.x,transform.position.z);
+			
+			// Damp the height
+			currentHeight = Mathf.Lerp (currentHeight, wantedHeight, heightDamping * Time.deltaTime);
+			
+			// Damp the position movement
+			currentPosition = new Vector2(Mathf.Lerp(currentPosition.x,wantedPosition.x,positionDamping*Time.deltaTime),Mathf.Lerp(currentPosition.y,wantedPosition.y,positionDamping*Time.deltaTime));
+			
+			// Set the position of the camera
+			transform.position = new Vector3(currentPosition.x, currentHeight, currentPosition.y);
+			
+			
+			// Always look at the target
+			transform.LookAt (birdEyeTarget);
 			break;
 		}
 	}

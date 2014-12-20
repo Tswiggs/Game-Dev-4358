@@ -98,13 +98,19 @@ public class WolfgangPower : ZoogiPower {
 		if (!isActivated) {
 			
 			
-			wolfgangBall2 = Instantiate (ghostWolfgangPrefab, wolfgangBallOriginal.transform.position /*+ new Vector3 (2, 0, -2)*/, wolfgangBallOriginal.transform.rotation) as GameObject;
-			wolfgangBall2.transform.parent = wolfgangBallOriginal.transform.parent;
-			wolfgangBall2.transform.localPosition = new Vector3(wolfgangBall2.transform.localPosition.x+ghostDistance.x,wolfgangBall2.transform.localPosition.y,wolfgangBall2.transform.localPosition.z+ghostDistance.y);
+			wolfgangBall2 = Instantiate(ghostWolfgangPrefab, wolfgangBallOriginal.transform.position /*+ new Vector3 (2, 0, -2)*/, wolfgangBallOriginal.transform.rotation) as GameObject;
+			//wolfgangBall2.transform.parent = wolfgangBallOriginal.transform.parent;
+			
+			wolfgangBall2.transform.position += wolfgangBallOriginal.transform.right*ghostDistance.x;
+			
+			//wolfgangBall2.transform.localPosition = new Vector3(wolfgangBall2.transform.localPosition.x+ghostDistance.x,wolfgangBall2.transform.localPosition.y,wolfgangBall2.transform.localPosition.z+ghostDistance.y);
 			wolfgangBall2 = wolfgangBall2.transform.Find("Ball").gameObject;
 			wolfgangBall3 = Instantiate (ghostWolfgangPrefab, wolfgangBallOriginal.transform.position /*+ new Vector3 (-2, 0, 2)*/, wolfgangBallOriginal.transform.rotation) as GameObject;
-			wolfgangBall3.transform.parent = wolfgangBallOriginal.transform.parent;
-			wolfgangBall3.transform.localPosition = new Vector3(wolfgangBall3.transform.localPosition.x-ghostDistance.x,wolfgangBall3.transform.localPosition.y,wolfgangBall3.transform.localPosition.z+ghostDistance.y);
+			//wolfgangBall3.transform.parent = wolfgangBallOriginal.transform.parent;
+			
+			wolfgangBall3.transform.position += wolfgangBallOriginal.transform.right*ghostDistance.x*-1;
+			
+			//wolfgangBall3.transform.localPosition = new Vector3(wolfgangBall3.transform.localPosition.x-ghostDistance.x,wolfgangBall3.transform.localPosition.y,wolfgangBall3.transform.localPosition.z+ghostDistance.y);
 			wolfgangBall3 = wolfgangBall3.transform.Find("Ball").gameObject;
      		isActivated = true; 
      		
