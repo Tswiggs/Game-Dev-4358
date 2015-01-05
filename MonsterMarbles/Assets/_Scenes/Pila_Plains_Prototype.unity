@@ -24811,6 +24811,7 @@ MonoBehaviour:
   height: 5
   heightDamping: 2
   rotationDamping: 5
+  positionDamping: 5
   target: {fileID: 0}
   birdEyeTarget: {fileID: 975569801}
   birdEyeZoom: 30
