@@ -67,7 +67,7 @@ public class CharacterSelectController : MonoBehaviour {
 		unlockedCharacters[0] = true;
 		unlockedCharacters[1] = true;
 		unlockedCharacters[2] = true;
-		unlockedCharacters[3] = true;
+		//unlockedCharacters[3] = true;
 		
 		/*characterPortraits[0] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Wolfgang_Portrait.png", typeof(Texture));
 		characterPortraits[1] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Hotstreak_Portrait.png", typeof(Texture));
@@ -101,6 +101,7 @@ public class CharacterSelectController : MonoBehaviour {
 		}
 		unlockedCharacters[0] = true;
 		unlockedCharacters[1] = true;
+		unlockedCharacters[2] = true;
 	}
 	
 	bool selectCharacter(int index){
