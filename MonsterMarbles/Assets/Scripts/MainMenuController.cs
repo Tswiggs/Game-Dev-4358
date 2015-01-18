@@ -57,44 +57,18 @@ public class MainMenuController : MonoBehaviour {
 		else if(interfaceType == UserInterface.LOGGED_IN_NO_GAMES){
 			
 			if(interfaceNavigation == 0){
-				if (GUI.Button (new Rect (Screen.width / 2 - 205, ((Screen.height/5)*3) - 80, 200, 160), "Play!", mainMenuStyle)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - 150, ((Screen.height/5)*3) - 80, 300, 160), "Play!", mainMenuStyle)) {
 					interfaceNavigation = 1;
 				}
-				if (GUI.Button (new Rect (Screen.width/2 + 5, ((Screen.height/5)*3) - 80, 200, 160), "Quick\n Start", mainMenuStyle)) {
-					interfaceNavigation = 4;
-					List<PlayerBallCreator.MONSTER_PREFABS> team1 = new List<PlayerBallCreator.MONSTER_PREFABS>();
-					team1.Add(PlayerBallCreator.MONSTER_PREFABS.WOLFGANG);
-					
-					List<PlayerBallCreator.MONSTER_PREFABS> team2 = new List<PlayerBallCreator.MONSTER_PREFABS>();
-					team2.Add(PlayerBallCreator.MONSTER_PREFABS.HOTSTREAK);
-					
-					newMatch (Constants.SCENE_PILA_PLAINS, "HOTSEAT", team1, team2);
-				}
-				
-				/*if (GUI.Button (new Rect (Screen.width/2 - 90, ((Screen.height/5)*3) + 80, 180, 90), "Options", mainMenuStyle)) {
+				if (GUI.Button (new Rect (Screen.width/2 - 90, ((Screen.height/5)*3) + 100, 180, 90), "Options", mainMenuStyle)) {
 					interfaceNavigation = 2;
-				}*/
-				if (GUI.Button (new Rect (Screen.width/2 - 90, ((Screen.height/5)*3) + 80, 180, 90), "Credits", mainMenuStyle)) {
+				}
+				if (GUI.Button (new Rect (Screen.width/2 - 90, ((Screen.height/5)*3) + 200, 180, 90), "Credits", mainMenuStyle)) {
 					interfaceNavigation = 3;
 				}
-				if (GUI.Button (new Rect (Screen.width/2 - 90, ((Screen.height/5)*3) + 170, 180, 90), "Quit", mainMenuStyle)) {
-					Application.Quit();
-				}
-				
-				if (GUI.Button (new Rect (Screen.width/2 + 5, ((Screen.height/5)*3) - 80, 200, 160), "Quick\n Start", mainMenuStyle)) {
-					interfaceNavigation = 4;
-					List<PlayerBallCreator.MONSTER_PREFABS> team1 = new List<PlayerBallCreator.MONSTER_PREFABS>();
-					team1.Add(PlayerBallCreator.MONSTER_PREFABS.WOLFGANG);
-					
-					List<PlayerBallCreator.MONSTER_PREFABS> team2 = new List<PlayerBallCreator.MONSTER_PREFABS>();
-					team2.Add(PlayerBallCreator.MONSTER_PREFABS.HOTSTREAK);
-					
-					newMatch (Constants.SCENE_PILA_PLAINS, "HOTSEAT", team1, team2);
-				}
-				
 			}
 			else if (interfaceNavigation == 1){ //Game Mode Menu
-				if (GUI.Button (new Rect (Screen.width / 2 - 150, ((Screen.height/5)*3) - 70, 300, 140), "Ringer Royale\n 1 vs 1", mainMenuStyle)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - 150, ((Screen.height/5)*3) - 70, 300, 140), "Ringer Royale", mainMenuStyle)) {
 					characterSelectController.enabled = true;
 					this.enabled = false;
 				}
@@ -116,7 +90,6 @@ public class MainMenuController : MonoBehaviour {
 					interfaceNavigation = 0;
 				}
 			}
-
 		}
 		else if(interfaceType == UserInterface.LOGGED_IN_GAMES_IN_PROGRESS){
 			if (GUI.Button (new Rect (Screen.width / 2 - 150, (Screen.height/5*3) - 90, 300, 180), "View Games In Progress", mainMenuStyle)) {
@@ -156,6 +129,16 @@ public class MainMenuController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		if(Debug.isDebugBuild){
+			if(Input.GetKeyDown("space")){
+				List<PlayerBallCreator.MONSTER_PREFABS> team1 = new List<PlayerBallCreator.MONSTER_PREFABS>();
+				team1.Add(PlayerBallCreator.MONSTER_PREFABS.WOLFGANG);
+				
+				List<PlayerBallCreator.MONSTER_PREFABS> team2 = new List<PlayerBallCreator.MONSTER_PREFABS>();
+				team2.Add(PlayerBallCreator.MONSTER_PREFABS.HOTSTREAK);
+				
+				newMatch (Constants.SCENE_PILA_PLAINS, "HOTSEAT", team1, team2);
+			}
+		}
 	}
 }
