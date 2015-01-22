@@ -51,10 +51,7 @@ public class WolfgangPower : ZoogiPower {
 	
 	// Update is called once per frame
 	void Update () {
-	
-		if(Input.GetKeyDown("space")){
-			activatePower ();
-		}
+		powerCharged = true;
 		if (isActivated && !hasLaunched) {
 				wolfgangBall2.transform.rotation = wolfgangBallOriginal.transform.rotation; 
 				wolfgangBall2.rigidbody.velocity = wolfgangBallOriginal.rigidbody.velocity;
@@ -63,21 +60,19 @@ public class WolfgangPower : ZoogiPower {
 		}
 	}
 	
-	override public bool activatePower(){
-		if(powerReady && wolfgangBallOriginal.GetComponent<LaunchController>().enabled){
+	override public bool deployPower(){
+		if(powerCharged){
+			powerCharged = false;
+			readyToDeployPower = false;
 			createGangOfWolves(this, new EventArgs());
 			LaunchController.sendLaunchInformation += launchGhostWolves;
-			powerReady = false;
-			
 			
 			return true;
 		}
-		else{
-			return false;
-		}
+		return false;
 	}
 	
-	public void launchGhostWolves(Vector3 launchVector, float xTorque, Vector3 position){
+	public void launchGhostWolves(GameObject ball, Vector3 launchVector, float xTorque, Vector3 position){
 		if(!hasLaunched){
 			wolfgangBall2.rigidbody.AddForce(launchVector);
 			wolfgangBall2.rigidbody.AddRelativeTorque(xTorque, 0f, 0f);
@@ -89,9 +84,6 @@ public class WolfgangPower : ZoogiPower {
 		}
 	}
 	
-	public void launchCompleted(){
-
-	}
 
 	public void createGangOfWolves(object sender, EventArgs e)
 	{
@@ -135,11 +127,9 @@ public class WolfgangPower : ZoogiPower {
 	
 	private void onEnable(){
 		wolfgangBallOriginal = transform.FindChild("Ball").gameObject;
-		LaunchController.launchCompleted += launchCompleted;
 	}
 	
 	private void onDisable(){
-		LaunchController.launchCompleted -= launchCompleted;
 		LaunchController.sendLaunchInformation -= launchGhostWolves;
 	}
 }

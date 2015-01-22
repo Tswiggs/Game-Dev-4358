@@ -212,9 +212,10 @@ MonoBehaviour:
   height: 5
   heightDamping: 2
   rotationDamping: 5
+  positionDamping: 5
   target: {fileID: 0}
   birdEyeTarget: {fileID: 0}
-  birdEyeZoom: 30
+  birdEyeZoom: 50
   cameraState: launch
 --- !u!114 &11400006
 MonoBehaviour:

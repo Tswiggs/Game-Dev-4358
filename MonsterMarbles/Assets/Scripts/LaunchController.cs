@@ -17,8 +17,10 @@ public class LaunchController : MonoBehaviour {
 	public float powerFade=1;
 	public delegate void postLaunchAction();
 	public static event postLaunchAction launchCompleted;
-	public delegate void launchInformation(Vector3 launchVector, float xTorque, Vector3 position);
+	public delegate void launchInformation(GameObject ball, Vector3 launchVector, float xTorque, Vector3 position);
 	public static event launchInformation sendLaunchInformation;
+	public delegate void launchEnabled(GameObject associatedObject);
+	public static event launchEnabled LaunchControllerEnabled;
 	
 	private static float LAUNCH_SCALE = 1800;
 	
@@ -27,7 +29,7 @@ public class LaunchController : MonoBehaviour {
 	private bool isHopping =false;
 	private float hopStart= 0f;
 	private float timeSpinning= 0f;
-	public float hopLandingYThreshold=.00005f;
+	private float hopLandingYThreshold=.5f;
 	public float timeToSpin=1f;
 	public float hopHeight=3000f;
 
@@ -53,9 +55,9 @@ public class LaunchController : MonoBehaviour {
 		if(isHopping){
 			transform.rotation =Quaternion.Slerp(transform.rotation, standingUp, timeSpinning/timeToSpin);
 			timeSpinning+=Time.deltaTime;
-			
+
 			//If the slerp is within 1 degree of completion activate protocol to complete the turn
-			if(timeSpinning>timeToSpin && transform.position.y<hopStart && rigidbody.velocity.y<=0){
+			if((timeSpinning>=timeToSpin) && (transform.position.y<=hopStart) && (rigidbody.velocity.y<=0.1f)){
 				isHopping=false;
 				characterGui.SetActive(true);
 				rigidbody.Sleep();
@@ -73,11 +75,11 @@ public class LaunchController : MonoBehaviour {
 		standingUp.x=0f;
 		standingUp.y=transform.rotation.y;
 		standingUp.z=0f;
+		hopStart=transform.position.y+hopLandingYThreshold;
 		if(Quaternion.Angle(transform.rotation, standingUp)>=0.003f)
 		{
 			rigidbody.AddForce(0f, hopHeight, 0f);
 		}
-		hopStart=transform.position.y+hopLandingYThreshold;
 	}
 	
 	private void performLaunch(float powerFraction){
@@ -106,7 +108,7 @@ public class LaunchController : MonoBehaviour {
 			launchCompleted();
 		}
 		if(sendLaunchInformation != null){
-			sendLaunchInformation(launchVector, maxPower*powerFraction*launchSpin, transform.position);
+			sendLaunchInformation(this.gameObject,launchVector, maxPower*powerFraction*launchSpin, transform.position);
 		}
 	}
 	
@@ -121,6 +123,10 @@ public class LaunchController : MonoBehaviour {
 
 	private void OnEnable()
 	{
+		if(LaunchControllerEnabled != null){
+			LaunchControllerEnabled(this.gameObject);
+		}
+		
 		if(transform.up!=root.transform.up){hopUpright();}
 		else{characterGui.SetActive(true);}
 		power=0f;

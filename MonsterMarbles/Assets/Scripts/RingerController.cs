@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic; 
 using AssemblyCSharp;
@@ -49,6 +49,8 @@ public class RingerController : MonoBehaviour {
 	
 	public bool isShooting=false;
 	private int activePlayerIndex=0;
+	
+	private bool activePlayerGetsExtraTurn = false;
 
 	void Start () {
 		//players = new ArrayList (); 
@@ -99,16 +101,28 @@ public class RingerController : MonoBehaviour {
 
 	void shootingAction(){
 		isShooting=true;
-		LaunchController.launchCompleted-=shootingAction;
-		SteeringController.rollCompleted+=endOfTurnAction; 
+		LaunchController.launchCompleted-= shootingAction;
+		OutOfBoundsHandler.pointCollected+= skyBitCollected;
+		SteeringController.rollCompleted+= endOfTurnAction; 
+	}
+	
+	//Skybit collected, sets flag to give player an extra turn (good job, player, have a biscuit)
+	void skyBitCollected(){
+		activePlayerGetsExtraTurn = true;
 	}
 
 	void endOfTurnAction(){
-		SteeringController.rollCompleted-=endOfTurnAction;
-		if (!isGameOver ()) {
+		SteeringController.rollCompleted-= endOfTurnAction;
+		OutOfBoundsHandler.pointCollected-= skyBitCollected;
+		if (!isGameOver()) {
 						StartCoroutine (delaySeconds (5));
-						activePlayer.nextBall ();
-						advanceToNextPlayerTurn ();
+						if(activePlayerGetsExtraTurn){
+							activePlayerGetsExtraTurn = false;
+						}
+						else {
+							activePlayer.nextBall ();
+							advanceToNextPlayerTurn ();
+						}
 						waitForTurn ();
 		} else {
 			Rect displayRect = new Rect(0,0,Screen.width, Screen.height); 
@@ -132,15 +146,15 @@ public class RingerController : MonoBehaviour {
 	//TODO: Need to pull out nextPlayer logic into its own method.
 	public void waitForTurn()
 	{
-	if (gameMode == MULTIPLAYER_MODE.ONLINE) {
-		//show waiting screen
-		//ping server until it is this players turn again
-
-		} else if(gameMode == MULTIPLAYER_MODE.HOTSEAT) {
-
-		}
-
-		startOfTurn();
+		if (gameMode == MULTIPLAYER_MODE.ONLINE) {
+			//show waiting screen
+			//ping server until it is this players turn again
+	
+			} else if(gameMode == MULTIPLAYER_MODE.HOTSEAT) {
+	
+			}
+	
+			startOfTurn();
 	}
 
 	void startOfTurn(){
@@ -161,14 +175,20 @@ public class RingerController : MonoBehaviour {
 			
 			activePlayer.getActiveBall().getBallObject().transform.FindChild("Ball").rigidbody.angularVelocity = Vector3.zero;
 			
+	
 			activePlayer.getActiveBall().getBallObject().SetActive(true);
+			
+			activePlayer.getActiveBall().getBallObject().GetComponentInChildren<AimPlayerBall>().enabled=false;
+			activePlayer.getActiveBall().getBallObject().GetComponentInChildren<LaunchController>().enabled=false;
+			
 			activePlayer.getActiveBall().initialize();
 			
 			
 		}
 		LaunchController.launchCompleted+=shootingAction;
-		activePlayer.getActiveBall().possess();
 		GUIObject.transform.FindChild("Launch GUI").gameObject.SetActive(true);
+		activePlayer.getActiveBall().possess();
+		//GUIObject.transform.FindChild("Launch GUI").gameObject.SetActive(true);
 		//activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").FindChild("CharacterGUI").gameObject.SetActive(true);
 		focusCameraForTurnStart(activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").gameObject);
 

@@ -1,9 +1,63 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class ZoogiPower : MonoBehaviour {
+public class ZoogiPower : MonoBehaviour {
 
-	public bool powerReady;
+	public bool powerCharged;
+	public bool readyToDeployPower;
 	
-	abstract public bool activatePower();
+	
+	void Start () {
+
+	}
+	
+	void OnEnable(){
+		LaunchController.launchCompleted += attemptToUsePowerAtLaunch;
+		powerCharged = true;
+	}
+	
+	void OnDisable(){
+		LaunchController.launchCompleted -= attemptToUsePowerAtLaunch;
+		
+		readyToDeployPower = false;
+		
+	}
+	
+	
+	public bool setPowerDeployState(bool active)
+	{
+		if(powerCharged){
+			if(active){
+				readyToDeployPower = true;
+				return true;
+			}
+			else {
+				readyToDeployPower = false;
+				return false;
+			}
+		}
+		return readyToDeployPower;
+		
+	}
+	
+	public void attemptToUsePowerAtLaunch(){
+		if(readyToDeployPower){
+			deployPower();
+		}
+	}
+	
+	virtual public bool deployPower(){
+		if(powerCharged){
+			powerCharged = false;
+			readyToDeployPower = false;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public void chargePower(){
+		powerCharged = true;
+	}
+	
 }

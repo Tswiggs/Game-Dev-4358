@@ -48,6 +48,7 @@ public class PlayerBall {
 	{
 			getBallObject().GetComponentInChildren<AimPlayerBall>().enabled=true;
 			getBallObject().GetComponentInChildren<LaunchController>().enabled=true;
+			//getBallObject().transform.parent.FindChild("Character Root").gameObject.SetActive(true);
 	}
 
 		public Player getPlayer(){return playerOwner;}

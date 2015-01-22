@@ -3,11 +3,9 @@ using System.Collections;
 using System;
 using TouchScript.Gestures;
 
-public class HotStreakPower : MonoBehaviour {
+public class HotStreakPower : ZoogiPower {
 
-	/// <summary>
-	/// the original wolf gang ball. Point this to Wolfgang's "Ball" object. 
-	/// </summary>
+
 	public GameObject HotStreakBall;
 	
 	public GameObject groundSlamParticles;
@@ -26,16 +24,31 @@ public class HotStreakPower : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		powerCharged = true;
+	}
 	
-		if(Input.GetKeyDown("space")){
-			if(HotStreakBall.GetComponent<SteeringController>().enabled){
-				groundSlam(this, new EventArgs());
+	override public bool deployPower(){
+		if(powerCharged){
+			powerCharged = false;
+			readyToDeployPower = false;
+			MarbleCollisionHandler.playerHasCollided += checkForGroundSlam;
+			
+			return true;
+		}
+		return false;
+	}
+	
+	private void checkForGroundSlam(Collision collision, Rigidbody original){
+		if(HotStreakBall.rigidbody == original){
+			if(collision.collider.rigidbody != null){
+				groundSlam();
+				isActivated = false;
+				MarbleCollisionHandler.playerHasCollided -= checkForGroundSlam;
 			}
 		}
-	
 	}
-
-	private void groundSlam(object sender, EventArgs e)
+	
+	private void groundSlam()
 	{
 		if (isActivated == false /*&& (GetComponent<SteeringController>().isRolling == true)*/) {
 			isActivated = true;
@@ -68,6 +81,7 @@ public class HotStreakPower : MonoBehaviour {
 	
 	private void rollComplete()
 	{
-		isActivated = false; 
+		isActivated = false;
+		MarbleCollisionHandler.playerHasCollided -= checkForGroundSlam; 
 	}
 }

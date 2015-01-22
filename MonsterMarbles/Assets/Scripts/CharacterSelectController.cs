@@ -60,8 +60,8 @@ public class CharacterSelectController : MonoBehaviour {
 		unlockedCharacters = new bool[30];
 		charactersSelected = new bool[30];
 		characterPortraits = new Texture[30];
-		for(int x = 0; x <30; x++){
-			unlockedCharacters[x] = false;
+		for(int x = 0; x <18; x++){
+			unlockedCharacters[x] = true;
 			charactersSelected[x] = false;
 		}
 		unlockedCharacters[0] = true;
@@ -83,7 +83,7 @@ public class CharacterSelectController : MonoBehaviour {
 	
 	void OnEnable() {
 		interfaceNavigation = 0;
-		maxNumberOfCharacters = 2;
+		maxNumberOfCharacters = 1;
 		numberOfSelectedCharacters = 0;
 		
 		currentPlayer = 0;
@@ -96,28 +96,29 @@ public class CharacterSelectController : MonoBehaviour {
 		unlockedCharacters = new bool[30];
 		charactersSelected = new bool[30];
 		for(int x = 0; x <30; x++){
-			unlockedCharacters[x] = false;
+			unlockedCharacters[x] = true;
 			charactersSelected[x] = false;
 		}
-		unlockedCharacters[0] = true;
-		unlockedCharacters[1] = true;
-		unlockedCharacters[2] = true;
+		//unlockedCharacters[0] = true;
+		//unlockedCharacters[1] = true;
+		//unlockedCharacters[2] = true;
 	}
 	
 	bool selectCharacter(int index){
 		if(numberOfSelectedCharacters < maxNumberOfCharacters){
 			if(charactersSelected[index] != true){
-				charactersSelected[index] = true;
-				numberOfSelectedCharacters += 1;
+				if(index < 3){
+					charactersSelected[index] = true;
+					numberOfSelectedCharacters += 1;
 				
-				if(currentPlayer == 0){
-					player0.Add((PlayerBallCreator.MONSTER_PREFABS)index);
+					if(currentPlayer == 0){
+						player0.Add((PlayerBallCreator.MONSTER_PREFABS)index);
+					}
+					else{
+						player1.Add((PlayerBallCreator.MONSTER_PREFABS)index);
+					}
+					return true;
 				}
-				else{
-					player1.Add((PlayerBallCreator.MONSTER_PREFABS)index);
-				}
-				
-				return true;
 			}
 		}
 		return false;

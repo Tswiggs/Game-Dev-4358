@@ -10,31 +10,42 @@ public class LarsPower : ZoogiPower {
 	
 	private bool isActivated = false;
 	
-	private float velocityIncrease = 15;
+	private float velocityIncrease = 2;
 	// Use this for initialization
 	void Start () {
 		LarsBall = transform.FindChild("Ball").gameObject;
-		powerReady = true;
+		//powerCharged = true;
 	}
+	
 	
 	// Update is called once per frame
 	void Update () {
-		
+		powerCharged = true;
 		if(Input.GetKeyDown("space")){
-			activatePower ();
+			deployPower();
 		}
 
 	}
 	
-	override public bool activatePower(){
-		if(powerReady){
-			if(LarsBall.GetComponent<SteeringController>().enabled){
-				powerReady = false;
-				sharkBite();
-				SteeringController.rollCompleted += rollComplete;
-				return true;
-			}
-			
+	override public bool deployPower(){
+		if(powerCharged){
+			powerCharged = false;
+			readyToDeployPower = false;
+			useSharkBite ();
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public bool useSharkBite(){
+		if(LarsBall.GetComponent<SteeringController>().enabled){
+			powerCharged = false;
+			isActivated = true;
+			waterTrailParticles.SetActive(true);
+			MarbleCollisionHandler.playerHasCollided += sharkBite;
+			SteeringController.rollCompleted += rollComplete;
+			return true;
 			
 		}
 		
@@ -43,16 +54,24 @@ public class LarsPower : ZoogiPower {
 	
 	private void rollComplete()
 	{
-		if(isActivated){
-			waterTrailParticles.SetActive(false);
-			isActivated = false;
-			SteeringController.rollCompleted -= rollComplete;
-		}
+		waterTrailParticles.SetActive(false);
+		isActivated = false;
+		MarbleCollisionHandler.playerHasCollided -= sharkBite;
+		SteeringController.rollCompleted -= rollComplete;
 	}
 	
-	public void sharkBite(){
-		isActivated = true;
-		waterTrailParticles.SetActive(true);
-		LarsBall.rigidbody.velocity = LarsBall.rigidbody.velocity.normalized * (LarsBall.rigidbody.velocity.magnitude+velocityIncrease);
+	
+	public void sharkBite(Collision collision, Rigidbody original){
+		
+		if(LarsBall.rigidbody == original){
+			if(collision.collider.rigidbody != null){
+				Vector3 colliderVelocity = collision.collider.rigidbody.velocity;
+				
+				Vector3 a = LarsBall.rigidbody.position;
+				Vector3 b = collision.collider.rigidbody.position;
+				
+				collision.collider.rigidbody.velocity += (b-a).normalized * LarsBall.rigidbody.velocity.magnitude * velocityIncrease;
+			}
+		}
 	}
 }
