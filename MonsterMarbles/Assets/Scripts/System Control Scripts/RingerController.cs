@@ -44,13 +44,15 @@ public class RingerController : MonoBehaviour {
 	public int winningScore = 15; 
 	public GameObject GUIObject;
 	
-	public delegate void playerChange(int playerIndex);
-	public static event playerChange PlayerChangeEvent;
+	public delegate void focusChange(int index);
+	public static event focusChange PlayerTurnStartEvent;
+	public static event focusChange PlayerTurnCompleteEvent;
 	
 	public bool isShooting=false;
 	private int activePlayerIndex=0;
 	
 	private bool activePlayerGetsExtraTurn = false;
+	private bool advanceToNextPlayer = false;
 
 	void Start () {
 		//players = new ArrayList (); 
@@ -63,6 +65,7 @@ public class RingerController : MonoBehaviour {
 	public void initialize(GameController gameController, string multiplayerMode, ArrayList players){
 		this.gameController=gameController;
 		this.cameraBoom=GameObject.Find("CameraBoom").GetComponent<CameraBoomController>();
+		OutOfBoundsHandler.pointCollected+= skyBitCollected;
 		//TODO: change so that both RingerController and GameController are using the enum MULTIPLAYER_MODE
 		gameMode=MULTIPLAYER_MODE.HOTSEAT;
 		
@@ -102,8 +105,7 @@ public class RingerController : MonoBehaviour {
 	void shootingAction(){
 		isShooting=true;
 		LaunchController.launchCompleted-= shootingAction;
-		OutOfBoundsHandler.pointCollected+= skyBitCollected;
-		SteeringController.rollCompleted+= endOfTurnAction; 
+		//SteeringController.rollCompleted+= endOfTurnAction; 
 	}
 	
 	//Skybit collected, sets flag to give player an extra turn (good job, player, have a biscuit)
@@ -111,20 +113,28 @@ public class RingerController : MonoBehaviour {
 		activePlayerGetsExtraTurn = true;
 	}
 
-	void endOfTurnAction(){
-		SteeringController.rollCompleted-= endOfTurnAction;
-		OutOfBoundsHandler.pointCollected-= skyBitCollected;
+	void endOfTurnAction(int index){
+		//SteeringController.rollCompleted-= endOfTurnAction;
+		//OutOfBoundsHandler.pointCollected-= skyBitCollected;
+		ZoogiController.ZoogiTurnCompleteEvent -= endOfTurnAction;
 		if (!isGameOver()) {
-						StartCoroutine (delaySeconds (5));
-						if(activePlayerGetsExtraTurn){
-							activePlayerGetsExtraTurn = false;
-						}
-						else {
-							activePlayer.nextBall ();
-							advanceToNextPlayerTurn ();
-						}
-						waitForTurn ();
-		} else {
+			StartCoroutine (delaySeconds (5));
+
+			if(activePlayerGetsExtraTurn){
+				activePlayerGetsExtraTurn = false;
+			}
+			else {
+
+				if(PlayerTurnCompleteEvent != null){
+					PlayerTurnCompleteEvent(activePlayerIndex);
+				}
+				activePlayer.nextBall();
+				advanceToNextPlayer = true;
+				//advanceToNextPlayerTurn ();
+			}
+			waitForTurn ();
+		}
+		else {
 			Rect displayRect = new Rect(0,0,Screen.width, Screen.height); 
 			GUI.Label(displayRect, "Player " + activePlayer.getUserID() + " Has won!");
 		}
@@ -150,46 +160,42 @@ public class RingerController : MonoBehaviour {
 			//show waiting screen
 			//ping server until it is this players turn again
 	
-			} else if(gameMode == MULTIPLAYER_MODE.HOTSEAT) {
+		} else if(gameMode == MULTIPLAYER_MODE.HOTSEAT) {
+			
+		}
 	
-			}
-	
-			startOfTurn();
+		startOfTurn();
 	}
 
 	void startOfTurn(){
 		//TODO: Show which players turn it is.
 		//TODO: Have them tap a button to begin.
+		if (advanceToNextPlayer) {
+			advanceToNextPlayerTurn();
+		}
+		
 		if(/*!activePlayer.getActiveBall().isOnBoard()*/!(activePlayer.getActiveBall().getBallObject().activeInHierarchy))
 		{
 			activePlayer.getActiveBall().getBallObject().transform.position=ballSpawner.spawnLocation.position;
 			activePlayer.getActiveBall().getBallObject().transform.rotation=ballSpawner.spawnLocation.rotation;
 			
-			activePlayer.getActiveBall().getBallObject().transform.FindChild("Ball").localRotation = Quaternion.identity;
-			activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").localRotation = Quaternion.identity;
-			
-			activePlayer.getActiveBall().getBallObject().transform.FindChild("Ball").localPosition = Vector3.zero;
-			activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").localPosition = Vector3.zero;
-			
-			activePlayer.getActiveBall().getBallObject().transform.FindChild("Ball").rigidbody.velocity = Vector3.zero;
-			
-			activePlayer.getActiveBall().getBallObject().transform.FindChild("Ball").rigidbody.angularVelocity = Vector3.zero;
-			
-	
+			activePlayer.getActiveBall().getBallObject().GetComponent<ZoogiController>().refreshZoogiReferences();
+			activePlayer.getActiveBall().getBallObject().GetComponent<ZoogiController>().resetBallPosition();
+
 			activePlayer.getActiveBall().getBallObject().SetActive(true);
 			
-			activePlayer.getActiveBall().getBallObject().GetComponentInChildren<AimPlayerBall>().enabled=false;
-			activePlayer.getActiveBall().getBallObject().GetComponentInChildren<LaunchController>().enabled=false;
+			//activePlayer.getActiveBall().getBallObject().GetComponentInChildren<AimPlayerBall>().enabled=false;
+			//activePlayer.getActiveBall().getBallObject().GetComponentInChildren<LaunchController>().enabled=false;
 			
 			activePlayer.getActiveBall().initialize();
 			
 			
 		}
-		LaunchController.launchCompleted+=shootingAction;
+		//LaunchController.launchCompleted+=shootingAction;
+		ZoogiController.ZoogiTurnCompleteEvent += endOfTurnAction;
+		activePlayer.getActiveBall().getBallObject().GetComponent<ZoogiController>().startTurn();
 		GUIObject.transform.FindChild("Launch GUI").gameObject.SetActive(true);
-		activePlayer.getActiveBall().possess();
-		//GUIObject.transform.FindChild("Launch GUI").gameObject.SetActive(true);
-		//activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").FindChild("CharacterGUI").gameObject.SetActive(true);
+		//activePlayer.getActiveBall().possess();
 		focusCameraForTurnStart(activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").gameObject);
 
 	}
@@ -201,10 +207,11 @@ public class RingerController : MonoBehaviour {
 		}else{
 			activePlayerIndex=0;
 		}
-		if(PlayerChangeEvent != null){
-			PlayerChangeEvent(activePlayerIndex);
+		if(PlayerTurnStartEvent != null){
+			PlayerTurnStartEvent(activePlayerIndex);
 		}
 		activePlayer=players[activePlayerIndex] as Player;
+		advanceToNextPlayer = false;
 		updateScore ();
 	}
 
@@ -226,7 +233,6 @@ public class RingerController : MonoBehaviour {
 
 		AimPlayerBall aimScript =collectedPlayer.GetComponent<AimPlayerBall>() as AimPlayerBall;
 		if(aimScript!=null){
-			aimScript.playerBall.setOnGameBoard(false);
 			if(aimScript.playerBall.Equals(this.activePlayer.getActiveBall())){
 				aimScript.gameObject.GetComponent<SteeringController>().forceEndTurn();
 			}

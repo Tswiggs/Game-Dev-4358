@@ -98,6 +98,8 @@ public class SteeringController : MonoBehaviour {
 	}
 	public void forceEndTurn(){
 		GetComponent<SteeringController>().enabled= false;
-		rollCompleted();
+		if(rollCompleted != null){
+			rollCompleted();
+		}
 	}
 }

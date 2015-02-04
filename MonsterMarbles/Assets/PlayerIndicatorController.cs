@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PlayerIndicatorController : MonoBehaviour {
@@ -15,7 +15,7 @@ public class PlayerIndicatorController : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		RingerController.PlayerChangeEvent += playerChanged;
+		RingerController.PlayerTurnStartEvent += playerChanged;
 		guiText.font = GUIStyles.getMainMenuStyle().font;
 		guiText.fontSize = maxFontSize;
 		playerChanged(0);

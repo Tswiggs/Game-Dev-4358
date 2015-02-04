@@ -7,7 +7,7 @@ namespace AssemblyCSharp
 	public class Player
 	{
 			/// <summary>
-			/// The zugie balls that the player has at their disposal for this game.
+			/// The zoogi balls that the player has at their disposal for this game.
 			/// </summary>
 			private IList<PlayerBall> playerBalls = new List<PlayerBall> ();
 			private IList<PlayerBallCreator.MONSTER_PREFABS> teamSelection;

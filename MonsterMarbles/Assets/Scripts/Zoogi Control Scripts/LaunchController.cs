@@ -15,10 +15,14 @@ public class LaunchController : MonoBehaviour {
 	public float launchSpin=1;
 	public float maxPower=100;
 	public float powerFade=1;
+
+
 	public delegate void postLaunchAction();
 	public static event postLaunchAction launchCompleted;
+
 	public delegate void launchInformation(GameObject ball, Vector3 launchVector, float xTorque, Vector3 position);
 	public static event launchInformation sendLaunchInformation;
+
 	public delegate void launchEnabled(GameObject associatedObject);
 	public static event launchEnabled LaunchControllerEnabled;
 	
@@ -59,7 +63,7 @@ public class LaunchController : MonoBehaviour {
 			//If the slerp is within 1 degree of completion activate protocol to complete the turn
 			if((timeSpinning>=timeToSpin) && (transform.position.y<=hopStart) && (rigidbody.velocity.y<=0.1f)){
 				isHopping=false;
-				characterGui.SetActive(true);
+				//characterGui.SetActive(true);
 				rigidbody.Sleep();
 				GetComponent<SteeringController>().enabled= false;
 				GetComponent<LaunchController>().enabled = true;
@@ -84,7 +88,6 @@ public class LaunchController : MonoBehaviour {
 	
 	private void performLaunch(float powerFraction){
 		Vector3 launchVector= new Vector3();
-		//launchVector=(transform.position-camera.transform.position)*maxPower*powerFraction*launchScalar;
 		launchVector=transform.parent.FindChild("Character Root").forward*maxPower*powerFraction*launchScalar;
 		launchVector.y=0f;
 		rigidbody.AddForce(launchVector);
@@ -94,7 +97,7 @@ public class LaunchController : MonoBehaviour {
 			audioSource.PlayOneShot(explosionSound);
 		}
 		shouldLaunch=false;
-		characterGui.SetActive(false);
+		//characterGui.SetActive(false);
 		GetComponent<SteeringController>().enabled=true;
 		GetComponent<LaunchController>().enabled=false;
 		camera=Camera.main;
@@ -127,8 +130,12 @@ public class LaunchController : MonoBehaviour {
 			LaunchControllerEnabled(this.gameObject);
 		}
 		
-		if(transform.up!=root.transform.up){hopUpright();}
-		else{characterGui.SetActive(true);}
+		if(transform.up!=root.transform.up){
+			hopUpright();
+		}
+		else{
+			//characterGui.SetActive(true);
+		}
 		power=0f;
 		//GetComponent<LongPressGesture>().LongPressed += pressHandler;
 		GetComponent<FlickGesture>().Flicked += flickHandler;
@@ -141,7 +148,7 @@ public class LaunchController : MonoBehaviour {
 	private void OnDisable()
 	{
 		// don't forget to unsubscribe
-		characterGui.SetActive(false);
+		//characterGui.SetActive(false);
 		//GetComponent<LongPressGesture>().LongPressed -= pressHandler;
 		GetComponent<FlickGesture>().Flicked -= flickHandler;
 		

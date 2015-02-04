@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400010}
+  - 114: {fileID: 11432172}
   m_Layer: 0
   m_Name: Wolfgang
   m_TagString: Untagged
@@ -1070,6 +1071,17 @@ MonoBehaviour:
   keyAimSpeed: 1
   panGesture: {fileID: 11400006}
   beginPullbackPress: {fileID: 11400000}
+--- !u!114 &11432172
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03bcc15f73fe9dc41a070156af7a5b27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1
