@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 using System.Collections;
 using AssemblyCSharp;
 using System.Collections.Generic;
@@ -34,7 +34,10 @@ public class CharacterSelectController : MonoBehaviour {
 	private const int HOTSEAT_MODE = 0;
 	private const int INTERNET_MODE = 1;
 	
-	private Texture unknownPortrait;
+	public Texture unknownPortrait;
+	public Texture wolfgangPortrait;
+	public Texture hotstreakPortrait;
+	public Texture larsPortrait;
 	
 	// Use this for initialization
 	void Start () {
@@ -44,7 +47,7 @@ public class CharacterSelectController : MonoBehaviour {
 		invertedCharacterSelectStyle = GUIStyles.getInvertedCharacterSelectStyle();
 	
 		interfaceNavigation = 0;
-		maxNumberOfCharacters = 2;
+		maxNumberOfCharacters = 1;
 		numberOfSelectedCharacters = 0;
 		
 		currentPlayer = 0;
@@ -66,10 +69,16 @@ public class CharacterSelectController : MonoBehaviour {
 		unlockedCharacters[2] = true;
 		unlockedCharacters[3] = true;
 		
-		characterPortraits[0] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Wolfgang_Portrait.png", typeof(Texture));
+		/*characterPortraits[0] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Wolfgang_Portrait.png", typeof(Texture));
 		characterPortraits[1] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Hotstreak_Portrait.png", typeof(Texture));
+		characterPortraits[2] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Temporary Assets/Lars_Portrait.png", typeof(Texture));
 		
 		unknownPortrait = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Unknown_Portrait.png", typeof(Texture));
+		*/
+		characterPortraits[0] = wolfgangPortrait;
+		characterPortraits[1] = hotstreakPortrait;
+		characterPortraits[2] = larsPortrait;
+		
 	}
 	
 	void OnEnable() {

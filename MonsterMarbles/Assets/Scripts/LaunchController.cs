@@ -46,6 +46,8 @@ public class LaunchController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		
+		
 		power=Mathf.Clamp(power, 0f, maxPower);
 		transform.Rotate(power,0f,0f);
 		if(isHopping){

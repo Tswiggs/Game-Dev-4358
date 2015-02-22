@@ -11,8 +11,11 @@ public class AimPlayerBall : MonoBehaviour {
 	public float aimSnappiness=1;
 	public float keyAimSpeed=1;
 	public SimplePanGesture panGesture;
-	public TapGesture reverseButtonTap;
+	public PressGesture beginPullbackPress;
 	public PlayerBall playerBall;
+	
+	public delegate void buttonTapped();
+	public static event buttonTapped pullbackButtonTapped;
 
 
 	private Quaternion lastLocalRotation;
@@ -26,14 +29,14 @@ public class AimPlayerBall : MonoBehaviour {
 	private void OnEnable()
 	{
 		if (panGesture != null) panGesture.StateChanged += panStateChanged;
-		if (reverseButtonTap != null) reverseButtonTap.Tapped += reverseButtonTapped;
+		if (beginPullbackPress != null) beginPullbackPress.Pressed += beginPullbackTapped;
 		//if (camera.GetComponent<SimplePanGesture>() != null) GetComponent<SimplePanGesture>().StateChanged += panStateChanged;
 	}
 
 	private void OnDisable()
 	{
 		if (panGesture != null) panGesture.StateChanged -= panStateChanged;
-		if (reverseButtonTap != null) reverseButtonTap.Tapped -= reverseButtonTapped;
+		if (beginPullbackPress != null) beginPullbackPress.Pressed -= beginPullbackTapped;
 	}
 
 	// Update is called once per frame
@@ -77,14 +80,10 @@ public class AimPlayerBall : MonoBehaviour {
 		}
 	}
 
-	private void reverseButtonTapped(object sender, EventArgs e)
+	private void beginPullbackTapped(object sender, EventArgs e)
 	{
-		if (transform.parent == null)
-		{
-			localRotationToGo = Quaternion.AngleAxis(179.999f, Vector3.up) * localRotationToGo ;
-		} else
-		{
-			localRotationToGo = Quaternion.AngleAxis(179.999f, transform.parent.InverseTransformDirection(Vector3.up)) * localRotationToGo;
+		if(pullbackButtonTapped != null){
+			pullbackButtonTapped();
 		}
 	}
 }

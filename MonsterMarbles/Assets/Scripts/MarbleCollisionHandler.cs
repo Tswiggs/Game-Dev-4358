@@ -39,15 +39,11 @@ public class MarbleCollisionHandler : MonoBehaviour {
 
 		}
 		else if (collision.collider.CompareTag(Constants.TAG_BUMPER)) {
-			Vector3 forceVector = collision.contacts[0].normal;
-			//forceVector = forceVector - Vector3.Scale(forceVector, new Vector3(2,2,2));
-			//forceVector = forceVector.normalized * getPowerIncrease();
-			//forceDirection.Scale(new Vector3(-1,0,-1));
+			Vector3 forceVector = new Vector3(collision.contacts[0].normal.x,0,collision.contacts[0].normal.z);
 			
-			rigidbody.velocity.Scale(new Vector3(-1,1,-1));
+			rigidbody.velocity = Vector3.Reflect(rigidbody.velocity,forceVector);
 			
 			rigidbody.velocity += forceVector * (rigidbody.velocity.magnitude+getBumperPower());
-			//rigidbody.AddForce(forceVector);
 			
 			hasCollided = true;
 		}
