@@ -85,7 +85,7 @@ public class MainMenuController : MonoBehaviour {
 			
 				GUIStyle creditsStyle = GUIStyles.getTextDisplayStyle();
 			
-				GUI.Label (new Rect(Screen.width/5, Screen.height/2+50, Screen.width/5*3, Screen.height/4), "Produced by Little Fish\nMain Menu Music by Kevin MacLeod", creditsStyle);
+				GUI.Label (new Rect(Screen.width/5, Screen.height/2+50, Screen.width/5*3, Screen.height/4), "Produced by Little Fish\nMusic by Kevin MacLeod", creditsStyle);
 				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 100, 180, 90), "Return", mainMenuStyle)) {
 					interfaceNavigation = 0;
 				}

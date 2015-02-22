@@ -11,7 +11,6 @@ GameObject:
   - 33: {fileID: 3300000}
   - 23: {fileID: 2300000}
   - 95: {fileID: 9500000}
-  - 114: {fileID: 11400026}
   m_Layer: 0
   m_Name: Lars_Model
   m_TagString: Untagged
@@ -38,7 +37,6 @@ GameObject:
   - 114: {fileID: 11400008}
   - 114: {fileID: 11400010}
   - 82: {fileID: 8200000}
-  - 114: {fileID: 11400024}
   m_Layer: 11
   m_Name: Ball
   m_TagString: Player
@@ -54,7 +52,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400004}
-  - 114: {fileID: 11400032}
   m_Layer: 5
   m_Name: CharacterGUI
   m_TagString: Untagged
@@ -74,7 +71,6 @@ GameObject:
   - 64: {fileID: 6400000}
   - 23: {fileID: 2300004}
   - 114: {fileID: 11400012}
-  - 114: {fileID: 11400038}
   m_Layer: 5
   m_Name: DirectionalArrow
   m_TagString: Untagged
@@ -91,7 +87,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 400008}
   - 114: {fileID: 11400014}
-  - 114: {fileID: 11400030}
   m_Layer: 5
   m_Name: Character Root
   m_TagString: Untagged
@@ -111,7 +106,6 @@ GameObject:
   - 64: {fileID: 6400002}
   - 23: {fileID: 2300006}
   - 114: {fileID: 11400016}
-  - 114: {fileID: 11400034}
   m_Layer: 5
   m_Name: Pullback Button
   m_TagString: Untagged
@@ -128,7 +122,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 400012}
   - 114: {fileID: 11400018}
-  - 114: {fileID: 11400036}
   m_Layer: 5
   m_Name: DirectionalArrowPivot
   m_TagString: Untagged
@@ -146,7 +139,6 @@ GameObject:
   - 4: {fileID: 400014}
   - 198: {fileID: 19800000}
   - 199: {fileID: 19900000}
-  - 114: {fileID: 11400028}
   m_Layer: 0
   m_Name: Water Trail
   m_TagString: Untagged
@@ -163,7 +155,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400016}
   - 114: {fileID: 11400020}
-  - 114: {fileID: 11400022}
+  - 114: {fileID: 11448918}
   m_Layer: 0
   m_Name: Lars
   m_TagString: Untagged
@@ -530,7 +522,6 @@ MonoBehaviour:
   launchSpin: 6000
   maxPower: 15
   powerFade: 0
-  hopLandingYThreshold: 4.99999987e-05
   timeToSpin: 1
   hopHeight: 3000
 --- !u!114 &11400002
@@ -610,6 +601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
+  collisionSound: {fileID: 0}
   onCollisionPowerIncrease: 3000
   onCollisionPowerMultiplier: 0
   onCollisionBumperPower: 0
@@ -707,11 +699,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 100016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca1c5a294e10764e9b517aefee286c8, type: 3}
+  m_Script: {fileID: 11500000, guid: ab0ad8452ff104f46bcb512d88c2719e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerReady: 1
---- !u!114 &11400022
+  powerCharged: 0
+  readyToDeployPower: 0
+  waterTrailParticles: {fileID: 100014}
+  LarsBall: {fileID: 100002}
+--- !u!114 &11448918
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -719,142 +714,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 100016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd6fd92df3c974ed690d61989eb183ce, type: 3}
+  m_Script: {fileID: 11500000, guid: 03bcc15f73fe9dc41a070156af7a5b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDeserializing: 0
-  _id: 
-  classId: ca0014d8-0f3f-4546-a898-21eb9136e76b
-  StoreAllComponents: 1
-  Components: []
---- !u!114 &11400024
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd6fd92df3c974ed690d61989eb183ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsDeserializing: 0
-  _id: 
-  classId: a18ffe31-0e60-4edb-a81e-7f69c7e79b39
-  StoreAllComponents: 1
-  Components: []
---- !u!114 &11400026
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd6fd92df3c974ed690d61989eb183ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsDeserializing: 0
-  _id: 
-  classId: d83b0ce2-2dfd-4f1a-ad71-0376cceaabdc
-  StoreAllComponents: 1
-  Components: []
---- !u!114 &11400028
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd6fd92df3c974ed690d61989eb183ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsDeserializing: 0
-  _id: 
-  classId: a45d9d24-ca54-43d8-9110-3e71e86eb062
-  StoreAllComponents: 1
-  Components: []
---- !u!114 &11400030
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd6fd92df3c974ed690d61989eb183ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsDeserializing: 0
-  _id: 
-  classId: d2d559b4-123c-409e-b3e3-c4cdc8067e8b
-  StoreAllComponents: 1
-  Components: []
---- !u!114 &11400032
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd6fd92df3c974ed690d61989eb183ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsDeserializing: 0
-  _id: 
-  classId: 6dd95e51-1ba9-4383-973d-0f3631b4cb39
-  StoreAllComponents: 1
-  Components: []
---- !u!114 &11400034
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd6fd92df3c974ed690d61989eb183ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsDeserializing: 0
-  _id: 
-  classId: ff43d7d0-c148-4f1b-8ab0-e0425785d37d
-  StoreAllComponents: 1
-  Components: []
---- !u!114 &11400036
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd6fd92df3c974ed690d61989eb183ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsDeserializing: 0
-  _id: 
-  classId: 25e89a95-d998-44aa-bdd7-4f789e43bb43
-  StoreAllComponents: 1
-  Components: []
---- !u!114 &11400038
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd6fd92df3c974ed690d61989eb183ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsDeserializing: 0
-  _id: 
-  classId: 9d27b495-7112-4192-aaa7-6ec1f6022686
-  StoreAllComponents: 1
-  Components: []
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1

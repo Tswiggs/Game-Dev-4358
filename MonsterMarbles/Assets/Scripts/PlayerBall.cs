@@ -8,7 +8,6 @@ public class PlayerBall {
 		public PlayerBall(Player owner, GameObject ballObject){
 			this.playerOwner=owner;
 			this.ballObject=ballObject;
-			onGameBoard=false;
 		}
 
 	///<summary>
@@ -23,11 +22,7 @@ public class PlayerBall {
 	/// The player that owns this ball.
 	/// </summary>
 		private Player playerOwner; 
-
-	/// <summary>
-	/// <c>true</c> if the ball is on the game board, <c> false if it is not.</c>
-	/// </summary>
-	private bool onGameBoard; 
+		 
 
 	private GameObject ballObject;
 
@@ -48,12 +43,12 @@ public class PlayerBall {
 	{
 			getBallObject().GetComponentInChildren<AimPlayerBall>().enabled=true;
 			getBallObject().GetComponentInChildren<LaunchController>().enabled=true;
+			//getBallObject().transform.parent.FindChild("Character Root").gameObject.SetActive(true);
 	}
 
 		public Player getPlayer(){return playerOwner;}
 		public void setPlayer(Player newOwner){playerOwner=newOwner;}
-		public bool isOnBoard(){return onGameBoard;}
-		public void setOnGameBoard(bool onGameBoard){this.onGameBoard= onGameBoard;}
+		public bool isOnBoard(){return ballObject.activeSelf;}
 		public GameObject getBallObject(){return ballObject;}
 		public void setBallObject(GameObject ballObject)
 		{

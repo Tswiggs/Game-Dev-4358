@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class SkyBitCount : MonoBehaviour {
@@ -18,7 +18,7 @@ public class SkyBitCount : MonoBehaviour {
 	
 	void Start () {
 		OutOfBoundsHandler.pointCollected += increaseSkyBitCount;
-		RingerController.PlayerChangeEvent += changePlayer;
+		RingerController.PlayerTurnStartEvent += changePlayer;
 		
 		playerBitCounts = new int[4];
 	}

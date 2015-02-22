@@ -8,7 +8,7 @@ using AssemblyCSharp;
 public class PlayerBallCreator : MonoBehaviour {
 	public  Transform spawnLocation;
 	public  Characters characterPrefabs;
-	///<summary> the different zugies that can be created.</summary>
+	///<summary> the different zoogis that can be created.</summary>
 	public enum MONSTER_PREFABS 
 	{
 		WOLFGANG, HOTSTREAK, LARS

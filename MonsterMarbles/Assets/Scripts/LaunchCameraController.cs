@@ -66,7 +66,8 @@ public class LaunchCameraController : MonoBehaviour {
 			// Always look at the target
 			transform.LookAt (target);
 			break;
-
+			
+			//Camera is positioned far above the arena, giving a "bird's eye" view
 		case "birdsEye":
 		
 			// Calculate the current rotation angles

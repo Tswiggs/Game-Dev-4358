@@ -23,6 +23,19 @@ public class Constants : MonoBehaviour {
 		CHARACTER_INDEX[2] = "Lars";
 		CHARACTER_INDEX[3] = "Snowdrop";
 		CHARACTER_INDEX[4] = "Aurora";
+		CHARACTER_INDEX[5] = "Pinpoint";
+		CHARACTER_INDEX[6] = "Reginald";
+		CHARACTER_INDEX[7] = "Seneshell";
+		CHARACTER_INDEX[8] = "Bandit";
+		CHARACTER_INDEX[9] = "Jangles";
+		CHARACTER_INDEX[10] = "Vanish";
+		CHARACTER_INDEX[11] = "Tam-Tam";
+		CHARACTER_INDEX[12] = "Juan";
+		CHARACTER_INDEX[13] = "Krackles";
+		CHARACTER_INDEX[14] = "Razor";
+		CHARACTER_INDEX[15] = "Nol";
+		CHARACTER_INDEX[16] = "Park";
+		CHARACTER_INDEX[17] = "Hundred Track";
 	}
 	
 }

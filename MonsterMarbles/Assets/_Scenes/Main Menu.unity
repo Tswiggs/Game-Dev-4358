@@ -14,7 +14,7 @@ SceneSettings:
 RenderSettings:
   m_Fog: 0
   m_FogColor: {r: .448529422, g: .748985708, b: 1, a: 1}
-  m_FogMode: 3
+  m_FogMode: 1
   m_FogDensity: .00999999978
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
@@ -16872,7 +16872,7 @@ Transform:
   m_GameObject: {fileID: 1404276586}
   m_LocalRotation: {x: .00372628286, y: -.986318111, z: .124216445, w: .108319215}
   m_LocalPosition: {x: 22.7674999, y: 120.20285, z: 130.568497}
-  m_LocalScale: {x: .278094947, y: .27809459, z: .278094739}
+  m_LocalScale: {x: .278094918, y: .27809459, z: .278094739}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -16887,7 +16887,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: b82bac98457e5eb4db61d967ec43dc56, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: .665000021
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -21197,6 +21197,10 @@ Prefab:
       propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 57abc8c5dd62ed348a601d2545cbe5c8, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 57abc8c5dd62ed348a601d2545cbe5c8, type: 2}
   m_RootGameObject: {fileID: 513361228}
@@ -25194,7 +25198,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d5da76d1d4c949744b61d2c788c59b57, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: d5da76d1d4c949744b61d2c788c59b57, type: 2}
       propertyPath: m_LocalRotation.x

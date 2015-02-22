@@ -35,7 +35,7 @@ public class FollowPositionAndRotation : MonoBehaviour {
 				
 				forward1 = new Vector2(forward1.y,forward1.x*-1f);
 				
-				Vector2 currentForward = new Vector2(transform.forward.x,transform.forward.z);
+				Vector2 currentForward = new Vector2(target.forward.x,target.forward.z);
 				
 				if(Vector2.Dot(currentForward,forward1) < Vector2.Dot(currentForward,forward2)){
 					transform.forward = new Vector3(forward2.x, 0, forward2.y);
@@ -43,6 +43,7 @@ public class FollowPositionAndRotation : MonoBehaviour {
 				else{
 					transform.forward = new Vector3(forward1.x, 0, forward1.y);
 				}
+				//transform.forward = new Vector3(forward2.x, 0, forward2.y);
 			}
 		}
 	}

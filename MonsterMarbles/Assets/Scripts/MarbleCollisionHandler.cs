@@ -5,6 +5,8 @@ public class MarbleCollisionHandler : MonoBehaviour {
 
 
 	public AudioSource audioSource;
+	
+	public AudioClip collisionSound;
 
 	public float onCollisionPowerIncrease;
 	public float onCollisionPowerMultiplier;
@@ -16,6 +18,9 @@ public class MarbleCollisionHandler : MonoBehaviour {
 	
 	public static float DEFAULT_COLLISION_POWER_INCREASE = 10f;
 	public static float DEFAULT_COLLISION_POWER_MULTIPLIER = 10f;
+	
+	public delegate void collisionEvent(Collision collision, Rigidbody original);
+	public static event collisionEvent playerHasCollided;
 
 	// Use this for initialization
 	void Start () {
@@ -23,19 +28,18 @@ public class MarbleCollisionHandler : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		if(hasCollided){
-					
-		}
-		else if (collision.collider.CompareTag(Constants.TAG_PLAYER) || collision.collider.CompareTag (Constants.TAG_MARBLE)) {
-			if(audioSource != null){
-				audioSource.Play();
-			}
+		if (collision.collider.CompareTag(Constants.TAG_PLAYER) || collision.collider.CompareTag (Constants.TAG_MARBLE)) {
 			
 			Vector3 forceVector = collision.relativeVelocity *rigidbody.mass;
 			forceVector.Scale(new Vector3(getPowerMultiplier(),0,getPowerMultiplier()));
 			rigidbody.AddForce(forceVector);
 			
-			hasCollided = true;
+			if(this.CompareTag(Constants.TAG_PLAYER)){
+				if(playerHasCollided != null){
+					playerHasCollided(collision, rigidbody);
+				}
+			}
+			
 
 		}
 		else if (collision.collider.CompareTag(Constants.TAG_BUMPER)) {
@@ -45,7 +49,16 @@ public class MarbleCollisionHandler : MonoBehaviour {
 			
 			rigidbody.velocity += forceVector * (rigidbody.velocity.magnitude+getBumperPower());
 			
-			hasCollided = true;
+			if(this.CompareTag(Constants.TAG_PLAYER)){
+				if(playerHasCollided != null){
+					playerHasCollided(collision, rigidbody);
+				}
+			}
+			
+		}
+		
+		if((collision.collider.CompareTag(Constants.TAG_PLAYER) || collision.collider.CompareTag(Constants.TAG_PLAYER)) && audioSource != null && collisionSound != null){
+			audioSource.PlayOneShot(collisionSound);
 		}
 
 		
@@ -80,6 +93,5 @@ public class MarbleCollisionHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		hasCollided = false;
 	}
 }
