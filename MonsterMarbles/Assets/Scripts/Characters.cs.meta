@@ -2,7 +2,10 @@ fileFormatVersion: 2
 guid: 8e08fa536e48ef34f9683d1b15da49c1
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Wolfgang: {fileID: 100000, guid: c33c1113f0192454db06a7f9d7ea2e71, type: 2}
+  - Hotstreak: {fileID: 100018, guid: cb242478285cc5340afc444cea7d22db, type: 2}
+  - Lars: {fileID: 100016, guid: 8f3dbc86f150c3f4cb357227fda7d5d2, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

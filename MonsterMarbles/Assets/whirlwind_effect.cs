@@ -2,14 +2,9 @@
 using System.Collections;
 
 public class whirlwind_effect : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public float windStregnth=10f;
+	void OnTriggerStay(Collider other) {
+		Vector3 pushDirection= other.transform.position - gameObject.transform.position ;
+		other.gameObject.rigidbody.AddForce(pushDirection*windStregnth);
 	}
 }
