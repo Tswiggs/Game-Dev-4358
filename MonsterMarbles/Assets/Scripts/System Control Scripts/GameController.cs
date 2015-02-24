@@ -69,7 +69,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	void OnLevelWasLoaded(int level){
-		if (level==1){
+		if (level==1 || level==2){
 			ringerController=GameObject.Find("SceneController").GetComponent<RingerController>();
 			ringerController.initialize(this, multiplayerMode, players);
 			//multiplayerMode=null;

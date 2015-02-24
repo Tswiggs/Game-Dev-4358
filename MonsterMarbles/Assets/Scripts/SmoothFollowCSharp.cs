@@ -20,13 +20,13 @@ public class SmoothFollowCSharp : MonoBehaviour
 	// The target we are following
 	public Transform target;
 	// The distance in the x-z plane to the target
-	public float distance = 10.0f;
+	public float distance = 8.0f;
 	// the height we want the camera to be above the target
-	public float height = 5.0f;
+	public float height = 28f;
 	// How much we 
-	public float heightDamping = 2.0f;
-	public float rotationDamping = 3.0f;
-	public float distanceDamping = 2.0f;
+	public float heightDamping = .5f;
+	public float rotationDamping = 1f;
+	public float distanceDamping = 1f;
 	
 	private float currentRotationAngle;
 	private float currentHeight;
