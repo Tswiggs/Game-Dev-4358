@@ -89,13 +89,12 @@ public class RingerScoreTracker
 				count += roundMatrix[roundIndex,x];
 			}
 			skybitsForRound -= count;
-			
+			roundIndex += 1;
 			for(int x = 0; x < roundWins.Length; x++){
 				if(playerScoreChange != null){
 					playerScoreChange(roundMatrix[roundIndex,x], x);
 				}
 			}
-			roundIndex += 1;
 			ZoogiController.ZoogiTurnCompleteEvent -= advanceRound;
 	
 		}
