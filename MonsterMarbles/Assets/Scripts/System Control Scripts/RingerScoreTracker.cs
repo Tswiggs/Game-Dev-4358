@@ -11,12 +11,15 @@ public class RingerScoreTracker
 	private int[,] roundMatrix;
 	private int[] roundWins;
 	private int numberOfPlayers;
+	private int numberOfRounds;
 	
 	private int playerIndex = 0;
 	private int roundIndex = 0;
 	
 	private int skybitsForRound = 0;
 	private int totalSkybits = 0;
+	
+	private bool roundWon = false;
 	
 	public delegate void broadcastScore(int score, int player);
 	public static event broadcastScore playerScoreChange;
@@ -31,6 +34,9 @@ public class RingerScoreTracker
 			roundMatrix = new int[numRounds,numPlayers];
 			roundWins = new int[numPlayers];
 			numberOfPlayers = numPlayers;
+			numberOfRounds = numRounds;
+			
+			roundWon = false;
 			
 			playerIndex = currentPlayer;
 			roundIndex = 0;
@@ -59,26 +65,31 @@ public class RingerScoreTracker
 		}
 		
 		public void checkForRoundWin(){
-			for(int x = 0; x < numberOfPlayers; x++){
-				if(roundMatrix[roundIndex,x] >= (Math.Floor((double)skybitsForRound/2)+1)){
-					roundWins[x] += 1;
-					if(playerHasWonRound != null){
-						playerHasWonRound(x);
+			if(!roundWon){
+				for(int x = 0; x < numberOfPlayers; x++){
+					if(roundMatrix[roundIndex,x] >= (Math.Floor((double)skybitsForRound/2)+1)){
+						roundWins[x] += 1;
+						roundWon = true;
+						
+						if(playerHasWonRound != null){
+							playerHasWonRound(x);
+						}
+						
+						x = numberOfPlayers;
+						checkForGameWin();
+						RingerController.PlayerTurnCompleteEvent += advanceRound;
 					}
-					x = roundMatrix.Length;
-					checkForGameWin();
-					ZoogiController.ZoogiTurnCompleteEvent += advanceRound;
 				}
-			}
+			}	
 		}
 		
 		public void checkForGameWin(){
 			for(int x = 0; x < numberOfPlayers; x++){
-			if(roundWins[x] > (Math.Floor((double)roundMatrix.Length/2)+1)){
+			if(roundWins[x] >= (Math.Floor((double)numberOfRounds/2)+1)){
 					if(playerHasWonGame != null){
 						playerHasWonGame(x);
 					}
-					x = roundWins.Length;
+					x = numberOfPlayers;
 				}
 			}
 		}
@@ -89,13 +100,16 @@ public class RingerScoreTracker
 				count += roundMatrix[roundIndex,x];
 			}
 			skybitsForRound -= count;
-			roundIndex += 1;
-			for(int x = 0; x < roundWins.Length; x++){
-				if(playerScoreChange != null){
-					playerScoreChange(roundMatrix[roundIndex,x], x);
+			if(roundIndex < numberOfRounds-1){
+				roundIndex += 1;
+				for(int x = 0; x < roundWins.Length; x++){
+					if(playerScoreChange != null){
+						playerScoreChange(roundMatrix[roundIndex,x], x);
+					}
 				}
 			}
-			ZoogiController.ZoogiTurnCompleteEvent -= advanceRound;
+			roundWon = false;
+			RingerController.PlayerTurnCompleteEvent -= advanceRound;
 	
 		}
 		

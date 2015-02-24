@@ -11,12 +11,12 @@ public class VictoryController : MonoBehaviour {
 	private float timer = 0;
 	// Use this for initialization
 	void Start () {
-		SkyBitCount.victoryEvent += displayVictoryScreen;
+		RingerScoreTracker.playerHasWonGame += displayVictoryScreen;
 	}
 	
 	void displayVictoryScreen(int playerIndex){
 		playerHasWon = true;
-		text.enabled = true;
+		//text.enabled = true;
 		string victoryText = "Player ";
 		victoryText += (playerIndex+1).ToString ();
 		victoryText+= " Has Won!";

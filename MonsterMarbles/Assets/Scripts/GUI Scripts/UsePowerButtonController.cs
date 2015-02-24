@@ -17,12 +17,13 @@ public class UsePowerButtonController : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		setButtonState();
 		LaunchController.LaunchControllerEnabled += focusNewBallPower;
+		setButtonState();
 	}
 	
 	void OnEnable() {
 		LaunchController.LaunchControllerEnabled += focusNewBallPower;
+		ZoogiController.ZoogiTurnStartEvent += recheckButtonState;
 		setButtonState();
 	}
 	
@@ -40,6 +41,10 @@ public class UsePowerButtonController : MonoBehaviour {
 	
 	void focusNewBallPower(GameObject ball){
 		target = ball.transform.parent.gameObject.GetComponent<ZoogiPower>();
+		setButtonState();
+	}
+	
+	void recheckButtonState(int index){
 		setButtonState();
 	}
 	

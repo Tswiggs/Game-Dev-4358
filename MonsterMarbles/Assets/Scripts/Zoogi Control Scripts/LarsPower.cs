@@ -14,7 +14,10 @@ public class LarsPower : ZoogiPower {
 	// Use this for initialization
 	void Start () {
 		LarsBall = transform.FindChild("Ball").gameObject;
-		//powerCharged = true;
+	}
+	
+	void Awake(){
+		chargePower();
 	}
 	
 	

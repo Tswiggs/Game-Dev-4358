@@ -49,6 +49,10 @@ public class WolfgangPower : ZoogiPower {
 		
 	}
 	
+	void Awake(){
+		chargePower();
+	}
+	
 	// Update is called once per frame
 	void Update () {
 		if (isActivated && !hasLaunched) {

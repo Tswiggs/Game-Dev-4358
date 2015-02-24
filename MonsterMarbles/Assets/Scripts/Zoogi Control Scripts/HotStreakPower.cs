@@ -20,6 +20,12 @@ public class HotStreakPower : ZoogiPower {
 		HotStreakBall = transform.FindChild("Ball").gameObject;
 		//HotStreakBall.GetComponent<TapGesture> ().Tapped += groundSlam;
 		SteeringController.rollCompleted += rollComplete;
+		
+		
+	}
+	
+	void Awake(){
+		chargePower();
 	}
 	
 	// Update is called once per frame

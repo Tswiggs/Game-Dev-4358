@@ -63,18 +63,19 @@ public class RingerController : MonoBehaviour {
 	void Start () {
 		//players = new ArrayList (); 
 		gameMode = MULTIPLAYER_MODE.HOTSEAT; 
-		OutOfBoundsHandler.pointCollected += incrementScoreForCurrentPlayer;
 		OutOfBoundsHandler.playerCollected += playerKOed;
 		
 		RingerScoreTracker.playerHasWonRound += playerHasWonRound;
+		RingerScoreTracker.playerHasWonGame += playerHasWonGame;
 		
-		scoreTracker = new RingerScoreTracker(2,5,0);
+		scoreTracker = new RingerScoreTracker(2,3,0);
 		
 		if(dropSkybits != null){
 			dropSkybits(7);
 		}
 		
-		scoreText.text = "X 0"; 
+		scoreText.text = "X 0";
+		
 	}
 
 	public void initialize(GameController gameController, string multiplayerMode, ArrayList players){
@@ -136,8 +137,8 @@ public class RingerController : MonoBehaviour {
 		if (!isGameOver()) {
 			StartCoroutine (delaySeconds (5));
 			
-			if(activePlayerGetsExtraTurn){
-				activePlayerGetsExtraTurn = false;
+			if(activePlayerGetsExtraTurn && !roundWonFlag){
+				
 			}
 			else {
 
@@ -152,6 +153,7 @@ public class RingerController : MonoBehaviour {
 				advanceToNextPlayer = true;
 				//advanceToNextPlayerTurn ();
 			}
+			activePlayerGetsExtraTurn = false;
 			waitForTurn ();
 		}
 		else {
@@ -167,7 +169,12 @@ public class RingerController : MonoBehaviour {
 	
 	void playerHasWonRound(int index){
 		roundWonFlag = true;
-		DisplayGUIText.displayFormattedText("Player {0} has won the round!",5);
+		DisplayGUIText.displayFormattedText("Player {0}\n has won the round!",5);
+	}
+	
+	void playerHasWonGame(int index){
+		roundWonFlag = true;
+		DisplayGUIText.displayFormattedText("Player {0}\n has won the game!",6);
 	}
 	
 	void performChangeOfRoundEvents(){
@@ -249,19 +256,8 @@ public class RingerController : MonoBehaviour {
 		}
 		activePlayer=players[activePlayerIndex] as Player;
 		advanceToNextPlayer = false;
-		updateScore ();
 	}
 
-	public void updateScore()
-	{
-		//scoreText.text = "X " + activePlayer.getScore();
-	}
-
-	public void incrementScoreForCurrentPlayer()
-	{
-		activePlayer.setScore (activePlayer.getScore () + POINTS_FOR_SKY_BIT);
-		updateScore ();
-	}
 	public void playerKOed(GameObject collectedPlayer){
 		//TODO: Implement the detection of who this ball belonged to.
 		// then add a power charge to the character who KOed it if it was
@@ -274,14 +270,15 @@ public class RingerController : MonoBehaviour {
 				activePlayerGetsExtraTurn = false;
 				aimScript.gameObject.GetComponent<SteeringController>().forceEndTurn();
 			}
-			else if(aimScript.playerBall.getPlayer().Equals(this.activePlayer)){
+			else if(aimScript.playerBall.getPlayer().getUserID() == this.activePlayer.getUserID()){
 				//do nothing because you dont get superpowers for being a loser
 				// and knocking your own guys out.
 			}else{
 				//if it reaches this logic branch then the KOed ball belonged to another player
-
+				
 				activePlayer.getActiveBall().getBallObject().GetComponent<ZoogiPower>().chargePower();
-
+				DisplayGUIText.displayUnformattedText("Power Charged!");
+				
 			}
 		}
 	}
