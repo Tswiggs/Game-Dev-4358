@@ -156,12 +156,14 @@ public class CharacterSelectController : MonoBehaviour {
 			}
 			else if(currentPlayer == 1){
 				this.enabled = false;
-				mainMenuController.newMatch(Constants.SCENE_PILA_PLAINS,"HOTSEAT",player0,player1);
+				mainMenuController.sendTeamDetails("HOTSEAT",player0,player1);
+				mainMenuController.newMatch();
 			}
 		}
 		else{
 		this.enabled = false;
-			mainMenuController.newMatch(Constants.SCENE_PILA_PLAINS,"HOTSEAT",player0,player0);
+			mainMenuController.sendTeamDetails("HOTSEAT",player0,player0);
+			mainMenuController.newMatch();
 		}
 	}
 	

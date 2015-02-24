@@ -15,6 +15,12 @@ public class MainMenuController : MonoBehaviour {
 	private GUIStyle mainMenuStyle;
 	public GUITexture title;
 	
+	private string selectedGameMode = Constants.SCENE_PILA_PLAINS;
+	private string selectedMultiplayerMode;
+	private List<PlayerBallCreator.MONSTER_PREFABS> selectedTeam1Roster;
+	private List<PlayerBallCreator.MONSTER_PREFABS> selectedTeam2Roster;
+	
+	
 	private enum UserInterface {
 		NO_INTERFACE,LOGGED_OUT,LOGGED_IN_NO_GAMES,LOGGED_IN_GAMES_IN_PROGRESS
 	}
@@ -68,11 +74,17 @@ public class MainMenuController : MonoBehaviour {
 				}
 			}
 			else if (interfaceNavigation == 1){ //Game Mode Menu
-				if (GUI.Button (new Rect (Screen.width / 2 - 150, ((Screen.height/5)*3) - 70, 300, 140), "Ringer Royale", mainMenuStyle)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - 150, ((Screen.height/5)*3) - 90, 300, 140), "Pila Plains", mainMenuStyle)) {
+					selectedGameMode = Constants.SCENE_PILA_PLAINS;
 					characterSelectController.enabled = true;
 					this.enabled = false;
 				}
-				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 100, 180, 90), "Return", mainMenuStyle)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - 150, ((Screen.height/5)*3) + 50, 300, 140), "Frostwind\n Mountain", mainMenuStyle)) {
+					selectedGameMode = Constants.SCENE_FROSTWIND_MOUNTAIN;
+					characterSelectController.enabled = true;
+					this.enabled = false;
+				}
+				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 110, 180, 90), "Return", mainMenuStyle)) {
 					interfaceNavigation = 0;
 				}
 			}
@@ -118,12 +130,18 @@ public class MainMenuController : MonoBehaviour {
 		}
 	}
 	
-	public void newMatch(string gameMode, string multiplayerMode, List<PlayerBallCreator.MONSTER_PREFABS> team1, List<PlayerBallCreator.MONSTER_PREFABS> team2){
-		if(team2 != null){
-			gameController.newMatch(gameMode,multiplayerMode,team1,team2,gameController.getUser(),gameController.getUser());
+	public void sendTeamDetails(string multiplayerMode, List<PlayerBallCreator.MONSTER_PREFABS> team1, List<PlayerBallCreator.MONSTER_PREFABS> team2){
+		selectedMultiplayerMode = multiplayerMode;
+		selectedTeam1Roster = team1;
+		selectedTeam2Roster = team2;
+	}
+	
+	public void newMatch(){
+		if(selectedTeam2Roster != null){
+			gameController.newMatch(selectedGameMode,selectedMultiplayerMode,selectedTeam1Roster,selectedTeam2Roster,gameController.getUser(),gameController.getUser());
 		}
 		else {
-			gameController.newMatch(gameMode,multiplayerMode,team1,team1,gameController.getUser(),gameController.getUser());
+			gameController.newMatch(selectedGameMode,selectedMultiplayerMode,selectedTeam1Roster,selectedTeam1Roster,gameController.getUser(),gameController.getUser());
 		}
 	}
 	
@@ -131,13 +149,22 @@ public class MainMenuController : MonoBehaviour {
 	void Update () {
 		if(Debug.isDebugBuild){
 			if(Input.GetKeyDown("space")){
+			
+				selectedGameMode = Constants.SCENE_PILA_PLAINS;
+				
 				List<PlayerBallCreator.MONSTER_PREFABS> team1 = new List<PlayerBallCreator.MONSTER_PREFABS>();
 				team1.Add(PlayerBallCreator.MONSTER_PREFABS.WOLFGANG);
+				
+				selectedTeam1Roster = team1;
 				
 				List<PlayerBallCreator.MONSTER_PREFABS> team2 = new List<PlayerBallCreator.MONSTER_PREFABS>();
 				team2.Add(PlayerBallCreator.MONSTER_PREFABS.HOTSTREAK);
 				
-				newMatch (Constants.SCENE_PILA_PLAINS, "HOTSEAT", team1, team2);
+				selectedTeam2Roster = team2;
+				
+				selectedMultiplayerMode = "HOTSEAT";
+				
+				newMatch();
 			}
 		}
 	}
