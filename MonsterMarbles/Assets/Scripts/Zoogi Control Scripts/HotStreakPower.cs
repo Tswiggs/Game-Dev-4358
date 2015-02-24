@@ -24,7 +24,7 @@ public class HotStreakPower : ZoogiPower {
 	
 	// Update is called once per frame
 	void Update () {
-		powerCharged = true;
+
 	}
 	
 	override public bool deployPower(){

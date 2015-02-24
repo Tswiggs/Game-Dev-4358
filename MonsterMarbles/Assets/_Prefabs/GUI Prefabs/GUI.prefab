@@ -458,7 +458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17cc2d0b743162448fda045a405c6d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalSkyBits: 7
   counter: {fileID: 13200000}
 --- !u!114 &11400002
 MonoBehaviour:

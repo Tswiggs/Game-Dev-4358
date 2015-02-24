@@ -4,8 +4,6 @@ using System.Collections;
 public class SkyBitCount : MonoBehaviour {
 
 	
-	public int totalSkyBits;
-	private int skyBitsCollected;
 	
 	public GUIText counter;
 	private int activePlayerIndex = 0;
@@ -17,8 +15,8 @@ public class SkyBitCount : MonoBehaviour {
 	
 	
 	void Start () {
-		OutOfBoundsHandler.pointCollected += increaseSkyBitCount;
 		RingerController.PlayerTurnStartEvent += changePlayer;
+		RingerScoreTracker.playerScoreChange += setPlayerScore;
 		
 		playerBitCounts = new int[4];
 	}
@@ -36,28 +34,7 @@ public class SkyBitCount : MonoBehaviour {
 		counter.text = text;
 	}
 	
-	int victoryCheck(){
-		
-		if(skyBitsCollected >= totalSkyBits){
-			int highestTotal = 0;
-			int playerWithHighestTotal = 0;
-			for(int x = 0; x < playerBitCounts.Length; x++){
-				if(playerBitCounts[x] > highestTotal){
-					highestTotal = playerBitCounts[x];
-					playerWithHighestTotal = x;
-				}
-			}
-			if(victoryEvent != null){
-				victoryEvent(playerWithHighestTotal);
-				return playerWithHighestTotal;
-			}
-		}
-		return -1;
-	}
-	
-	void increaseSkyBitCount(){
-		playerBitCounts[activePlayerIndex] += 1;
-		skyBitsCollected += 1;
-		victoryCheck();
+	void setPlayerScore(int score, int playerIndex){
+		playerBitCounts[playerIndex] = score;
 	}
 }

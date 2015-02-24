@@ -327,7 +327,7 @@ GameObject:
   - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Marble
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -653,6 +653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
+  collisionSound: {fileID: 0}
   onCollisionPowerIncrease: 3000
   onCollisionPowerMultiplier: 0
   onCollisionBumperPower: 0
@@ -669,6 +670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
+  collisionSound: {fileID: 0}
   onCollisionPowerIncrease: 0
   onCollisionPowerMultiplier: 0
   onCollisionBumperPower: 0

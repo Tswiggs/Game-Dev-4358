@@ -167,5 +167,9 @@ public class MainMenuController : MonoBehaviour {
 				newMatch();
 			}
 		}
+		
+		if(Input.GetKeyDown("escape"){
+			Application.Quit();
+		}
 	}
 }

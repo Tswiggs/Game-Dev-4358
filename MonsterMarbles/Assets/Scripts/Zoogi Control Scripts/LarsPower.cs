@@ -20,10 +20,6 @@ public class LarsPower : ZoogiPower {
 	
 	// Update is called once per frame
 	void Update () {
-		powerCharged = true;
-		if(Input.GetKeyDown("space")){
-			deployPower();
-		}
 
 	}
 	

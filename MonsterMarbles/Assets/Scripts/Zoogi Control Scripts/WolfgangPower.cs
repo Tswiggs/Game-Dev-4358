@@ -51,7 +51,6 @@ public class WolfgangPower : ZoogiPower {
 	
 	// Update is called once per frame
 	void Update () {
-		powerCharged = true;
 		if (isActivated && !hasLaunched) {
 				wolfgangBall2.transform.rotation = wolfgangBallOriginal.transform.rotation; 
 				wolfgangBall2.rigidbody.velocity = wolfgangBallOriginal.rigidbody.velocity;

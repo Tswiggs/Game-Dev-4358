@@ -13,7 +13,6 @@ public class RingerController : MonoBehaviour {
 	public static int POINTS_FOR_SKY_BIT = 3; 
 	public int remainingSkybits;
 
-
 	public MULTIPLAYER_MODE gameMode; 
 	/// <summary>
 	/// The players.
@@ -33,6 +32,8 @@ public class RingerController : MonoBehaviour {
 	public GameObject objectCatcher; 
 	public GameController gameController;
 	public PlayerBallCreator ballSpawner;
+	
+	public RingerScoreTracker scoreTracker;
 
 	/// <summary>
 	/// The game object in unity that displays the score.
@@ -48,17 +49,31 @@ public class RingerController : MonoBehaviour {
 	public static event focusChange PlayerTurnStartEvent;
 	public static event focusChange PlayerTurnCompleteEvent;
 	
+	public delegate void spawnItems(int amount);
+	public static event spawnItems dropSkybits;
+	
 	public bool isShooting=false;
 	private int activePlayerIndex=0;
 	
 	private bool activePlayerGetsExtraTurn = false;
 	private bool advanceToNextPlayer = false;
+	
+	private bool roundWonFlag = false;
 
 	void Start () {
 		//players = new ArrayList (); 
 		gameMode = MULTIPLAYER_MODE.HOTSEAT; 
 		OutOfBoundsHandler.pointCollected += incrementScoreForCurrentPlayer;
 		OutOfBoundsHandler.playerCollected += playerKOed;
+		
+		RingerScoreTracker.playerHasWonRound += playerHasWonRound;
+		
+		scoreTracker = new RingerScoreTracker(2,5,0);
+		
+		if(dropSkybits != null){
+			dropSkybits(7);
+		}
+		
 		scoreText.text = "X 0"; 
 	}
 
@@ -80,12 +95,13 @@ public class RingerController : MonoBehaviour {
 				player.addPlayerBall(ball);
 			}
 		}
+		
 		waitForTurn();
 	}
 
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Escape)){
-			Application.Quit();
+			Application.LoadLevel("Main Menu");
 		}
 		
 		if(Input.GetKeyDown (KeyCode.A)){
@@ -119,7 +135,7 @@ public class RingerController : MonoBehaviour {
 		ZoogiController.ZoogiTurnCompleteEvent -= endOfTurnAction;
 		if (!isGameOver()) {
 			StartCoroutine (delaySeconds (5));
-
+			
 			if(activePlayerGetsExtraTurn){
 				activePlayerGetsExtraTurn = false;
 			}
@@ -127,6 +143,10 @@ public class RingerController : MonoBehaviour {
 
 				if(PlayerTurnCompleteEvent != null){
 					PlayerTurnCompleteEvent(activePlayerIndex);
+				}
+				if(roundWonFlag){
+					performChangeOfRoundEvents();
+					roundWonFlag = false;
 				}
 				activePlayer.nextBall();
 				advanceToNextPlayer = true;
@@ -138,6 +158,23 @@ public class RingerController : MonoBehaviour {
 			Rect displayRect = new Rect(0,0,Screen.width, Screen.height); 
 			GUI.Label(displayRect, "Player " + activePlayer.getUserID() + " Has won!");
 		}
+	}
+	
+	int checkForGameWon(){
+		
+		return -1;
+	}
+	
+	void playerHasWonRound(int index){
+		roundWonFlag = true;
+		DisplayGUIText.displayFormattedText("Player {0} has won the round!",5);
+	}
+	
+	void performChangeOfRoundEvents(){
+		if(dropSkybits != null){
+			dropSkybits(7-scoreTracker.skybitsInPlay());
+		}
+		DisplayGUIText.displayUnformattedText("Begin Round "+(scoreTracker.getCurrentRound()+1).ToString()+"!");
 	}
 
 	bool isGameOver()
@@ -234,6 +271,7 @@ public class RingerController : MonoBehaviour {
 		AimPlayerBall aimScript =collectedPlayer.GetComponent<AimPlayerBall>() as AimPlayerBall;
 		if(aimScript!=null){
 			if(aimScript.playerBall.Equals(this.activePlayer.getActiveBall())){
+				activePlayerGetsExtraTurn = false;
 				aimScript.gameObject.GetComponent<SteeringController>().forceEndTurn();
 			}
 			else if(aimScript.playerBall.getPlayer().Equals(this.activePlayer)){
@@ -242,7 +280,7 @@ public class RingerController : MonoBehaviour {
 			}else{
 				//if it reaches this logic branch then the KOed ball belonged to another player
 
-				//TODO: Insert power up granting logic here
+				activePlayer.getActiveBall().getBallObject().GetComponent<ZoogiPower>().chargePower();
 
 			}
 		}
