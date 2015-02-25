@@ -12,16 +12,29 @@ public class BonusShotIndicatorController : MonoBehaviour {
 	private float animationTimer = 0;
 	private bool beginAnimation = false;
 	
+	private bool alreadyPlayedThisTurn = false;
+	
 	// Use this for initialization
 	void Start () {
 		originalScale = transform.localScale.x;
 		OutOfBoundsHandler.pointCollected += skyBitCollected;
+		ZoogiController.ZoogiTurnCompleteEvent += newTurn;
 		bonusShotGUITexture.enabled = false;
 	}
 	
 	void skyBitCollected(){
-		beginAnimation = true;
-		bonusShotGUITexture.enabled = true;
+		if(alreadyPlayedThisTurn){
+		
+		}
+		else{
+			beginAnimation = true;
+			bonusShotGUITexture.enabled = true;
+			alreadyPlayedThisTurn = true;
+		}
+	}
+	
+	void newTurn(int index){
+		alreadyPlayedThisTurn = false;
 	}
 	
 	// Update is called once per frame

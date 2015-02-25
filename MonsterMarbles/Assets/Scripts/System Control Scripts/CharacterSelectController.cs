@@ -168,11 +168,8 @@ public class CharacterSelectController : MonoBehaviour {
 	}
 	
 	void OnGUI(){
-		
-		GUIStyle redStyle = new GUIStyle(GUI.skin.box);
-		redStyle.fontSize = 28;
-		redStyle.alignment = TextAnchor.MiddleCenter;
-		redStyle.normal.textColor = Color.red;
+	
+		GUIStyle redStyle = GUIStyles.getMainMenuStyle();
 		
 		GUI.backgroundColor = new Color (27, 27, 27);
 		
