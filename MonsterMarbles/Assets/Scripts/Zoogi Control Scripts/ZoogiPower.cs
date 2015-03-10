@@ -13,6 +13,7 @@ public class ZoogiPower : MonoBehaviour {
 	
 	void OnEnable(){
 		LaunchController.launchCompleted += attemptToUsePowerAtLaunch;
+		powerCharged = true;
 	}
 	
 	void OnDisable(){

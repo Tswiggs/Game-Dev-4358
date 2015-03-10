@@ -17,9 +17,9 @@ public class FollowPositionAndRotation : MonoBehaviour {
 		transform.position = target.position;
 		
 		if(!pullbackInProgress){
-			if (target.rigidbody.velocity.magnitude > sleepVelocityMagnitude)
+			if (target.GetComponent<Rigidbody>().velocity.magnitude > sleepVelocityMagnitude)
 			{
-				transform.rotation=Quaternion.LookRotation(target.rigidbody.velocity);
+				transform.rotation=Quaternion.LookRotation(target.GetComponent<Rigidbody>().velocity);
 			}
 			else //if(Vector3.Angle(Vector3.up, target.up)<5f)
 			{

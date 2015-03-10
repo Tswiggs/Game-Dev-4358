@@ -7,9 +7,9 @@ public class GhostWolfgangController : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		Color oldColor = this.renderer.material.color;
+		Color oldColor = this.GetComponent<Renderer>().material.color;
 		Color newColor = new Color(oldColor.r, oldColor.g, oldColor.b, alphaValue);          
-		this.renderer.material.color = newColor;
+		this.GetComponent<Renderer>().material.color = newColor;
 	}
 	
 	// Update is called once per frame

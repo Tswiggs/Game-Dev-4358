@@ -14,15 +14,16 @@ public class LarsPower : ZoogiPower {
 	// Use this for initialization
 	void Start () {
 		LarsBall = transform.FindChild("Ball").gameObject;
-	}
-	
-	void Awake(){
-		chargePower();
+		//powerCharged = true;
 	}
 	
 	
 	// Update is called once per frame
 	void Update () {
+		powerCharged = true;
+		if(Input.GetKeyDown("space")){
+			deployPower();
+		}
 
 	}
 	
@@ -62,14 +63,14 @@ public class LarsPower : ZoogiPower {
 	
 	public void sharkBite(Collision collision, Rigidbody original){
 		
-		if(LarsBall.rigidbody == original){
-			if(collision.collider.rigidbody != null){
-				Vector3 colliderVelocity = collision.collider.rigidbody.velocity;
+		if(LarsBall.GetComponent<Rigidbody>() == original){
+			if(collision.collider.GetComponent<Rigidbody>() != null){
+				Vector3 colliderVelocity = collision.collider.GetComponent<Rigidbody>().velocity;
 				
-				Vector3 a = LarsBall.rigidbody.position;
-				Vector3 b = collision.collider.rigidbody.position;
+				Vector3 a = LarsBall.GetComponent<Rigidbody>().position;
+				Vector3 b = collision.collider.GetComponent<Rigidbody>().position;
 				
-				collision.collider.rigidbody.velocity += (b-a).normalized * LarsBall.rigidbody.velocity.magnitude * velocityIncrease;
+				collision.collider.GetComponent<Rigidbody>().velocity += (b-a).normalized * LarsBall.GetComponent<Rigidbody>().velocity.magnitude * velocityIncrease;
 			}
 		}
 	}

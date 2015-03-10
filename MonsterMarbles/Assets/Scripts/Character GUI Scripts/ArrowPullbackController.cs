@@ -32,7 +32,7 @@ public class ArrowPullbackController : MonoBehaviour {
 	
 	void pullbackInformation(float pullbackFraction){
 		this.transform.localScale = new Vector3(1f+pullbackFraction*xScaleFactor,this.transform.localScale.y,1f+pullbackFraction*zScaleFactor);
-		directionalArrow.renderer.material.color = new Color(1f,1f-pullbackFraction,1f-pullbackFraction,1f);
+		directionalArrow.GetComponent<Renderer>().material.color = new Color(1f,1f-pullbackFraction,1f-pullbackFraction,1f);
 	}
 	
 	void pullbackSucceeded(float pullbackFraction) {
@@ -41,7 +41,7 @@ public class ArrowPullbackController : MonoBehaviour {
 		
 		this.transform.localScale = new Vector3(1,this.transform.localScale.y,1);
 		
-		directionalArrow.renderer.material.color = Color.white;
+		directionalArrow.GetComponent<Renderer>().material.color = Color.white;
 		
 		PullTestScript.pullbackInformation -= pullbackInformation;
 		PullTestScript.pullbackAborted -= pullbackAborted;
@@ -55,7 +55,7 @@ public class ArrowPullbackController : MonoBehaviour {
 		
 		this.transform.localScale = new Vector3(1,this.transform.localScale.y,1);
 		
-		directionalArrow.renderer.material.color = Color.white;
+		directionalArrow.GetComponent<Renderer>().material.color = Color.white;
 	
 		PullTestScript.pullbackInformation -= pullbackInformation;
 		PullTestScript.pullbackAborted -= pullbackAborted;

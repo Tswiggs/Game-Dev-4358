@@ -78,12 +78,12 @@ public class ZoogiController : MonoBehaviour {
 		zoogiBall.transform.localPosition = Vector3.zero;
 		zoogiCharacterRoot.transform.localPosition = Vector3.zero;
 		
-		zoogiBall.rigidbody.velocity = Vector3.zero;
-		zoogiBall.rigidbody.angularVelocity = Vector3.zero;
+		zoogiBall.GetComponent<Rigidbody>().velocity = Vector3.zero;
+		zoogiBall.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 	}
 
 	public void stopBallMotion(){
-		zoogiBall.rigidbody.velocity = Vector3.zero;
-		zoogiBall.rigidbody.angularVelocity = Vector3.zero;
+		zoogiBall.GetComponent<Rigidbody>().velocity = Vector3.zero;
+		zoogiBall.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 	}
 }

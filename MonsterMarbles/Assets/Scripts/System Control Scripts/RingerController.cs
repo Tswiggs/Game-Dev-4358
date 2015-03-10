@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic; 
 using AssemblyCSharp;
 public class RingerController : MonoBehaviour {
-
+	
 	/// <summary>specifies whether the game will be conducted online</summary>
 	public enum MULTIPLAYER_MODE
 	{
 		HOTSEAT, ONLINE
 	}
-
+	
 	public static int POINTS_FOR_SKY_BIT = 3; 
 	public int remainingSkybits;
-
+	
 	public MULTIPLAYER_MODE gameMode; 
 	/// <summary>
 	/// The players.
@@ -34,7 +34,7 @@ public class RingerController : MonoBehaviour {
 	public PlayerBallCreator ballSpawner;
 	
 	public RingerScoreTracker scoreTracker;
-
+	
 	/// <summary>
 	/// The game object in unity that displays the score.
 	/// </summary>
@@ -59,7 +59,7 @@ public class RingerController : MonoBehaviour {
 	private bool advanceToNextPlayer = false;
 	
 	private bool roundWonFlag = false;
-
+	
 	void Start () {
 		//players = new ArrayList (); 
 		gameMode = MULTIPLAYER_MODE.HOTSEAT; 
@@ -77,7 +77,7 @@ public class RingerController : MonoBehaviour {
 		scoreText.text = "X 0";
 		
 	}
-
+	
 	public void initialize(GameController gameController, string multiplayerMode, ArrayList players){
 		this.gameController=gameController;
 		this.cameraBoom=GameObject.Find("CameraBoom").GetComponent<CameraBoomController>();
@@ -99,7 +99,7 @@ public class RingerController : MonoBehaviour {
 		
 		waitForTurn();
 	}
-
+	
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Escape)){
 			Application.LoadLevel("Main Menu");
@@ -109,7 +109,7 @@ public class RingerController : MonoBehaviour {
 			activePlayer.getActiveBall().getBallObject().SetActive(true);
 		}
 	}
-
+	
 	public void addPlayer(Player player)
 	{
 		players.Add (player); 
@@ -118,7 +118,7 @@ public class RingerController : MonoBehaviour {
 	{
 		cameraBoom.startOfTurn(objectToFocusOn.transform);
 	}
-
+	
 	void shootingAction(){
 		isShooting=true;
 		LaunchController.launchCompleted-= shootingAction;
@@ -129,7 +129,7 @@ public class RingerController : MonoBehaviour {
 	void skyBitCollected(){
 		activePlayerGetsExtraTurn = true;
 	}
-
+	
 	void endOfTurnAction(int index){
 		//SteeringController.rollCompleted-= endOfTurnAction;
 		//OutOfBoundsHandler.pointCollected-= skyBitCollected;
@@ -141,7 +141,7 @@ public class RingerController : MonoBehaviour {
 				
 			}
 			else {
-
+				
 				if(PlayerTurnCompleteEvent != null){
 					PlayerTurnCompleteEvent(activePlayerIndex);
 				}
@@ -183,34 +183,34 @@ public class RingerController : MonoBehaviour {
 		}
 		DisplayGUIText.displayUnformattedText("Begin Round "+(scoreTracker.getCurrentRound()+1).ToString()+"!");
 	}
-
+	
 	bool isGameOver()
 	{
 		if (activePlayer.getScore () >= winningScore) {
-						return true;		
-				} else {
-						return false; 
-				}
+			return true;		
+		} else {
+			return false; 
+		}
 	}
 	IEnumerator delaySeconds(int seconds){
 		yield return new WaitForSeconds(seconds);
 	}
-
-
+	
+	
 	//TODO: Need to pull out nextPlayer logic into its own method.
 	public void waitForTurn()
 	{
 		if (gameMode == MULTIPLAYER_MODE.ONLINE) {
 			//show waiting screen
 			//ping server until it is this players turn again
-	
+			
 		} else if(gameMode == MULTIPLAYER_MODE.HOTSEAT) {
 			
 		}
-	
+		
 		startOfTurn();
 	}
-
+	
 	void startOfTurn(){
 		//TODO: Show which players turn it is.
 		//TODO: Have them tap a button to begin.
@@ -225,7 +225,7 @@ public class RingerController : MonoBehaviour {
 			
 			activePlayer.getActiveBall().getBallObject().GetComponent<ZoogiController>().refreshZoogiReferences();
 			activePlayer.getActiveBall().getBallObject().GetComponent<ZoogiController>().resetBallPosition();
-
+			
 			activePlayer.getActiveBall().getBallObject().SetActive(true);
 			
 			//activePlayer.getActiveBall().getBallObject().GetComponentInChildren<AimPlayerBall>().enabled=false;
@@ -241,9 +241,9 @@ public class RingerController : MonoBehaviour {
 		GUIObject.transform.FindChild("Launch GUI").gameObject.SetActive(true);
 		//activePlayer.getActiveBall().possess();
 		focusCameraForTurnStart(activePlayer.getActiveBall().getBallObject().transform.FindChild("Character Root").gameObject);
-
+		
 	}
-
+	
 	void advanceToNextPlayerTurn(){
 		if((activePlayerIndex+1) < players.Count)
 		{
@@ -257,13 +257,13 @@ public class RingerController : MonoBehaviour {
 		activePlayer=players[activePlayerIndex] as Player;
 		advanceToNextPlayer = false;
 	}
-
+	
 	public void playerKOed(GameObject collectedPlayer){
 		//TODO: Implement the detection of who this ball belonged to.
 		// then add a power charge to the character who KOed it if it was
 		// an enemy ball. Also maintain the playerball that was KOed to prepare 
 		// it to be put back on the launch area.
-
+		
 		AimPlayerBall aimScript =collectedPlayer.GetComponent<AimPlayerBall>() as AimPlayerBall;
 		if(aimScript!=null){
 			if(aimScript.playerBall.Equals(this.activePlayer.getActiveBall())){

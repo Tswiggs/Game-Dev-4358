@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 //using UnityEditor;
 using System.Collections;
 using AssemblyCSharp;
@@ -41,11 +41,11 @@ public class CharacterSelectController : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-	
+		
 		mainMenuStyle = GUIStyles.getMainMenuStyle();
 		characterSelectStyle = GUIStyles.getCharacterSelectStyle();
 		invertedCharacterSelectStyle = GUIStyles.getInvertedCharacterSelectStyle();
-	
+		
 		interfaceNavigation = 0;
 		maxNumberOfCharacters = 1;
 		numberOfSelectedCharacters = 0;
@@ -110,7 +110,7 @@ public class CharacterSelectController : MonoBehaviour {
 				if(index < 3){
 					charactersSelected[index] = true;
 					numberOfSelectedCharacters += 1;
-				
+					
 					if(currentPlayer == 0){
 						player0.Add((PlayerBallCreator.MONSTER_PREFABS)index);
 					}
@@ -161,14 +161,14 @@ public class CharacterSelectController : MonoBehaviour {
 			}
 		}
 		else{
-		this.enabled = false;
+			this.enabled = false;
 			mainMenuController.sendTeamDetails("HOTSEAT",player0,player0);
 			mainMenuController.newMatch();
 		}
 	}
 	
 	void OnGUI(){
-	
+		
 		GUIStyle redStyle = GUIStyles.getMainMenuStyle();
 		
 		GUI.backgroundColor = new Color (27, 27, 27);
@@ -217,7 +217,7 @@ public class CharacterSelectController : MonoBehaviour {
 				}
 				xPos += CHARACTER_SELECT_BOX_WIDTH;
 			}
-		
+			
 		}
 		GUI.EndScrollView();
 		
@@ -243,6 +243,6 @@ public class CharacterSelectController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		
 	}
 }

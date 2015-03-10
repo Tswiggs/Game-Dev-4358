@@ -918,7 +918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb30acc3088c4dedac785909a9bb575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimSpeed: 25
+  aimSpeed: 5
   aimSnappiness: 5
   keyAimSpeed: 1
   panGesture: {fileID: 11400000}

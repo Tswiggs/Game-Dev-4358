@@ -20,17 +20,11 @@ public class HotStreakPower : ZoogiPower {
 		HotStreakBall = transform.FindChild("Ball").gameObject;
 		//HotStreakBall.GetComponent<TapGesture> ().Tapped += groundSlam;
 		SteeringController.rollCompleted += rollComplete;
-		
-		
-	}
-	
-	void Awake(){
-		chargePower();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		powerCharged = true;
 	}
 	
 	override public bool deployPower(){
@@ -45,8 +39,8 @@ public class HotStreakPower : ZoogiPower {
 	}
 	
 	private void checkForGroundSlam(Collision collision, Rigidbody original){
-		if(HotStreakBall.rigidbody == original){
-			if(collision.collider.rigidbody != null){
+		if(HotStreakBall.GetComponent<Rigidbody>() == original){
+			if(collision.collider.GetComponent<Rigidbody>() != null){
 				groundSlam();
 				isActivated = false;
 				MarbleCollisionHandler.playerHasCollided -= checkForGroundSlam;
@@ -63,18 +57,18 @@ public class HotStreakPower : ZoogiPower {
 						if(groundSlamParticles != null){
 							GameObject slamParticles = Instantiate(groundSlamParticles,HotStreakBall.transform.position, HotStreakBall.transform.rotation) as GameObject;
 							slamParticles.transform.parent = HotStreakBall.transform.FindChild ("Character Root");
-							SphereCollider ballCollider = HotStreakBall.collider as SphereCollider;
+							SphereCollider ballCollider = HotStreakBall.GetComponent<Collider>() as SphereCollider;
 							slamParticles.transform.localPosition = new Vector3(slamParticles.transform.localPosition.x, slamParticles.transform.localPosition.y - ballCollider.radius, slamParticles.transform.localPosition.z);
                     	}
 						foreach (Collider c in colliders) {
-								if (c.rigidbody == null) {
+								if (c.GetComponent<Rigidbody>() == null) {
 										continue; 
 								} else {
 									if( c.gameObject.Equals(HotStreakBall)){
 										continue;
 									}
 									else if (c.gameObject.CompareTag(Constants.TAG_MARBLE) || c.gameObject.CompareTag(Constants.TAG_PLAYER)){
-										c.rigidbody.AddExplosionForce (slamPower, HotStreakBall.transform.position, slamRadius*2, 0, ForceMode.Impulse);
+										c.GetComponent<Rigidbody>().AddExplosionForce (slamPower, HotStreakBall.transform.position, slamRadius*2, 0, ForceMode.Impulse);
 									}	
 								}
 						}

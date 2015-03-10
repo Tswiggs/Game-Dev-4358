@@ -49,17 +49,14 @@ public class WolfgangPower : ZoogiPower {
 		
 	}
 	
-	void Awake(){
-		chargePower();
-	}
-	
 	// Update is called once per frame
 	void Update () {
+		powerCharged = true;
 		if (isActivated && !hasLaunched) {
 				wolfgangBall2.transform.rotation = wolfgangBallOriginal.transform.rotation; 
-				wolfgangBall2.rigidbody.velocity = wolfgangBallOriginal.rigidbody.velocity;
+				wolfgangBall2.GetComponent<Rigidbody>().velocity = wolfgangBallOriginal.GetComponent<Rigidbody>().velocity;
 				wolfgangBall3.transform.rotation = wolfgangBallOriginal.transform.rotation;
-				wolfgangBall3.rigidbody.velocity = wolfgangBallOriginal.rigidbody.velocity;
+				wolfgangBall3.GetComponent<Rigidbody>().velocity = wolfgangBallOriginal.GetComponent<Rigidbody>().velocity;
 		}
 	}
 	
@@ -77,10 +74,10 @@ public class WolfgangPower : ZoogiPower {
 	
 	public void launchGhostWolves(GameObject ball, Vector3 launchVector, float xTorque, Vector3 position){
 		if(!hasLaunched){
-			wolfgangBall2.rigidbody.AddForce(launchVector);
-			wolfgangBall2.rigidbody.AddRelativeTorque(xTorque, 0f, 0f);
-			wolfgangBall3.rigidbody.AddForce(launchVector);
-			wolfgangBall3.rigidbody.AddRelativeTorque(xTorque, 0f, 0f);
+			wolfgangBall2.GetComponent<Rigidbody>().AddForce(launchVector);
+			wolfgangBall2.GetComponent<Rigidbody>().AddRelativeTorque(xTorque, 0f, 0f);
+			wolfgangBall3.GetComponent<Rigidbody>().AddForce(launchVector);
+			wolfgangBall3.GetComponent<Rigidbody>().AddRelativeTorque(xTorque, 0f, 0f);
 			LaunchController.sendLaunchInformation -= launchGhostWolves;
 			SteeringController.rollCompleted += rollComplete;
 			hasLaunched = true;

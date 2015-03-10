@@ -31,7 +31,7 @@ public class UsePowerButtonController : MonoBehaviour {
 	void Update () {
 		if(usable){
 			if(Input.GetMouseButtonDown(0)){
-				if(guiTexture.GetScreenRect().Contains(new Vector2(Input.mousePosition.x,Input.mousePosition.y))){
+				if(GetComponent<GUITexture>().GetScreenRect().Contains(new Vector2(Input.mousePosition.x,Input.mousePosition.y))){
 					pressed = target.setPowerDeployState(!pressed);
 					setButtonState();
 				}
@@ -52,27 +52,27 @@ public class UsePowerButtonController : MonoBehaviour {
 		if(target != null){
 			if(target.powerCharged){
 				usable = true;
-				this.guiTexture.color = new Color(this.guiTexture.color.r,this.guiTexture.color.g,this.guiTexture.color.b,1f);
+				this.GetComponent<GUITexture>().color = new Color(this.GetComponent<GUITexture>().color.r,this.GetComponent<GUITexture>().color.g,this.GetComponent<GUITexture>().color.b,1f);
 				if(target.readyToDeployPower){
 					pressed = true;
-					guiTexture.texture = pressedButton;
+					GetComponent<GUITexture>().texture = pressedButton;
 				}
 				else{
-					guiTexture.texture = unpressedButton;
+					GetComponent<GUITexture>().texture = unpressedButton;
 					pressed = false;
 				}
 			}
 			else{
 				usable = false;
-				guiTexture.texture = pressedButton;
+				GetComponent<GUITexture>().texture = pressedButton;
 				pressed = false;
-				this.guiTexture.color = new Color(this.guiTexture.color.r,this.guiTexture.color.g,this.guiTexture.color.b,0.2f);
+				this.GetComponent<GUITexture>().color = new Color(this.GetComponent<GUITexture>().color.r,this.GetComponent<GUITexture>().color.g,this.GetComponent<GUITexture>().color.b,0.2f);
 			}
 		}
 		else{
 			usable = false;
-			this.guiTexture.color = new Color(this.guiTexture.color.r,this.guiTexture.color.g,this.guiTexture.color.b,0.2f);
-			guiTexture.texture = unpressedButton;
+			this.GetComponent<GUITexture>().color = new Color(this.GetComponent<GUITexture>().color.r,this.GetComponent<GUITexture>().color.g,this.GetComponent<GUITexture>().color.b,0.2f);
+			GetComponent<GUITexture>().texture = unpressedButton;
 			pressed = false;
 		}
 		

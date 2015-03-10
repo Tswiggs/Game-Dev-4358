@@ -27,7 +27,7 @@ public class HideObjects : MonoBehaviour {
 	void hideObjectsInBetweenTargetAndCamera(){
 		if(_LastTransforms.Count > 0){
 			foreach(Transform t in _LastTransforms.Keys){
-				t.renderer.material = _LastTransforms[t];
+				t.GetComponent<Renderer>().material = _LastTransforms[t];
 			}
 			_LastTransforms.Clear();
 		}
@@ -44,8 +44,8 @@ public class HideObjects : MonoBehaviour {
 		if(hits.Length > 0){
 			foreach(RaycastHit hit in hits){
 				if(hit.collider.gameObject.transform != WatchTarget && hit.collider.transform.root != WatchTarget && !_LastTransforms.ContainsKey(hit.collider.gameObject.transform)){
-					_LastTransforms.Add(hit.collider.gameObject.transform, hit.collider.gameObject.renderer.material);
-					hit.collider.gameObject.renderer.material = HiderMaterial;
+					_LastTransforms.Add(hit.collider.gameObject.transform, hit.collider.gameObject.GetComponent<Renderer>().material);
+					hit.collider.gameObject.GetComponent<Renderer>().material = HiderMaterial;
 				}
 			}
 		}

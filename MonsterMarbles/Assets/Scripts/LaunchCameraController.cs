@@ -3,16 +3,16 @@ using System.Collections;
 
 public class LaunchCameraController : MonoBehaviour {
 
-	public float distance = 6f;
-	public float height = 5f;
+	public float distance = 1f;
+	public float height = 1f;
 	public float heightDamping = 2.0f;
-	public float rotationDamping = 5f;
-	public float positionDamping = 5f;
+	public float rotationDamping = 3.0f;
+	public float positionDamping = 5.0f;
 
 	public Transform target;
 	
 	public Transform birdEyeTarget;
-	public float birdEyeZoom = 50.0f;
+	public float birdEyeZoom = 20.0f;
 	
 	
 	public string cameraState="launch";

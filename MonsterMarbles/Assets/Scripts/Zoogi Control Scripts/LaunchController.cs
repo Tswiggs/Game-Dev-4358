@@ -61,10 +61,10 @@ public class LaunchController : MonoBehaviour {
 			timeSpinning+=Time.deltaTime;
 
 			//If the slerp is within 1 degree of completion activate protocol to complete the turn
-			if((timeSpinning>=timeToSpin) && (transform.position.y<=hopStart) && (rigidbody.velocity.y<=0.1f)){
+			if((timeSpinning>=timeToSpin) && (transform.position.y<=hopStart) && (GetComponent<Rigidbody>().velocity.y<=0.1f)){
 				isHopping=false;
 				//characterGui.SetActive(true);
-				rigidbody.Sleep();
+				GetComponent<Rigidbody>().Sleep();
 				GetComponent<SteeringController>().enabled= false;
 				GetComponent<LaunchController>().enabled = true;
 							
@@ -74,15 +74,15 @@ public class LaunchController : MonoBehaviour {
 
 	public void hopUpright(){
 		isHopping=true;
-		rigidbody.Sleep();
-		rigidbody.WakeUp();
+		GetComponent<Rigidbody>().Sleep();
+		GetComponent<Rigidbody>().WakeUp();
 		standingUp.x=0f;
 		standingUp.y=transform.rotation.y;
 		standingUp.z=0f;
 		hopStart=transform.position.y+hopLandingYThreshold;
 		if(Quaternion.Angle(transform.rotation, standingUp)>=0.003f)
 		{
-			rigidbody.AddForce(0f, hopHeight, 0f);
+			GetComponent<Rigidbody>().AddForce(0f, hopHeight, 0f);
 		}
 	}
 	
@@ -90,8 +90,8 @@ public class LaunchController : MonoBehaviour {
 		Vector3 launchVector= new Vector3();
 		launchVector=transform.parent.FindChild("Character Root").forward*maxPower*powerFraction*launchScalar;
 		launchVector.y=0f;
-		rigidbody.AddForce(launchVector);
-		rigidbody.AddRelativeTorque(maxPower*powerFraction*launchSpin, 0f, 0f);
+		GetComponent<Rigidbody>().AddForce(launchVector);
+		GetComponent<Rigidbody>().AddRelativeTorque(maxPower*powerFraction*launchSpin, 0f, 0f);
 		
 		if(explosionSound != null){
 			audioSource.PlayOneShot(explosionSound);

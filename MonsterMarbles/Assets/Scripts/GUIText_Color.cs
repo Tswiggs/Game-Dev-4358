@@ -7,6 +7,6 @@ public class GUIText_Color : MonoBehaviour
 	public Color labelColor;
 	void Awake()
 	{
-		this.guiText.material.color = labelColor;
+		this.GetComponent<GUIText>().material.color = labelColor;
 	}
 }

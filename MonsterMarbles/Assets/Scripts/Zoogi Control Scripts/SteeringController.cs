@@ -45,7 +45,7 @@ public class SteeringController : MonoBehaviour {
 	void Update () {
 		//if velocity has fallen to near stop make a note of it. This delays the stop effect to allow for
 		//better physics play.
-		if(stopSpeed>=rigidbody.velocity.magnitude && isRolling)
+		if(stopSpeed>=GetComponent<Rigidbody>().velocity.magnitude && isRolling)
 		{
 			stopBuffer++;
 		}
@@ -55,14 +55,14 @@ public class SteeringController : MonoBehaviour {
 		{
 			isRolling=false;
 			isHopping=true;
-			rigidbody.Sleep();
-			rigidbody.WakeUp();
+			GetComponent<Rigidbody>().Sleep();
+			GetComponent<Rigidbody>().WakeUp();
 			standingUp.x=0f;
 			standingUp.y=transform.rotation.y;
 			standingUp.z=0f;
 			if(Quaternion.Angle(transform.rotation, standingUp)>=0.003f)
 			{
-				rigidbody.AddForce(0f, hopHeight, 0f);
+				GetComponent<Rigidbody>().AddForce(0f, hopHeight, 0f);
 			}
 			hopStart=transform.position.y+hopLandingYThreshold;
 		}
@@ -73,9 +73,9 @@ public class SteeringController : MonoBehaviour {
 			timeSpinning+=Time.deltaTime;
 
 			//If the slerp is within 1 degree of completion activate protocol to complete the turn
-			if(timeSpinning>timeToSpin && transform.position.y<=hopStart && rigidbody.velocity.y<=0.01){
+			if(timeSpinning>timeToSpin && transform.position.y<=hopStart && GetComponent<Rigidbody>().velocity.y<=0.01){
 				isHopping=false;
-				rigidbody.Sleep();
+				GetComponent<Rigidbody>().Sleep();
 				GetComponent<SteeringController>().enabled= false;
 				//GetComponent<LaunchController>().enabled = true;
 				if(rollCompleted != null)
@@ -90,11 +90,11 @@ public class SteeringController : MonoBehaviour {
 		//set tilt to be a vector pointing either right or left of the character and scale the vector
 		//by a public float steerStrength and by the current forward velocity.
 		if(DeviceType.Handheld==SystemInfo.deviceType){
-			tilt.x=Input.acceleration.x*camera.transform.TransformDirection(rigidbody.velocity).y* -steerStrength;
+			tilt.x=Input.acceleration.x*camera.transform.TransformDirection(GetComponent<Rigidbody>().velocity).y* -steerStrength;
 		}else{
-			tilt.x=Input.GetAxis("Horizontal")*camera.transform.TransformDirection(rigidbody.velocity).y* -steerStrength/2;
+			tilt.x=Input.GetAxis("Horizontal")*camera.transform.TransformDirection(GetComponent<Rigidbody>().velocity).y* -steerStrength/2;
 		}
-		rigidbody.AddForce(tilt);
+		GetComponent<Rigidbody>().AddForce(tilt);
 	}
 	public void forceEndTurn(){
 		GetComponent<SteeringController>().enabled= false;

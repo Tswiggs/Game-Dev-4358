@@ -51,7 +51,7 @@ public class GameController : MonoBehaviour {
 	}
 	public void newMatch(string gameMode, string multiplayerMode, List<PlayerBallCreator.MONSTER_PREFABS> team1, List<PlayerBallCreator.MONSTER_PREFABS> team2, User user1, User user2){
 		//TODO: change this so that it checks that the game mode is a valid type and then loads that level.
-		if(gameMode==Constants.SCENE_PILA_PLAINS || gameMode == Constants.SCENE_FROSTWIND_MOUNTAIN){
+		if(gameMode==Constants.SCENE_PILA_PLAINS){
 			mainMenu.enabled=false;
 
 
@@ -69,7 +69,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	void OnLevelWasLoaded(int level){
-		if (level==1 || level==2){
+		if (level==1){
 			ringerController=GameObject.Find("SceneController").GetComponent<RingerController>();
 			ringerController.initialize(this, multiplayerMode, players);
 			//multiplayerMode=null;

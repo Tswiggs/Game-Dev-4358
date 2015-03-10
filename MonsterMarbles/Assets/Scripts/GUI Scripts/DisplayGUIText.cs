@@ -24,8 +24,8 @@ public class DisplayGUIText : MonoBehaviour {
 		RingerController.PlayerTurnStartEvent += playerChanged;
 		DisplayGUIText.formattedText += displayFText;
 		DisplayGUIText.unformattedText += displayUfText;
-		guiText.font = GUIStyles.getMainMenuStyle().font;
-		guiText.fontSize = maxFontSize;
+		GetComponent<GUIText>().font = GUIStyles.getMainMenuStyle().font;
+		GetComponent<GUIText>().fontSize = maxFontSize;
 		playerChanged(0);
 	}
 	
@@ -46,11 +46,11 @@ public class DisplayGUIText : MonoBehaviour {
 	}
 	
 	public void displayFText(string text, float animTime = 0){
-		this.guiText.text = string.Format(text, currentPlayer+1);
-		guiText.color = new Color(guiText.color.r,guiText.color.g,guiText.color.b,1f);
+		this.GetComponent<GUIText>().text = string.Format(text, currentPlayer+1);
+		GetComponent<GUIText>().color = new Color(GetComponent<GUIText>().color.r,GetComponent<GUIText>().color.g,GetComponent<GUIText>().color.b,1f);
 		this.transform.localPosition = new Vector3(0.5f,0.4f,this.transform.localPosition.z);
-		guiText.anchor = TextAnchor.MiddleCenter;
-		guiText.fontSize = startingFontSize;
+		GetComponent<GUIText>().anchor = TextAnchor.MiddleCenter;
+		GetComponent<GUIText>().fontSize = startingFontSize;
 		if(animTime <= 0){
 			animationTime = DEFAULT_ANIMATION_TIME;
 		}
@@ -61,11 +61,11 @@ public class DisplayGUIText : MonoBehaviour {
 	}
 	
 	public void displayUfText(string text, float animTime = 0){
-		this.guiText.text = text;
-		guiText.color = new Color(guiText.color.r,guiText.color.g,guiText.color.b,1f);
+		this.GetComponent<GUIText>().text = text;
+		GetComponent<GUIText>().color = new Color(GetComponent<GUIText>().color.r,GetComponent<GUIText>().color.g,GetComponent<GUIText>().color.b,1f);
 		this.transform.localPosition = new Vector3(0.5f,0.4f,this.transform.localPosition.z);
-		guiText.anchor = TextAnchor.MiddleCenter;
-		guiText.fontSize = startingFontSize;
+		GetComponent<GUIText>().anchor = TextAnchor.MiddleCenter;
+		GetComponent<GUIText>().fontSize = startingFontSize;
 		if(animTime <= 0){
 			animationTime = DEFAULT_ANIMATION_TIME;
 		}
@@ -80,21 +80,21 @@ public class DisplayGUIText : MonoBehaviour {
 		if(beginAnimation){
 			if(animationTimer >= animationTime){
 				animationTimer = 0;
-				guiText.color = new Color(guiText.color.r,guiText.color.g,guiText.color.b,0.8f);
-				this.guiText.text ="";
+				GetComponent<GUIText>().color = new Color(GetComponent<GUIText>().color.r,GetComponent<GUIText>().color.g,GetComponent<GUIText>().color.b,0.8f);
+				this.GetComponent<GUIText>().text ="";
 				beginAnimation = false;
 				
 			}
 			else{
 				if(animationTimer >= animationTime/2){
-					float newAlphaValue = Mathf.Lerp(guiText.color.a,-1f,Time.deltaTime*0.5f);
+					float newAlphaValue = Mathf.Lerp(GetComponent<GUIText>().color.a,-1f,Time.deltaTime*0.5f);
 					if(newAlphaValue < 0f){
 						newAlphaValue = 0f;
 					}
-					guiText.color = new Color(guiText.color.r,guiText.color.g,guiText.color.b,newAlphaValue);
+					GetComponent<GUIText>().color = new Color(GetComponent<GUIText>().color.r,GetComponent<GUIText>().color.g,GetComponent<GUIText>().color.b,newAlphaValue);
 				}
 				animationTimer += Time.deltaTime;
-				guiText.fontSize = (int) Mathf.Lerp(guiText.fontSize,maxFontSize,Time.deltaTime);
+				GetComponent<GUIText>().fontSize = (int) Mathf.Lerp(GetComponent<GUIText>().fontSize,maxFontSize,Time.deltaTime);
 			}
 		}
 	}

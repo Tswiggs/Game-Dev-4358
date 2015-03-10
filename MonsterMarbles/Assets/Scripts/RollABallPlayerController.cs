@@ -17,6 +17,6 @@ public class RollABallPlayerController : MonoBehaviour {
 	void Update () {
 		tilt=camera.transform.TransformDirection(Time.deltaTime*Input.GetAxis("Horizontal"), 0f, 0f);
 		tilt+=camera.transform.TransformDirection(0f, 0f, Time.deltaTime*Input.GetAxis("Vertical"));
-		rigidbody.AddForce(tilt*speed);
+		GetComponent<Rigidbody>().AddForce(tilt*speed);
 	}
 }

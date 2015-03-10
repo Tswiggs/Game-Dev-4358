@@ -24,14 +24,14 @@ public class MapChangeButtonController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetMouseButtonDown(0)){
-			if(guiTexture.GetScreenRect().Contains(new Vector2(Input.mousePosition.x,Input.mousePosition.y))){
+			if(GetComponent<GUITexture>().GetScreenRect().Contains(new Vector2(Input.mousePosition.x,Input.mousePosition.y))){
 				
 				if(view == ViewType.BALL_VIEW){
 					if(mapChangeButtonPressed != null){
 						mapChangeButtonPressed(ViewType.AERIAL_VIEW);
 					}
 					
-					guiTexture.texture = returnButton;
+					GetComponent<GUITexture>().texture = returnButton;
 					
 					view = ViewType.AERIAL_VIEW;
 				}
@@ -40,7 +40,7 @@ public class MapChangeButtonController : MonoBehaviour {
 						mapChangeButtonPressed(ViewType.BALL_VIEW);
 					}
 					
-					guiTexture.texture = mapChangeButton;
+					GetComponent<GUITexture>().texture = mapChangeButton;
 					
 					view = ViewType.BALL_VIEW;
 				}
