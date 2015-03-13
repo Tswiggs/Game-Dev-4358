@@ -1,6 +1,6 @@
 ﻿Shader "Transparent/Diffuse with Shadow" {
 Properties {
-    _Color ("Main Color", Color) = (1,1,1,1)
+    _Color ("Main Color", Color) = (1,1,1,0.5)
     _MainTex ("Base (RGB) Trans (A)", 2D) = "white" {}
 }
  

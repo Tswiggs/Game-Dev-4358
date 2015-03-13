@@ -17,6 +17,7 @@ public class MainMenuController : MonoBehaviour {
 	
 	private string selectedGameMode = Constants.SCENE_PILA_PLAINS;
 	private string selectedMultiplayerMode;
+	private string selectedArena;
 	private List<PlayerBallCreator.MONSTER_PREFABS> selectedTeam1Roster;
 	private List<PlayerBallCreator.MONSTER_PREFABS> selectedTeam2Roster;
 	
@@ -115,6 +116,39 @@ public class MainMenuController : MonoBehaviour {
 			}
 		}  
 		
+	}
+	
+	public void selectArena(string name){
+		if(name == "Pila Plains"){
+			selectedArena = Constants.SCENE_PILA_PLAINS;
+		}
+		else if (name == "Frostwind Mountain"){
+			selectedArena = Constants.SCENE_FROSTWIND_MOUNTAIN;
+		}
+		else{
+			selectedArena = Constants.SCENE_PILA_PLAINS;
+		}
+	
+	}
+	
+	public string getSelectedArena(){
+		return selectedArena;
+	}
+	
+	public void selectMultiplayer(string name) {
+		if(name == "Hotseat"){
+			selectedMultiplayerMode = "HOTSEAT";
+		}
+		else if (name == "Solo" || name == "Solo Play"){
+			selectedMultiplayerMode = "SOLO";
+		}
+		else{
+			selectedMultiplayerMode = "HOTSEAT";
+		}
+	}
+	
+	public string getSelectedMultiplayerMode(){
+		return selectedMultiplayerMode;
 	}
 
 	public void passLoginInformation(User loginInformation)

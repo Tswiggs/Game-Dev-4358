@@ -15,7 +15,6 @@ GameObject:
   - 114: {fileID: 11400000}
   - 82: {fileID: 8200000}
   - 114: {fileID: 11400002}
-  - 114: {fileID: 11400010}
   m_Layer: 12
   m_Name: Char Camera
   m_TagString: MainCamera
@@ -34,6 +33,7 @@ GameObject:
   - 114: {fileID: 11400008}
   - 114: {fileID: 11400006}
   - 114: {fileID: 11400004}
+  - 114: {fileID: 11495814}
   m_Layer: 12
   m_Name: CameraBoom
   m_TagString: Untagged
@@ -59,7 +59,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_LocalRotation: {x: .108569004, y: -.529056072, z: .0684758425, w: .838822782}
+  m_LocalRotation: {x: .108568996, y: -.529056072, z: .0684758425, w: .838822722}
   m_LocalPosition: {x: 429.900665, y: 442.31308, z: -641.069275}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -112,7 +112,8 @@ AudioSource:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1c73f0e32ab05df47bc480a6bc49ebb0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: .0989999995
@@ -158,6 +159,16 @@ AudioSource:
     m_Curve:
     - time: 0
       value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -251,12 +262,12 @@ MonoBehaviour:
   followScript: {fileID: 11400006}
   launchScript: {fileID: 11400004}
   cameraState: 0
---- !u!114 &11400010
+--- !u!114 &11495814
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
+  m_GameObject: {fileID: 100002}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 487e83a64a060b94a906f316f8ad3a2a, type: 3}
@@ -284,4 +295,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100002}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

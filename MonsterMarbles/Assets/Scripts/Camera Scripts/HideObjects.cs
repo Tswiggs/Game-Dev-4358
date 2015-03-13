@@ -32,20 +32,22 @@ public class HideObjects : MonoBehaviour {
 			_LastTransforms.Clear();
 		}
 		
-		//Cast a ray from this object's transform the the watch target's transform.
+		//Cast a ray from this object's transform to the watch target's transform.
 		RaycastHit[] hits = Physics.RaycastAll(
 			WatchTarget.transform.position,
 			transform.position - WatchTarget.transform.position,
 			Vector3.Distance(WatchTarget.transform.position, transform.position),
-			OccluderMask
-			);
+			OccluderMask);
 		
 		//Loop through all overlapping objects and disable their mesh renderer
 		if(hits.Length > 0){
 			foreach(RaycastHit hit in hits){
-				if(hit.collider.gameObject.transform != WatchTarget && hit.collider.transform.root != WatchTarget && !_LastTransforms.ContainsKey(hit.collider.gameObject.transform)){
-					_LastTransforms.Add(hit.collider.gameObject.transform, hit.collider.gameObject.GetComponent<Renderer>().material);
-					hit.collider.gameObject.GetComponent<Renderer>().material = HiderMaterial;
+				//Only bother calculating if there is something on the object to actually block the view
+				if(hit.collider.gameObject.GetComponent<Renderer>() != null){
+					if(hit.collider.gameObject.transform != WatchTarget && hit.collider.transform.root != WatchTarget && !_LastTransforms.ContainsKey(hit.collider.gameObject.transform)){
+						_LastTransforms.Add(hit.collider.gameObject.transform, hit.collider.gameObject.GetComponent<Renderer>().material);
+						hit.collider.gameObject.GetComponent<Renderer>().material = HiderMaterial;
+					}
 				}
 			}
 		}

@@ -59,21 +59,25 @@ public class RingerController : MonoBehaviour {
 	private bool advanceToNextPlayer = false;
 	
 	private bool roundWonFlag = false;
-	
-	void Start () {
-		//players = new ArrayList (); 
-		gameMode = MULTIPLAYER_MODE.HOTSEAT; 
+
+	void Awake() {
 		OutOfBoundsHandler.playerCollected += playerKOed;
 		
 		RingerScoreTracker.playerHasWonRound += playerHasWonRound;
 		RingerScoreTracker.playerHasWonGame += playerHasWonGame;
-		
+	}
+
+	void Start () {
+		//players = new ArrayList (); 
+		gameMode = MULTIPLAYER_MODE.HOTSEAT; 
+
 		scoreTracker = new RingerScoreTracker(2,3,0);
-		
+
+		//Drop skybits after scoreTracker is intiated since it subscribes to an event
 		if(dropSkybits != null){
 			dropSkybits(7);
 		}
-		
+
 		scoreText.text = "X 0";
 		
 	}
@@ -107,6 +111,7 @@ public class RingerController : MonoBehaviour {
 		
 		if(Input.GetKeyDown (KeyCode.A)){
 			activePlayer.getActiveBall().getBallObject().SetActive(true);
+			dropSkybits(1);
 		}
 	}
 	
