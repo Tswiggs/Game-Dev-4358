@@ -275,7 +275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OccluderMask:
     serializedVersion: 2
-    m_Bits: 4294961119
+    m_Bits: 4294944735
   HiderMaterial: {fileID: 2100000, guid: 9d601f6943beecf48858a67e38219775, type: 2}
 --- !u!124 &12400000
 Behaviour:

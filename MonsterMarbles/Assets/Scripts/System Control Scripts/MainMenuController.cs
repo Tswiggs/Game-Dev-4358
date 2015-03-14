@@ -188,11 +188,15 @@ public class MainMenuController : MonoBehaviour {
 				
 				List<PlayerBallCreator.MONSTER_PREFABS> team1 = new List<PlayerBallCreator.MONSTER_PREFABS>();
 				team1.Add(PlayerBallCreator.MONSTER_PREFABS.WOLFGANG);
+				team1.Add(PlayerBallCreator.MONSTER_PREFABS.LARS);
+				team1.Add(PlayerBallCreator.MONSTER_PREFABS.PINPOINT);
 				
 				selectedTeam1Roster = team1;
 				
 				List<PlayerBallCreator.MONSTER_PREFABS> team2 = new List<PlayerBallCreator.MONSTER_PREFABS>();
 				team2.Add(PlayerBallCreator.MONSTER_PREFABS.HOTSTREAK);
+				team2.Add(PlayerBallCreator.MONSTER_PREFABS.WOLFGANG);
+				team2.Add(PlayerBallCreator.MONSTER_PREFABS.LARS);
 				
 				selectedTeam2Roster = team2;
 				

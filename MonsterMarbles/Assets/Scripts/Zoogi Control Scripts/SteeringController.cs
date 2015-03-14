@@ -8,15 +8,15 @@ public class SteeringController : MonoBehaviour {
 	public float stopSpeed=1f;
 	public float smooth=10f;
 	public float hopHeight=100f;
-	public float stopBufferCount=3f;
+	public float stopBufferCount=1.5f;
 	public float hopLandingYThreshold=.005f;
-	public float timeToSpin=1f;
+	public float timeToSpin=3f;
 
 	private Vector3 tilt;
 	public bool isRolling=true;
 	private bool isHopping=false;
 	private Quaternion standingUp;
-	private int stopBuffer=0;
+	private float stopBuffer=0;
 	private float hopStart= 0f;
 	private float timeSpinning= 0f;
 
@@ -38,6 +38,7 @@ public class SteeringController : MonoBehaviour {
 		isHopping = false;
 		stopBuffer=0;
 		hopStart = 0;
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 	}
 
 	
@@ -47,7 +48,7 @@ public class SteeringController : MonoBehaviour {
 		//better physics play.
 		if(stopSpeed>=GetComponent<Rigidbody>().velocity.magnitude && isRolling)
 		{
-			stopBuffer++;
+			stopBuffer+= Time.deltaTime;
 		}
 
 		// if velocity has fallen to near stop then stop movement and make character upright.
@@ -55,8 +56,9 @@ public class SteeringController : MonoBehaviour {
 		{
 			isRolling=false;
 			isHopping=true;
-			GetComponent<Rigidbody>().Sleep();
-			GetComponent<Rigidbody>().WakeUp();
+			/*GetComponent<Rigidbody>().Sleep();
+			GetComponent<Rigidbody>().WakeUp();*/
+			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
 			standingUp.x=0f;
 			standingUp.y=transform.rotation.y;
 			standingUp.z=0f;
@@ -73,9 +75,10 @@ public class SteeringController : MonoBehaviour {
 			timeSpinning+=Time.deltaTime;
 
 			//If the slerp is within 1 degree of completion activate protocol to complete the turn
-			if(timeSpinning>timeToSpin && transform.position.y<=hopStart && GetComponent<Rigidbody>().velocity.y<=0.01){
+			if(timeSpinning>timeToSpin /*&& transform.position.y<=hopStart && GetComponent<Rigidbody>().velocity.y<=0.01*/){
 				isHopping=false;
-				GetComponent<Rigidbody>().Sleep();
+				//GetComponent<Rigidbody>().Sleep();
+				GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 				GetComponent<SteeringController>().enabled= false;
 				//GetComponent<LaunchController>().enabled = true;
 				if(rollCompleted != null)
@@ -89,12 +92,12 @@ public class SteeringController : MonoBehaviour {
 
 		//set tilt to be a vector pointing either right or left of the character and scale the vector
 		//by a public float steerStrength and by the current forward velocity.
-		if(DeviceType.Handheld==SystemInfo.deviceType){
+		/*if(DeviceType.Handheld==SystemInfo.deviceType){
 			tilt.x=Input.acceleration.x*camera.transform.TransformDirection(GetComponent<Rigidbody>().velocity).y* -steerStrength;
 		}else{
 			tilt.x=Input.GetAxis("Horizontal")*camera.transform.TransformDirection(GetComponent<Rigidbody>().velocity).y* -steerStrength/2;
 		}
-		GetComponent<Rigidbody>().AddForce(tilt);
+		GetComponent<Rigidbody>().AddForce(tilt);*/
 	}
 	public void forceEndTurn(){
 		GetComponent<SteeringController>().enabled= false;

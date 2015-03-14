@@ -15,13 +15,18 @@ public class CloudbitCollisionHandler : MonoBehaviour {
 	void OnTriggerEnter(Collider collider) {
 
 		if (collider.CompareTag(Constants.TAG_PLAYER)) {
-			//Somehow play pickUpSound
-			Debug.Log ("Hit!");
-			if(PlayerCollect != null){
-				PlayerCollect(collider.transform);
+			if(collider.GetComponentInParent<ZoogiController>().addSkyBitToZoogi()){
+				//Somehow play pickUpSound
+				
+				if(PlayerCollect != null){
+					PlayerCollect(collider.transform);
+				}
+				
+				Destroy(gameObject);
 			}
-
-			Destroy(gameObject);
+			else{
+				//Nothing happens, cannot pick up bit
+			}
 
 		}
 		

@@ -16,8 +16,8 @@ public class MarbleCollisionHandler : MonoBehaviour {
 	
 	protected bool hasCollided = false;
 	
-	public static float DEFAULT_COLLISION_POWER_INCREASE = 10f;
-	public static float DEFAULT_COLLISION_POWER_MULTIPLIER = 10f;
+	public static float DEFAULT_COLLISION_POWER_INCREASE = 20f;
+	public static float DEFAULT_COLLISION_POWER_MULTIPLIER = 20f;
 	
 	public delegate void collisionEvent(Collision collision, Rigidbody original);
 	public static event collisionEvent playerHasCollided;

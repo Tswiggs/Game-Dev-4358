@@ -11,7 +11,7 @@ public class PlayerBallCreator : MonoBehaviour {
 	///<summary> the different zoogis that can be created.</summary>
 	public enum MONSTER_PREFABS 
 	{
-		WOLFGANG, HOTSTREAK, LARS
+		WOLFGANG, HOTSTREAK, LARS, PINPOINT
 	}
 	// Use this for initialization
 	void Start () {
@@ -47,6 +47,10 @@ public class PlayerBallCreator : MonoBehaviour {
 			
 		case MONSTER_PREFABS.LARS:
 			newBall = Instantiate (characterPrefabs.Lars, spawnLocation.position , spawnLocation.rotation) as GameObject;
+			break;
+			
+		case MONSTER_PREFABS.PINPOINT:
+			newBall = Instantiate (characterPrefabs.Pinpoint, spawnLocation.position , spawnLocation.rotation) as GameObject;
 			break;
 			
 
