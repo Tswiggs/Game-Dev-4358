@@ -66,6 +66,9 @@ public class PullTestScript : MonoBehaviour {
 	void pullBackUpdate(Vector2 position){
 		float yDistance = startPosition.y - position.y;
 		pullbackFraction = yDistance/(Screen.height * pullbackScreenProportion);
+		if (pullbackFraction > 1){
+			pullbackFraction = 1;
+		}
 		if(pullbackInformation != null){
 			pullbackInformation(pullbackFraction);
 		}

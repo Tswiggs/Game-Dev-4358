@@ -17,7 +17,7 @@ public class RingerController : MonoBehaviour {
 	/// <summary>
 	/// The players.
 	/// </summary>
-	public IList players; 
+	public IList players;
 	/// <summary>
 	/// The active player.
 	/// </summary>
@@ -54,6 +54,9 @@ public class RingerController : MonoBehaviour {
 	
 	public bool isShooting=false;
 	private int activePlayerIndex=0;
+	private int activeZoogiIndex=0;
+	
+	private int teamSize = 3;
 	
 	private bool activePlayerGetsExtraTurn = false;
 	private bool advanceToNextPlayer = false;
@@ -140,11 +143,14 @@ public class RingerController : MonoBehaviour {
 		//OutOfBoundsHandler.pointCollected-= skyBitCollected;
 		ZoogiController.ZoogiTurnCompleteEvent -= endOfTurnAction;
 		if (!isGameOver()) {
-			StartCoroutine (delaySeconds (5));
 			
-			if(activePlayerGetsExtraTurn && !roundWonFlag){
-				
+			if(activeZoogiIndex < teamSize-1 && !roundWonFlag){
+				activeZoogiIndex += 1;
+				activePlayer.nextBall();
 			}
+			/*if(activePlayerGetsExtraTurn && !roundWonFlag){
+				
+			}*/
 			else {
 				
 				if(PlayerTurnCompleteEvent != null){
@@ -259,6 +265,7 @@ public class RingerController : MonoBehaviour {
 		if(PlayerTurnStartEvent != null){
 			PlayerTurnStartEvent(activePlayerIndex);
 		}
+		activeZoogiIndex = 0;
 		activePlayer=players[activePlayerIndex] as Player;
 		advanceToNextPlayer = false;
 	}

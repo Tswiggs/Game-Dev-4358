@@ -6,9 +6,16 @@ public class ZoogiController : MonoBehaviour {
 	private GameObject zoogiBall;
 	private GameObject zoogiCharacterRoot;
 	
+	private int skyBitsCarried;
+	private int maximumSkyBitsCarried = 5;
+	public static float SKY_BIT_MASS_ADD = 5;
+	
 	public delegate void focusChange(int index);
 	public static event focusChange ZoogiTurnStartEvent;
 	public static event focusChange ZoogiTurnCompleteEvent;
+	
+	public delegate void itemAcquired(GameObject zoogi);
+	public static event itemAcquired skyBitAcquired;
 
 	// Use this for initialization
 	void Start () {
@@ -64,6 +71,20 @@ public class ZoogiController : MonoBehaviour {
 		zoogiBall.GetComponent<AimPlayerBall>().enabled = false;
 		zoogiBall.GetComponent<LaunchController>().enabled = false;
 		zoogiBall.GetComponent<SteeringController>().enabled = false;
+	}
+	
+	public bool addSkyBitToZoogi(){
+		if(skyBitsCarried < maximumSkyBitsCarried){
+			skyBitsCarried += 1;
+			zoogiBall.GetComponent<Rigidbody>().mass += SKY_BIT_MASS_ADD;
+			if(skyBitAcquired != null){
+				skyBitAcquired(gameObject);
+			}
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	public int getObjectID(){
