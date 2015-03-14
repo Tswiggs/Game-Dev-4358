@@ -145,6 +145,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &101160
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 498092}
+  - 114: {fileID: 11463556}
+  - 108: {fileID: 10823430}
+  m_Layer: 5
+  m_Name: Halo Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &162930
 GameObject:
   m_ObjectHideFlags: 1
@@ -175,6 +192,7 @@ Transform:
   m_Children:
   - {fileID: 400014}
   - {fileID: 418468}
+  - {fileID: 498092}
   m_Father: {fileID: 400016}
   m_RootOrder: 0
 --- !u!4 &400004
@@ -279,6 +297,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400002}
   m_RootOrder: 1
+--- !u!4 &498092
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101160}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400002}
+  m_RootOrder: 2
 --- !u!23 &2300002
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -528,6 +558,38 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!108 &10823430
+Light:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101160}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_Type: 2
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Intensity: 1.55999994
+  m_Range: 2.5
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_Strength: 1
+    m_Bias: .0500000007
+    m_NormalBias: .400000006
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 1
+  m_Flare: {fileID: 0}
+  m_RenderMode: 2
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Lightmapping: 2
+  m_BounceIntensity: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_AreaSize: {x: 1, y: 1}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -549,7 +611,6 @@ MonoBehaviour:
   launchSpin: 6000
   maxPower: 15
   powerFade: 0
-  timeToSpin: 1
   hopHeight: 3000
 --- !u!114 &11400002
 MonoBehaviour:
@@ -563,13 +624,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
-  steerStrength: 20
-  stopSpeed: .400000006
   smooth: 2.99999992e-05
   hopHeight: 3000
-  stopBufferCount: 3
   hopLandingYThreshold: 4.99999987e-05
-  timeToSpin: 1
   isRolling: 1
 --- !u!114 &11400004
 MonoBehaviour:
@@ -742,6 +799,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03bcc15f73fe9dc41a070156af7a5b27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11463556
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07fd98658d86a1f4aafd9eaf6d964b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &13500000
