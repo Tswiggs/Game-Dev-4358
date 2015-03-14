@@ -174,14 +174,10 @@ public class CharacterSelectController : MonoBehaviour {
 		
 		if(mode == HOTSEAT_MODE){
 			string text;
-			if(currentPlayer == 0){
-				text = "PLAYER 1: SELECT YOUR ZOOGIS";
-			}
-			else{
-				text = "PLAYER 2: SELECT YOUR ZOOGIS";
-			}
 			
-			GUI.Label(new Rect(0,10,Screen.width,50), text, redStyle);
+			text = "Player "+(currentPlayer+1).ToString()+": Select Your Team\n"+numberOfSelectedCharacters.ToString()+" out of "+maxNumberOfCharacters.ToString();
+			
+			GUI.Label(new Rect(0,0,Screen.width,80), text, GUIStyles.getTextDisplayStyle());
 		}
 		
 		
