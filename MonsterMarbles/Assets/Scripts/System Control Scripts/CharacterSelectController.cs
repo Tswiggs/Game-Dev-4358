@@ -1,4 +1,4 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 //using UnityEditor;
 using System.Collections;
 using AssemblyCSharp;
@@ -47,7 +47,7 @@ public class CharacterSelectController : MonoBehaviour {
 		invertedCharacterSelectStyle = GUIStyles.getInvertedCharacterSelectStyle();
 		
 		interfaceNavigation = 0;
-		maxNumberOfCharacters = 1;
+		maxNumberOfCharacters = 3;
 		numberOfSelectedCharacters = 0;
 		
 		currentPlayer = 0;
@@ -61,13 +61,12 @@ public class CharacterSelectController : MonoBehaviour {
 		charactersSelected = new bool[30];
 		characterPortraits = new Texture[30];
 		for(int x = 0; x <18; x++){
-			unlockedCharacters[x] = true;
 			charactersSelected[x] = false;
 		}
 		unlockedCharacters[0] = true;
 		unlockedCharacters[1] = true;
 		unlockedCharacters[2] = true;
-		//unlockedCharacters[3] = true;
+		unlockedCharacters[3] = true;
 		
 		/*characterPortraits[0] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Wolfgang_Portrait.png", typeof(Texture));
 		characterPortraits[1] = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Box_Assets/Pixel Rocket/Textures/GUI Textures/Hotstreak_Portrait.png", typeof(Texture));
@@ -96,18 +95,18 @@ public class CharacterSelectController : MonoBehaviour {
 		unlockedCharacters = new bool[30];
 		charactersSelected = new bool[30];
 		for(int x = 0; x <30; x++){
-			unlockedCharacters[x] = true;
 			charactersSelected[x] = false;
 		}
-		//unlockedCharacters[0] = true;
-		//unlockedCharacters[1] = true;
-		//unlockedCharacters[2] = true;
+		unlockedCharacters[0] = true;
+		unlockedCharacters[1] = true;
+		unlockedCharacters[2] = true;
+		unlockedCharacters[3] = true;
 	}
 	
 	bool selectCharacter(int index){
 		if(numberOfSelectedCharacters < maxNumberOfCharacters){
 			if(charactersSelected[index] != true){
-				if(index < 3){
+				if(PlayerBallCreator.MONSTER_PREFABS.IsDefined(typeof(PlayerBallCreator.MONSTER_PREFABS),index)){
 					charactersSelected[index] = true;
 					numberOfSelectedCharacters += 1;
 					

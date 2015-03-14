@@ -4,13 +4,12 @@ using System.Collections;
 public class SteeringController : MonoBehaviour {
 
 	public Camera camera;
-	public float steerStrength=1f;
-	public float stopSpeed=1f;
+	private float stopSpeed=1f;
 	public float smooth=10f;
 	public float hopHeight=100f;
-	public float stopBufferCount=1.5f;
+	private float stopBufferCount=1.5f;
 	public float hopLandingYThreshold=.005f;
-	public float timeToSpin=3f;
+	private float timeToSpin=1.5f;
 
 	private Vector3 tilt;
 	public bool isRolling=true;
@@ -56,8 +55,6 @@ public class SteeringController : MonoBehaviour {
 		{
 			isRolling=false;
 			isHopping=true;
-			/*GetComponent<Rigidbody>().Sleep();
-			GetComponent<Rigidbody>().WakeUp();*/
 			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
 			standingUp.x=0f;
 			standingUp.y=transform.rotation.y;
@@ -75,16 +72,10 @@ public class SteeringController : MonoBehaviour {
 			timeSpinning+=Time.deltaTime;
 
 			//If the slerp is within 1 degree of completion activate protocol to complete the turn
-			if(timeSpinning>timeToSpin /*&& transform.position.y<=hopStart && GetComponent<Rigidbody>().velocity.y<=0.01*/){
+			if(timeSpinning>timeToSpin){
 				isHopping=false;
-				//GetComponent<Rigidbody>().Sleep();
-				GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-				GetComponent<SteeringController>().enabled= false;
-				//GetComponent<LaunchController>().enabled = true;
-				if(rollCompleted != null)
-				{
-					rollCompleted();
-				}
+				
+				endTurn();
 
 			}
 
@@ -100,8 +91,14 @@ public class SteeringController : MonoBehaviour {
 		GetComponent<Rigidbody>().AddForce(tilt);*/
 	}
 	public void forceEndTurn(){
+		endTurn();
+	}
+	
+	private void endTurn() {
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 		GetComponent<SteeringController>().enabled= false;
-		if(rollCompleted != null){
+		if(rollCompleted != null)
+		{
 			rollCompleted();
 		}
 	}

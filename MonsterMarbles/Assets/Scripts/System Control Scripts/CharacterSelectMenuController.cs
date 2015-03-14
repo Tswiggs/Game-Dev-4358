@@ -63,7 +63,7 @@ public class CharacterSelectMenuController : MonoBehaviour {
 	bool selectCharacter(int index){
 		if(numberOfSelectedCharacters < maxTeamSize){
 			if(charactersSelected[index] != true){
-				if(index < 3){
+				if(PlayerBallCreator.MONSTER_PREFABS.IsDefined(typeof(PlayerBallCreator.MONSTER_PREFABS),index)){
 					charactersSelected[index] = true;
 					numberOfSelectedCharacters += 1;
 					

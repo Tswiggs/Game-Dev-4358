@@ -80,11 +80,11 @@ public class MainMenuController : MonoBehaviour {
 					characterSelectController.enabled = true;
 					this.enabled = false;
 				}
-				if (GUI.Button (new Rect (Screen.width / 2 - 150, ((Screen.height/5)*3) + 50, 300, 140), "Frostwind\n Mountain", mainMenuStyle)) {
+				/*if (GUI.Button (new Rect (Screen.width / 2 - 150, ((Screen.height/5)*3) + 50, 300, 140), "Frostwind\n Mountain", mainMenuStyle)) {
 					selectedGameMode = Constants.SCENE_FROSTWIND_MOUNTAIN;
 					characterSelectController.enabled = true;
 					this.enabled = false;
-				}
+				}*/
 				if (GUI.Button (new Rect (Screen.width/2 - 90, (Screen.height - 200) + 110, 180, 90), "Return", mainMenuStyle)) {
 					interfaceNavigation = 0;
 				}

@@ -612,26 +612,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ac1227214d707b349b31822870e814ae, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &98044928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7debdd6cf0c58417c8b76cf5f31b1c12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entries:
-  - gameObject: {fileID: 1806288699}
-    Id: 4314fbc3-48aa-4b2d-af08-709a08f80830
-  - gameObject: {fileID: 694056981}
-    Id: b0cc8552-3f6a-4c7b-8e5c-beb6538768e8
-  - gameObject: {fileID: 1488099231}
-    Id: da38ecd5-88c6-4a1c-80d2-a25a5cc76868
-  - gameObject: {fileID: 1193954123}
-    Id: 4ab860bd-3c79-4e52-bc42-ea2ca89e62a1
 --- !u!4 &99127122
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 48814e0e6e55c72408ba7ec79b27e4db, type: 2}
@@ -4651,9 +4631,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc7f0a036bc94ddf9e7626ffd54921d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDeserializing: 0
-  _id: b0cc8552-3f6a-4c7b-8e5c-beb6538768e8
-  classId: 805def9c-669c-4f6d-8202-ebb8db12d62e
 --- !u!1001 &694170018
 Prefab:
   m_ObjectHideFlags: 0
@@ -9266,11 +9243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd6fd92df3c974ed690d61989eb183ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDeserializing: 0
-  _id: 4ab860bd-3c79-4e52-bc42-ea2ca89e62a1
-  classId: 6b835851-feed-4f6f-96bb-44054bbbcc77
-  StoreAllComponents: 1
-  Components: []
 --- !u!1 &1196934116
 GameObject:
   m_ObjectHideFlags: 0
@@ -10735,9 +10707,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc7f0a036bc94ddf9e7626ffd54921d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDeserializing: 0
-  _id: da38ecd5-88c6-4a1c-80d2-a25a5cc76868
-  classId: 5f23e415-ae49-4578-98c0-6fde7307008e
 --- !u!124 &1488099233
 Behaviour:
   m_ObjectHideFlags: 0
@@ -11109,8 +11078,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d49efd53907b42149a342aa0ce6e3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredObjects: []
-  Reference: {fileID: 98044928}
 --- !u!4 &1577250421
 Transform:
   m_ObjectHideFlags: 0
@@ -12577,9 +12544,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc7f0a036bc94ddf9e7626ffd54921d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDeserializing: 0
-  _id: 4314fbc3-48aa-4b2d-af08-709a08f80830
-  classId: 5a954499-03bd-4475-a223-099e51ff20fa
 --- !u!1 &1816160776
 GameObject:
   m_ObjectHideFlags: 0

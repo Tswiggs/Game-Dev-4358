@@ -34,7 +34,7 @@ public class LaunchController : MonoBehaviour {
 	private float hopStart= 0f;
 	private float timeSpinning= 0f;
 	private float hopLandingYThreshold=.5f;
-	public float timeToSpin=1f;
+	private float timeToSpin=1.5f;
 	public float hopHeight=3000f;
 
 
@@ -61,10 +61,9 @@ public class LaunchController : MonoBehaviour {
 			timeSpinning+=Time.deltaTime;
 
 			//If the slerp is within 1 degree of completion activate protocol to complete the turn
-			if((timeSpinning>=timeToSpin) && (transform.position.y<=hopStart) && (GetComponent<Rigidbody>().velocity.y<=0.1f)){
+			if((timeSpinning>=timeToSpin)){
 				isHopping=false;
-				//characterGui.SetActive(true);
-				GetComponent<Rigidbody>().Sleep();
+				GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 				GetComponent<SteeringController>().enabled= false;
 				GetComponent<LaunchController>().enabled = true;
 							
@@ -74,8 +73,7 @@ public class LaunchController : MonoBehaviour {
 
 	public void hopUpright(){
 		isHopping=true;
-		GetComponent<Rigidbody>().Sleep();
-		GetComponent<Rigidbody>().WakeUp();
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
 		standingUp.x=0f;
 		standingUp.y=transform.rotation.y;
 		standingUp.z=0f;
