@@ -3,11 +3,13 @@ using System.Collections;
 
 public class ShipCollectorCollisionHandler : MonoBehaviour {
 
-	public AudioClip playerCollectedSound;
+	public AudioClip skybitsCollectedSound;
 	
-	public delegate void collected(Transform collector);
+	public delegate void collected(GameObject collected);
+	public delegate void amountCollected(int amount);
 	public static event collected CollectedPlayer;
 	public static event collected CollectedSkybit;
+	public static event amountCollected SkybitsCollected;
 	// Use this for initialization
 	void Start () {
 		
@@ -17,18 +19,31 @@ public class ShipCollectorCollisionHandler : MonoBehaviour {
 		
 		//If a player has hit the collision dock
 		if (collision.gameObject.CompareTag(Constants.TAG_PLAYER)) {
-			GameAudioController.playOneShotSound(playerCollectedSound);
+			
+			ZoogiController controller = collision.transform.parent.gameObject.GetComponent<ZoogiController>();
+			int numberOfSkybits = controller.removeAllSkybits();
 			
 			collision.transform.parent.gameObject.SetActive(false);
-			collision.transform.parent.position = new Vector3(transform.position.x,0, transform.position.z);
+			
+			if(numberOfSkybits > 0){
+				if(SkybitsCollected != null){
+					SkybitsCollected(numberOfSkybits);
+				}
+				GetComponent<ShipAnimationBehavior>().playSkybitDisplay(numberOfSkybits);
+			}
 			
 			if(CollectedPlayer != null){
-				CollectedPlayer(collision.transform);
+				CollectedPlayer(collision.transform.parent.gameObject);
 			}
 			
 		}
-		
-		
+		else if (collision.gameObject.CompareTag(Constants.TAG_MARBLE)) {
+			collision.gameObject.SetActive(false);
+			if(SkybitsCollected != null){
+				SkybitsCollected(1);
+			}
+			GetComponent<ShipAnimationBehavior>().playSkybitDisplay(1);
+		}
 	}
 	
 	// Update is called once per frame

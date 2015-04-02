@@ -14,17 +14,29 @@ public class LarsPower : ZoogiPower {
 	// Use this for initialization
 	void Start () {
 		LarsBall = transform.FindChild("Ball").gameObject;
+		TurnFlowController.TurnBeginEvent += turnStarted;
 		//powerCharged = true;
 	}
 	
+	public void turnStarted(GameObject zoogi){
+		powerCharged = true;
+	}
 	
 	// Update is called once per frame
 	void Update () {
-		powerCharged = true;
-		if(Input.GetKeyDown("space")){
-			deployPower();
+		if(GetComponent<ZoogiController>().getCurrentState() == ZoogiController.State.ROLLING){
+			if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)){
+				if(powerCharged){
+					leapUp();
+				}
+				powerCharged = false;
+			}
 		}
 
+	}
+	
+	public void leapUp(){
+		LarsBall.GetComponent<Rigidbody>().AddForce(new Vector3(0,100f,0),ForceMode.Impulse);
 	}
 	
 	override public bool deployPower(){

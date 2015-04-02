@@ -25,7 +25,6 @@ public class WolfgangPower : ZoogiPower {
 	/// The second value is the z value (forward/backward) and is the same for both. 
 	/// </summary>
 	public Vector2 ghostDistance = new Vector2(2f,-0.5f);
-	
 	public AudioClip ghostCloudSound;
 	
 	/// <summary>
@@ -46,18 +45,50 @@ public class WolfgangPower : ZoogiPower {
 	private bool hasLaunched = false;
 	// Use this for initialization
 	void Start () {
-		
+	
+		ghostWolfgangPrefab = Resources.Load("Ghost Wolfgang") as GameObject;
+		ghostCloudSound = Resources.Load ("Wolf Power magical-burst") as AudioClip;
+		TurnFlowController.TurnBeginEvent += turnStarted;
+	}
+	
+	public void turnStarted(GameObject zoogi){
+		powerCharged = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		powerCharged = true;
+		
+		if(GetComponent<ZoogiController>().getCurrentState() == ZoogiController.State.ROLLING){
+			if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)){
+				if(powerCharged){
+					summonWolves();
+				}
+				powerCharged = false;
+			}
+		}
+		
 		if (isActivated && !hasLaunched) {
 				wolfgangBall2.transform.rotation = wolfgangBallOriginal.transform.rotation; 
 				wolfgangBall2.GetComponent<Rigidbody>().velocity = wolfgangBallOriginal.GetComponent<Rigidbody>().velocity;
 				wolfgangBall3.transform.rotation = wolfgangBallOriginal.transform.rotation;
 				wolfgangBall3.GetComponent<Rigidbody>().velocity = wolfgangBallOriginal.GetComponent<Rigidbody>().velocity;
 		}
+	}
+	
+	public void summonWolves(){
+		GameAudioController.playOneShotSound(ghostCloudSound);
+		GameObject ghost1 = Instantiate(ghostWolfgangPrefab) as GameObject;
+		ghost1.transform.SetParent(transform);
+		ghost1.transform.position = transform.FindChild("Ball").position+transform.FindChild("Ball").transform.right;
+		ghost1.GetComponent<Rigidbody>().AddForce((transform.FindChild("Ball").transform.right)*(ZoogiLaunchBehavior.MAX_LAUNCH_POWER/5f),ForceMode.Impulse);
+		GameObject ghost2 = Instantiate(ghostWolfgangPrefab) as GameObject;
+		ghost2.transform.SetParent(transform);
+		ghost2.transform.position = transform.FindChild("Ball").position+transform.FindChild("Ball").transform.right*-1;
+		ghost2.GetComponent<Rigidbody>().AddForce((transform.FindChild("Ball").transform.right*-1)*(ZoogiLaunchBehavior.MAX_LAUNCH_POWER/5f),ForceMode.Impulse);
+		GameObject ghost3 = Instantiate(ghostWolfgangPrefab) as GameObject;
+		ghost3.transform.SetParent(transform);
+		ghost3.transform.position = transform.FindChild("Ball").position+transform.FindChild("Character Root").transform.forward;
+		ghost3.GetComponent<Rigidbody>().AddForce((transform.FindChild("Character Root").transform.forward)*(ZoogiLaunchBehavior.MAX_LAUNCH_POWER/2f),ForceMode.Impulse);
 	}
 	
 	override public bool deployPower(){

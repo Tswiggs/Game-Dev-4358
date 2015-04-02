@@ -37,8 +37,9 @@ public class ZoogiAssembler : MonoBehaviour {
 	private static GameObject createZoogi(Vector3 zoogiPosition, Quaternion zoogiRotation){
 		GameObject instPlayerZoogi = Instantiate(playerZoogi, zoogiPosition, zoogiRotation) as GameObject;
 		GameObject instModel = Instantiate(model) as GameObject;
+		Vector3 previousLocalPosition = instModel.transform.localPosition;
 		instModel.transform.SetParent(instPlayerZoogi.transform.FindChild("Ball"));
-		instModel.transform.localPosition = Vector3.zero;
+		instModel.transform.localPosition = previousLocalPosition;
 		
 		Component[] listOfComponents = script.GetComponents<MonoBehaviour>();
 		

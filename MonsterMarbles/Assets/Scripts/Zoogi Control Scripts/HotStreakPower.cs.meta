@@ -1,8 +1,14 @@
 fileFormatVersion: 2
 guid: c5d0cacbbaedb8b4a941d63e10b25b4a
+timeCreated: 1427970800
+licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - HotStreakBall: {instanceID: 0}
+  - groundSlamParticles: {fileID: 100016, guid: 6ed10d5bb5e91764b8632ffbc3b144c8,
+      type: 2}
+  - groundSlamSound: {fileID: 8300000, guid: 57ef67c27e9efad468d51c242898586d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

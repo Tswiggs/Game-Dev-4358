@@ -11,7 +11,7 @@ public class ZoogiController : MonoBehaviour {
 	private int maximumSkyBitsCarried = 5;
 	public static float SKY_BIT_MAX_POWER_DECREASE = 5;
 	
-	public enum State {CONTROLS_ACTIVE, ACTIVE, INACTIVE, ROLLING, HOPPING };
+	public enum State {CONTROLS_ACTIVE, ACTIVE, INACTIVE, ROLLING, HOPPING};
 	private State currentState;
 	
 	public delegate void focusChange(int index);

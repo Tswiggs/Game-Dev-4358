@@ -1,8 +1,14 @@
 fileFormatVersion: 2
 guid: 4eb327bf67017174e91d230eb4d35428
+timeCreated: 1427970845
+licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - wolfgangBallOriginal: {instanceID: 0}
+  - ghostWolfgangPrefab: {fileID: 100024, guid: 92b67b2c8ae009a428ce16c9509c0033,
+      type: 2}
+  - ghostCloudSound: {fileID: 8300000, guid: f174cf139f5b9ac4b84f562679aa887e, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -6,8 +6,8 @@ public class SkybitBehavior : MonoBehaviour {
 	public enum State {FALLING, FLOATING, RISE};
 	private State currentState;
 	private Vector3 anchorPoint;
-	private float floatHeight = 1.0f;
-	private float floatVariance = 0.5f;
+	private float floatHeight = 0.75f;
+	private float floatVariance = 0.2f;
 	private float objectRadius = 0f;
 	private float floatCycleTime = 3f;
 	private float floatTimer = 0;
@@ -85,7 +85,7 @@ public class SkybitBehavior : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter(Collision collision){
-		if(getCurrentState() == State.FALLING){
+		if(getCurrentState() == State.FALLING && collision.transform.gameObject.tag != "Marble"){
 			anchorPoint = collision.contacts[0].point;
 			
 			setCurrentState(State.RISE);

@@ -17,8 +17,8 @@ public class HideObjects : MonoBehaviour {
 	
 	void Update () {
 		//reset and clear all the previous objects
-		if(transform.GetComponent<CameraBoomController>().target != null){
-			WatchTarget = transform.GetComponent<CameraBoomController>().target;
+		if(transform.GetComponent<GameCameraController>().target != null){
+			WatchTarget = transform.GetComponent<GameCameraController>().target;
 			hideObjectsInBetweenTargetAndCamera();
 		}
 		

@@ -10,6 +10,7 @@ public class GameFlowController : MonoBehaviour {
 	
 	private TurnFlowController turnFlowController;
 	private ZoogiSpawnPointHandler zoogiSpawnPointHandler;
+	private RoundScoreTracker scoreTracker;
 	
 	public enum State {TAKING_TURN, WAITING};
 	private State currentState;
@@ -39,6 +40,8 @@ public class GameFlowController : MonoBehaviour {
 		turnFlowController = gameObject.AddComponent<TurnFlowController>();
 		turnFlowController.enabled = false;
 		
+		scoreTracker = new RoundScoreTracker(teamList.Count,3,0);
+		
 		TurnFlowController.TurnEndEvent += turnEnded;
 		
 		zoogiSpawnPointHandler = GameObject.Find("ZoogiSpawnPoints").GetComponent<ZoogiSpawnPointHandler>();
@@ -62,12 +65,14 @@ public class GameFlowController : MonoBehaviour {
 	
 		if(currentState == State.TAKING_TURN){
 			turnFlowController.enabled = false;
+			ShipCollectorCollisionHandler.SkybitsCollected -= skybitsCollected;
 		}
 		
 		currentState = newState;
 		
 		if(newState == State.TAKING_TURN){
 			turnFlowController.enabled = true;
+			ShipCollectorCollisionHandler.SkybitsCollected += skybitsCollected;
 			if(!teamRoster.getZoogi(currentTeamIndex, currentZoogiIndex).activeSelf){
 				spawnZoogiAt(zoogiSpawnPointHandler.findRandomSpawnPoint(),teamRoster.getZoogi(currentTeamIndex, currentZoogiIndex));
 			}
@@ -83,10 +88,12 @@ public class GameFlowController : MonoBehaviour {
 	}
 	
 	public void spawnZoogiAt(Transform location, GameObject zoogi){
+		zoogi.transform.position = location.position;
+		zoogi.transform.FindChild("Ball").localPosition = Vector3.zero;
+		zoogi.transform.FindChild("Ball").localRotation = Quaternion.identity;
 		if(!zoogi.activeSelf){
 			zoogi.SetActive(true);
 		}
-		zoogi.transform.position = location.position;
 	}
 	
 	public void goToNextZoogi(){
@@ -101,6 +108,14 @@ public class GameFlowController : MonoBehaviour {
 			else{
 				currentTeamIndex = 0;
 			}
+			scoreTracker.changePlayerIndex(currentTeamIndex);
+			if(PlayerChangeEvent != null){
+				PlayerChangeEvent(currentTeamIndex);
+			}
 		}
+	}
+	
+	public void skybitsCollected(int amount){
+		scoreTracker.addPointsToCurrentPlayer(amount);
 	}
 }

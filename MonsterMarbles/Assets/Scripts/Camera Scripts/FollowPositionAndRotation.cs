@@ -43,7 +43,7 @@ public class FollowPositionAndRotation : MonoBehaviour {
 				else{
 					transform.forward = new Vector3(forward1.x, 0, forward1.y);
 				}
-				//transform.forward = new Vector3(forward2.x, 0, forward2.y);
+				transform.forward = new Vector3(forward2.x, 0, forward2.y);
 			}
 		}
 	}

@@ -9,6 +9,7 @@ public class GameCameraController : MonoBehaviour {
 	private static GameCameraController cameraController;
 	
 	public FollowCameraBehavior followCamera;
+	public PanCameraBehavior panCamera;
 	
 	public enum State{ ROTATE_ABOUT_CLOSE, ROTATE_ABOUT_FAR, FOLLOW_FAR, FOLLOW_CLOSE, BIRD_EYE_PAN, STATIC_POSITION};
 	private State currentState;
@@ -18,6 +19,7 @@ public class GameCameraController : MonoBehaviour {
 		currentState = State.STATIC_POSITION;
 		
 		followCamera = gameObject.GetComponent<FollowCameraBehavior>();
+		panCamera = gameObject.GetComponent<PanCameraBehavior>();
 		
 		TurnFlowController.TurnBeginEvent += turnBegin;
 	}
@@ -40,6 +42,9 @@ public class GameCameraController : MonoBehaviour {
 		else if(cameraController.currentState == State.FOLLOW_FAR){
 			cameraController.followCamera.enabled = false;
 		}
+		else if(cameraController.currentState == State.BIRD_EYE_PAN){
+			cameraController.panCamera.enabled = false;
+		}
 		
 		cameraController.currentState = newState;
 		
@@ -50,6 +55,10 @@ public class GameCameraController : MonoBehaviour {
 		else if(newState == State.FOLLOW_FAR){
 			cameraController.followCamera.enabled = true;
 			cameraController.followCamera.setCurrentState(FollowCameraBehavior.State.FAR);
+		}
+		else if(newState == State.BIRD_EYE_PAN){
+			cameraController.panCamera.enabled = true;
+			cameraController.panCamera.setCurrentState(PanCameraBehavior.State.CLOSE);
 		}
 		
 		return true;

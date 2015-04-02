@@ -138,9 +138,9 @@ public class RingerController : MonoBehaviour {
 		//activePlayerGetsExtraTurn = true;
 	}
 	
-	void playerCollectedByShip(Transform playerBall){
+	void playerCollectedByShip(GameObject player){
 		//First, see if the player has any skybits currently on them
-		ZoogiController controller = playerBall.parent.gameObject.GetComponent<ZoogiController>();
+		ZoogiController controller = player.GetComponent<ZoogiController>();
 		int skybitsCarried = controller.removeAllSkybits();
 		if (skybitsCarried > 0){
 			scoreTracker.addPointsToCurrentPlayer(skybitsCarried);
@@ -148,7 +148,7 @@ public class RingerController : MonoBehaviour {
 		else{
 			//nothing we really need to do here guv'ner
 		}
-		playerBall.GetComponent<SteeringController>().forceEndTurn();
+		player.transform.FindChild("Ball").gameObject.GetComponent<SteeringController>().forceEndTurn();
 		
 	}
 	

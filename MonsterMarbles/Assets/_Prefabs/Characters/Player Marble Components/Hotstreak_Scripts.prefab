@@ -42,8 +42,8 @@ MonoBehaviour:
   powerCharged: 0
   readyToDeployPower: 0
   HotStreakBall: {fileID: 0}
-  groundSlamParticles: {fileID: 0}
-  groundSlamSound: {fileID: 0}
+  groundSlamParticles: {fileID: 100016, guid: 6ed10d5bb5e91764b8632ffbc3b144c8, type: 2}
+  groundSlamSound: {fileID: 8300000, guid: 57ef67c27e9efad468d51c242898586d, type: 3}
   slamRadius: 20
   slamPower: 75
 --- !u!1001 &100100000

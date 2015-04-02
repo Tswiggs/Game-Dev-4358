@@ -1,8 +1,13 @@
 fileFormatVersion: 2
 guid: ab0ad8452ff104f46bcb512d88c2719e
+timeCreated: 1427970818
+licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - waterTrailParticles: {fileID: 173572, guid: 4ea34e819004b0e40a6894fce40e292c,
+      type: 2}
+  - LarsBall: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

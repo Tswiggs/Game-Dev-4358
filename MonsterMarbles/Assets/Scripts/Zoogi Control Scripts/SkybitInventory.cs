@@ -24,6 +24,7 @@ public class SkybitInventory : MonoBehaviour {
 			if(currentAmount != 0){
 				transform.FindChild(currentAmount.ToString()).gameObject.SetActive(false);
 			}
+			currentAmount = 0;
 			return true;
 		}
 		else if (amount > SKYBIT_MAX){

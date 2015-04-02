@@ -11,6 +11,8 @@ public class OutOfBoundsHandler : MonoBehaviour {
 	public delegate void objectOutOfBounds(GameObject collectedObject);
 	public static event objectOutOfBounds playerOutOfBounds;
 	public static event objectOutOfBounds skyBitOutOfBounds;
+	
+	public AudioClip playerFallSound;
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +32,9 @@ public class OutOfBoundsHandler : MonoBehaviour {
         {
 			collectedObject.transform.parent.gameObject.SetActive(false);
 			collectedObject.transform.position = new Vector3(transform.position.x,0, transform.position.z);
+			if(playerFallSound != null){
+				GameAudioController.playOneShotSound(playerFallSound);
+			}
 			if(playerCollected != null){
 				playerCollected(collectedObject.gameObject);
 			}
