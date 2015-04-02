@@ -29,12 +29,13 @@ public class SkyBitCount : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		string text = "x ";
-		text += playerBitCounts[activePlayerIndex].ToString();
-		counter.text = text;
+
 	}
 	
 	void setPlayerScore(int score, int playerIndex){
 		playerBitCounts[playerIndex] = score;
+		string text = "x ";
+		text += playerBitCounts[activePlayerIndex].ToString();
+		counter.text = text;
 	}
 }

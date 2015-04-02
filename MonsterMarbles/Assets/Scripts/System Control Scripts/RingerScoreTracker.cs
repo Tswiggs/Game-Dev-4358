@@ -26,7 +26,7 @@ public class RingerScoreTracker
 	
 	public delegate void hasWinner(int index);
 	public static event hasWinner playerHasWonRound;
-	public static event  hasWinner playerHasWonGame;
+	public static event hasWinner playerHasWonGame;
 	
 
 		public RingerScoreTracker (int numPlayers, int numRounds, int currentPlayer = 0)
@@ -53,7 +53,11 @@ public class RingerScoreTracker
 		}
 		
 		public void addPointToCurrentPlayer(){
-			roundMatrix[roundIndex,playerIndex] += 1;
+			addPointsToCurrentPlayer(1);
+		}
+		
+		public void addPointsToCurrentPlayer(int amount){
+			roundMatrix[roundIndex,playerIndex] += amount;
 			if(playerScoreChange != null){
 				playerScoreChange(roundMatrix[roundIndex,playerIndex], playerIndex);
 			}

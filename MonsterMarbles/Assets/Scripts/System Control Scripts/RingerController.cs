@@ -10,7 +10,6 @@ public class RingerController : MonoBehaviour {
 		HOTSEAT, ONLINE
 	}
 	
-	public static int POINTS_FOR_SKY_BIT = 3; 
 	public int remainingSkybits;
 	
 	public MULTIPLAYER_MODE gameMode; 
@@ -65,6 +64,7 @@ public class RingerController : MonoBehaviour {
 
 	void Awake() {
 		OutOfBoundsHandler.playerCollected += playerKOed;
+		ShipCollectorCollisionHandler.CollectedPlayer += playerCollectedByShip;
 		
 		RingerScoreTracker.playerHasWonRound += playerHasWonRound;
 		RingerScoreTracker.playerHasWonGame += playerHasWonGame;
@@ -135,7 +135,21 @@ public class RingerController : MonoBehaviour {
 	
 	//Skybit collected, sets flag to give player an extra turn (good job, player, have a biscuit)
 	void skyBitCollected(){
-		activePlayerGetsExtraTurn = true;
+		//activePlayerGetsExtraTurn = true;
+	}
+	
+	void playerCollectedByShip(Transform playerBall){
+		//First, see if the player has any skybits currently on them
+		ZoogiController controller = playerBall.parent.gameObject.GetComponent<ZoogiController>();
+		int skybitsCarried = controller.removeAllSkybits();
+		if (skybitsCarried > 0){
+			scoreTracker.addPointsToCurrentPlayer(skybitsCarried);
+		}
+		else{
+			//nothing we really need to do here guv'ner
+		}
+		playerBall.GetComponent<SteeringController>().forceEndTurn();
+		
 	}
 	
 	void endOfTurnAction(int index){

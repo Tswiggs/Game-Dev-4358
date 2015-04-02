@@ -28,6 +28,11 @@ public class ArrowPullbackController : MonoBehaviour {
 		PullTestScript.pullbackStarted -= pullbackStarted;
 		PullTestScript.launchActivated += pullbackSucceeded;
 		
+		PullbackBehavior.pullbackInformation += pullbackInformation;
+		PullbackBehavior.pullbackAborted += pullbackAborted;
+		PullbackBehavior.pullbackStarted -= pullbackStarted;
+		PullbackBehavior.pullbackReleased += pullbackReleased;
+		
 	}
 	
 	void pullbackInformation(float pullbackFraction){
@@ -47,6 +52,30 @@ public class ArrowPullbackController : MonoBehaviour {
 		PullTestScript.pullbackAborted -= pullbackAborted;
 		PullTestScript.pullbackStarted += pullbackStarted;
 		PullTestScript.launchActivated -= pullbackSucceeded;
+		
+		PullbackBehavior.pullbackInformation -= pullbackInformation;
+		PullbackBehavior.pullbackAborted -= pullbackAborted;
+		PullbackBehavior.pullbackStarted += pullbackStarted;
+		PullbackBehavior.pullbackReleased -= pullbackReleased;
+	}
+	
+	void pullbackReleased() {
+		
+		pullbackInProgress = false;
+		
+		this.transform.localScale = new Vector3(1,this.transform.localScale.y,1);
+		
+		directionalArrow.GetComponent<Renderer>().material.color = Color.white;
+		
+		PullTestScript.pullbackInformation -= pullbackInformation;
+		PullTestScript.pullbackAborted -= pullbackAborted;
+		PullTestScript.pullbackStarted += pullbackStarted;
+		PullTestScript.launchActivated -= pullbackSucceeded;
+		
+		PullbackBehavior.pullbackInformation -= pullbackInformation;
+		PullbackBehavior.pullbackAborted -= pullbackAborted;
+		PullbackBehavior.pullbackStarted += pullbackStarted;
+		PullbackBehavior.pullbackReleased -= pullbackReleased;
 	}
 	
 	void pullbackAborted(){
@@ -61,11 +90,18 @@ public class ArrowPullbackController : MonoBehaviour {
 		PullTestScript.pullbackAborted -= pullbackAborted;
 		PullTestScript.pullbackStarted += pullbackStarted;
 		PullTestScript.launchActivated -= pullbackSucceeded;
+		
+		PullbackBehavior.pullbackInformation -= pullbackInformation;
+		PullbackBehavior.pullbackAborted -= pullbackAborted;
+		PullbackBehavior.pullbackStarted += pullbackStarted;
+		PullbackBehavior.pullbackReleased -= pullbackReleased;
 	}
 	
 	private void OnEnable(){
 		
 		PullTestScript.pullbackStarted += pullbackStarted;
+		
+		PullbackBehavior.pullbackStarted += pullbackStarted;
 		
 		
 	}
@@ -73,5 +109,7 @@ public class ArrowPullbackController : MonoBehaviour {
 	private void OnDisable(){
 		
 		PullTestScript.pullbackAborted -= pullbackAborted;
+		
+		PullbackBehavior.pullbackStarted -= pullbackStarted;
 	}
 }

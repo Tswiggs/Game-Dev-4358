@@ -27,7 +27,12 @@ public class HideObjects : MonoBehaviour {
 	void hideObjectsInBetweenTargetAndCamera(){
 		if(_LastTransforms.Count > 0){
 			foreach(Transform t in _LastTransforms.Keys){
-				t.GetComponent<Renderer>().material = _LastTransforms[t];
+				try {
+					t.GetComponent<Renderer>().material = _LastTransforms[t];
+				}
+				catch (MissingReferenceException e){
+					_LastTransforms.Remove(t);
+				}
 			}
 			_LastTransforms.Clear();
 		}

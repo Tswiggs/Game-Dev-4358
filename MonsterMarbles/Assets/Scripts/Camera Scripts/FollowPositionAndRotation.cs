@@ -60,15 +60,27 @@ public class FollowPositionAndRotation : MonoBehaviour {
 		pullbackInProgress = false;
 	}
 	
+	void pullbackReleased(){
+		pullbackInProgress = false;
+	}
+	
 	void OnEnable() {
 		PullTestScript.pullbackStarted += pullbackStarted;
 		PullTestScript.pullbackAborted += pullbackAborted;
 		PullTestScript.launchActivated += launchActivated;
+		
+		PullbackBehavior.pullbackStarted += pullbackStarted;
+		PullbackBehavior.pullbackAborted += pullbackAborted;
+		PullbackBehavior.pullbackReleased += pullbackReleased;
 	}
 	
 	void OnDisable() {
 		PullTestScript.pullbackStarted -= pullbackStarted;
 		PullTestScript.pullbackAborted -= pullbackAborted;
 		PullTestScript.launchActivated -= launchActivated;
+		
+		PullbackBehavior.pullbackStarted -= pullbackStarted;
+		PullbackBehavior.pullbackAborted -= pullbackAborted;
+		PullbackBehavior.pullbackReleased -= pullbackReleased;
 	}
 }

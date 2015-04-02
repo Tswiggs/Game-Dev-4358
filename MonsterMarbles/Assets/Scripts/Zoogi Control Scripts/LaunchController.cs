@@ -5,7 +5,6 @@ using System;
 public class LaunchController : MonoBehaviour {
 
 	new public Camera camera;
-	public AudioSource audioSource;
 	public AudioClip explosionSound;
 	public AudioSource pullbackSource;
 	public GameObject characterGui;
@@ -45,7 +44,6 @@ public class LaunchController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		camera=Camera.main;
-		audioSource=camera.GetComponent<AudioSource>();
 		launchScalar = LAUNCH_SCALE;
 	}
 
@@ -92,7 +90,7 @@ public class LaunchController : MonoBehaviour {
 		GetComponent<Rigidbody>().AddRelativeTorque(maxPower*powerFraction*launchSpin, 0f, 0f);
 		
 		if(explosionSound != null){
-			audioSource.PlayOneShot(explosionSound);
+			GameAudioController.playOneShotSound(explosionSound);
 		}
 		shouldLaunch=false;
 		//characterGui.SetActive(false);
@@ -116,7 +114,6 @@ public class LaunchController : MonoBehaviour {
 	private void updateLaunchInformation(float powerFraction){
 		
 		if(!pullbackSource.isPlaying){
-			pullbackSource.Play();
 		}
 		power = maxPower*powerFraction;
 	}

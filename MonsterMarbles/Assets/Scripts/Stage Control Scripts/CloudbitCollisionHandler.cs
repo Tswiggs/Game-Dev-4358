@@ -16,7 +16,7 @@ public class CloudbitCollisionHandler : MonoBehaviour {
 
 		if (collider.CompareTag(Constants.TAG_PLAYER)) {
 			if(collider.GetComponentInParent<ZoogiController>().addSkyBitToZoogi()){
-				//Somehow play pickUpSound
+				GameAudioController.playOneShotSound(pickUpSound);
 				
 				if(PlayerCollect != null){
 					PlayerCollect(collider.transform);
