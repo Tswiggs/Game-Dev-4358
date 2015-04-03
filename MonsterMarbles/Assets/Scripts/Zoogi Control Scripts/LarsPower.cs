@@ -8,12 +8,15 @@ public class LarsPower : ZoogiPower {
 	
 	public GameObject LarsBall;
 	
+	public AudioClip larsJumpSound;
+	
 	private bool isActivated = false;
 	
 	private float velocityIncrease = 2;
 	// Use this for initialization
 	void Start () {
 		LarsBall = transform.FindChild("Ball").gameObject;
+		larsJumpSound = Resources.Load("lars_jump_sound") as AudioClip;
 		TurnFlowController.TurnBeginEvent += turnStarted;
 		//powerCharged = true;
 	}
@@ -36,6 +39,7 @@ public class LarsPower : ZoogiPower {
 	}
 	
 	public void leapUp(){
+		GameAudioController.playOneShotSound(larsJumpSound);
 		LarsBall.GetComponent<Rigidbody>().AddForce(new Vector3(0,100f,0),ForceMode.Impulse);
 	}
 	

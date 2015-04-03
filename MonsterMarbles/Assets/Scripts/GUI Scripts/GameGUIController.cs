@@ -15,6 +15,12 @@ public class GameGUIController : MonoBehaviour {
 	private List<int> scoreList;
 	private int playerScoreIndex = 0;
 	
+	private GameObject informationPanel;
+	private Text informationText;
+	private float informationShowTime = 2f;
+	private float informationShowTimer = 0f;
+	private bool showInformation = false;
+	
 	public delegate void stateChange();
 	public static event stateChange changeToLaunchState;
 	public static event stateChange changeToMapState;
@@ -29,6 +35,9 @@ public class GameGUIController : MonoBehaviour {
 		currentState = State.INACTIVE;
 		guiController = this;
 		
+		informationPanel = transform.FindChild ("Always Shown Menu").FindChild ("Information Panel").gameObject;
+		informationText = informationPanel.transform.GetChild(0).GetComponent<Text>();
+		
 		RoundScoreTracker.playerScoreChange += playerScoreChange;
 		GameFlowController.PlayerChangeEvent += playerChange;
 	}
@@ -36,6 +45,20 @@ public class GameGUIController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+		if(showInformation){
+			if(Input.GetKeyDown(KeyCode.Space)){
+				informationShowTimer = informationShowTime;
+			}
+		
+			if(informationShowTimer < informationShowTime){
+				informationShowTimer += Time.deltaTime;
+			}
+			else{
+				guiController.informationPanel.GetComponent<Image>().CrossFadeAlpha(0f, 1.0f, false);
+				informationText.CrossFadeAlpha(0f,1.0f,false);
+				showInformation = false;
+			}
+		}
 	}
 	
 	public State getCurrentState(){
@@ -67,6 +90,19 @@ public class GameGUIController : MonoBehaviour {
 		}
 		
 		return true;
+	}
+	
+	public static void showInformationPanel(string text, float time){
+		guiController.informationShowTime = time;
+		guiController.informationShowTimer = 0;
+		guiController.showInformation = true;
+		guiController.informationText.text = text;
+		guiController.informationPanel.SetActive(true);
+		
+		//guiController.informationText.CrossFadeAlpha(1.0f,1.0f,false);
+		guiController.informationText.GetComponent<CanvasRenderer>().SetAlpha(1f);
+		//guiController.informationPanel.GetComponent<Image>().CrossFadeAlpha(1.0f, 1.0f, false);
+		guiController.informationPanel.GetComponent<CanvasRenderer>().SetAlpha(1f);
 	}
 	
 	public void changeToLaunch(){

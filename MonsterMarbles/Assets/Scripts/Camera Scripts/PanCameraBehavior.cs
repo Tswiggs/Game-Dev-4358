@@ -9,8 +9,8 @@ public class PanCameraBehavior : MonoBehaviour {
 	private float rotationDamping = 3.0f;
 	private float positionDamping = 4.0f;
 	
-	private float keyPanSpeed = 10f;
-	private float mousePanSpeed = 10f;
+	private float keyPanSpeed = 15f;
+	private float mousePanSpeed = 15f;
 	
 	public const float CLOSE_DISTANCE = 0f;
 	public const float CLOSE_HEIGHT = 18f;
@@ -54,10 +54,12 @@ public class PanCameraBehavior : MonoBehaviour {
 		if(newState == State.CLOSE){
 			distance = CLOSE_DISTANCE;
 			height = CLOSE_HEIGHT;
+			focusPosition = target.position;
 		}
 		else if(newState == State.FAR){
 			distance = FAR_DISTANCE;
 			height = FAR_HEIGHT;
+			focusPosition = target.position;
 		}
 		
 		return true;

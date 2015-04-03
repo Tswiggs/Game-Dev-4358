@@ -22,7 +22,7 @@ public class OutOfBoundsHandler : MonoBehaviour {
 		if(collectedObject.CompareTag(Constants.TAG_MARBLE)){
 			collectedObject.transform.parent.gameObject.SetActive(false);
 			if(pointCollected != null){
-				pointCollected();
+				//pointCollected();
 			}
 			if(skyBitOutOfBounds != null){
 				skyBitOutOfBounds(collectedObject.transform.parent.gameObject);

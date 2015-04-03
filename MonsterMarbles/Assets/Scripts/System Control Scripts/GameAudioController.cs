@@ -20,4 +20,8 @@ public class GameAudioController : MonoBehaviour {
 	public static void playOneShotSound(AudioClip clip){
 		mainAudioSource.PlayOneShot(clip);
 	}
+	
+	public static void playOneShotSound(AudioClip clip, float volumeScale){
+		mainAudioSource.PlayOneShot(clip, volumeScale);
+	}
 }

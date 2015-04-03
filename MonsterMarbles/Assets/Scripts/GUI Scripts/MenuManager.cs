@@ -16,4 +16,8 @@ public class MenuManager : MonoBehaviour {
 		CurrentMenu = menu;
 		CurrentMenu.IsOpen = true;
 	}
+	
+	public void loadPilaGardens(){
+		Application.LoadLevel("PilaGardens");
+	}
 }

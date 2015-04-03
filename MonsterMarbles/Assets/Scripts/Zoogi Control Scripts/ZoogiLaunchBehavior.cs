@@ -17,6 +17,8 @@ public class ZoogiLaunchBehavior : MonoBehaviour {
 	public const float MAX_SPIN_ROTATION = 30f;
 	public const float MAX_LAUNCH_POWER = 450f;
 	
+	public AudioClip launchSound;
+	
 	private float powerFraction; //Total fraction of LAUNCH POWER to be used
 	
 	private Transform characterRoot;
@@ -65,6 +67,10 @@ public class ZoogiLaunchBehavior : MonoBehaviour {
 			PullbackBehavior.pullbackAborted -= pullbackAborted;
 			PullbackBehavior.pullbackInformation -= pullbackInformation;
 			
+			if(GetComponent<AudioSource>().isPlaying){
+				GetComponent<AudioSource>().Stop();
+			}
+			
 		}
 		else if( currentState == State.LAUNCH){
 			
@@ -79,6 +85,10 @@ public class ZoogiLaunchBehavior : MonoBehaviour {
 			PullbackBehavior.pullbackReleased += pullbackReleased;
 			PullbackBehavior.pullbackAborted += pullbackAborted;
 			PullbackBehavior.pullbackInformation += pullbackInformation;
+			
+			if(!GetComponent<AudioSource>().isPlaying){
+				GetComponent<AudioSource>().Play();
+			}
 			
 			if( launchStarted != null){
 				launchStarted(this.transform.parent.gameObject);
@@ -127,7 +137,9 @@ public class ZoogiLaunchBehavior : MonoBehaviour {
 		Vector3 launchVector = calculateLaunchVector();
 		GetComponent<Rigidbody>().AddForce(launchVector, ForceMode.Impulse);
 		GetComponent<Rigidbody>().AddRelativeTorque(new Vector3(MAX_LAUNCH_POWER*powerFraction,0,0),ForceMode.Impulse);
-		//transform.parent.gameObject.SendMessage("launchCompleted");
+		
+		GameAudioController.playOneShotSound(launchSound, 0.3f);
+		
 		if(launchCompleted != null){
 			launchCompleted(transform.parent.gameObject);
 		}

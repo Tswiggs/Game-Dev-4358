@@ -8,11 +8,20 @@ public class GameFlowController : MonoBehaviour {
 	
 	public ZoogiTeamRoster teamRoster;
 	
+	private int totalBitsCollected;
+	private int totalBitsInGame;
+	private int turnLimit;
+	private int turnsTaken;
+	
+	private float victoryDisplayTime = 12f;
+	public AudioClip victorySound;
+	private float victoryTimer = 0;
+	
 	private TurnFlowController turnFlowController;
 	private ZoogiSpawnPointHandler zoogiSpawnPointHandler;
 	private RoundScoreTracker scoreTracker;
 	
-	public enum State {TAKING_TURN, WAITING};
+	public enum State {TAKING_TURN, WAITING, GAME_END};
 	private State currentState;
 	
 	public delegate void stateChange(int index);
@@ -45,15 +54,39 @@ public class GameFlowController : MonoBehaviour {
 		TurnFlowController.TurnEndEvent += turnEnded;
 		
 		zoogiSpawnPointHandler = GameObject.Find("ZoogiSpawnPoints").GetComponent<ZoogiSpawnPointHandler>();
+		
+		totalBitsCollected = 0;
+		totalBitsInGame = GameObject.Find("Skybits").transform.childCount;
+		turnLimit = 12;
+		turnsTaken = 0;
+		
+		GameGUIController.showInformationPanel("Collect All "+totalBitsInGame.ToString()+" Skybits And Drop Them Off Into Your Ships Before "+turnLimit.ToString()+" Turns Have Passed!",3f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetKeyDown(KeyCode.Escape)){
+			Application.Quit();
+		}
+		
 		if(currentState == State.WAITING){
+			if(totalBitsCollected >= totalBitsInGame || turnsTaken >= turnLimit){
+				setCurrentState(State.GAME_END);
+			}
+			else {
 			setCurrentState (State.TAKING_TURN);
+			}
 		}
 		else if (currentState == State.TAKING_TURN){
 			
+		}
+		else if (currentState == State.GAME_END){
+			if (victoryTimer < victoryDisplayTime){
+				victoryTimer += Time.deltaTime;
+			}
+			else{
+				Application.LoadLevel(Constants.SCENE_MAIN_MENU);
+			}
 		}
 	}
 	
@@ -71,12 +104,25 @@ public class GameFlowController : MonoBehaviour {
 		currentState = newState;
 		
 		if(newState == State.TAKING_TURN){
+			turnsTaken += 1;
+			GameGUIController.showInformationPanel("Turn "+turnsTaken.ToString()+" Out Of "+turnLimit.ToString(),1f);
+			
 			turnFlowController.enabled = true;
 			ShipCollectorCollisionHandler.SkybitsCollected += skybitsCollected;
 			if(!teamRoster.getZoogi(currentTeamIndex, currentZoogiIndex).activeSelf){
 				spawnZoogiAt(zoogiSpawnPointHandler.findRandomSpawnPoint(),teamRoster.getZoogi(currentTeamIndex, currentZoogiIndex));
 			}
 			turnFlowController.takeTurn(teamRoster.getZoogi(currentTeamIndex, currentZoogiIndex));
+		}
+		else if(newState == State.GAME_END){
+			victoryTimer = 0;
+			GameAudioController.playOneShotSound(victorySound);
+			if(totalBitsCollected >= totalBitsInGame){
+				GameGUIController.showInformationPanel("Congratulations You Collected All "+totalBitsCollected.ToString()+" Skybits In "+turnsTaken.ToString()+" Turns!",victoryDisplayTime-1.5f);
+			}
+			else{
+				GameGUIController.showInformationPanel("Congratulations You Collected "+totalBitsCollected.ToString()+" Skybits In "+turnsTaken.ToString()+" Turns!",victoryDisplayTime-1.5f);
+			}
 		}
 		
 		return true;
@@ -117,5 +163,6 @@ public class GameFlowController : MonoBehaviour {
 	
 	public void skybitsCollected(int amount){
 		scoreTracker.addPointsToCurrentPlayer(amount);
+		totalBitsCollected += 1;
 	}
 }
