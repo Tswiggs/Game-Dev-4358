@@ -12,27 +12,30 @@ public class MarbleCollisionHandler : MonoBehaviour {
 	public float onCollisionPowerMultiplier;
 	public float onCollisionBumperPower;
 	
+	public Rigidbody rigidbody;
+	
 	public bool useDefaults = true;
 	
 	protected bool hasCollided = false;
 	
 	public static float DEFAULT_COLLISION_POWER_INCREASE = 20f;
-	public static float DEFAULT_COLLISION_POWER_MULTIPLIER = 20f;
+	public static float DEFAULT_COLLISION_POWER_MULTIPLIER = 1.0f;
 	
 	public delegate void collisionEvent(Collision collision, Rigidbody original);
 	public static event collisionEvent playerHasCollided;
 
 	// Use this for initialization
 	void Start () {
-	
+		rigidbody = GetComponent<Rigidbody>();
 	}
 
 	void OnCollisionEnter(Collision collision) {
 		if (collision.collider.CompareTag(Constants.TAG_PLAYER) || collision.collider.CompareTag (Constants.TAG_MARBLE)) {
-			
-			Vector3 forceVector = collision.relativeVelocity *GetComponent<Rigidbody>().mass;
-			forceVector.Scale(new Vector3(getPowerMultiplier(),0,getPowerMultiplier()));
-			GetComponent<Rigidbody>().AddForce(forceVector);
+			if(rigidbody.velocity.magnitude > collision.rigidbody.velocity.magnitude){
+				Vector3 forceVector = collision.relativeVelocity;
+				forceVector.Scale(new Vector3(getPowerMultiplier(),0,getPowerMultiplier()));
+				rigidbody.AddForce(forceVector,ForceMode.Impulse);
+			}
 			
 			if(this.CompareTag(Constants.TAG_PLAYER)){
 				if(playerHasCollided != null){

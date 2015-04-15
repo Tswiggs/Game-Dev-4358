@@ -60,6 +60,12 @@ public class ZoogiRollBehavior : MonoBehaviour {
 		}
 	}
 	
+	void OnCollisionEnter(Collision collision){
+		if(collision.gameObject.CompareTag(Constants.TAG_PLAYER) || collision.gameObject.CompareTag(Constants.TAG_MARBLE) || collision.gameObject.CompareTag(Constants.TAG_BUMPER)){
+			setCurrentState(State.ROLLING);
+		}
+	}
+	
 	void OnDisable(){
 		setCurrentState(State.INACTIVE);
 	}
@@ -78,11 +84,6 @@ public class ZoogiRollBehavior : MonoBehaviour {
 			}
 			rigidBody.drag = normalDrag*percentage;
 		}
-		
-		
-		
-		Debug.Log("Velocity is "+rigidBody.velocity.magnitude.ToString());
-		Debug.Log("Drag is"+rigidBody.drag.ToString());
 	}
 	
 	public State getCurrentState(){
