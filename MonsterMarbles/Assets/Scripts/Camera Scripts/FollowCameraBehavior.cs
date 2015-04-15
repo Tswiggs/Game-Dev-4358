@@ -9,8 +9,8 @@ public class FollowCameraBehavior : MonoBehaviour {
 	private float rotationDamping = 3.0f;
 	private float positionDamping = 4.0f;
 	
-	public const float CLOSE_DISTANCE = 5f;
-	public const float CLOSE_HEIGHT = 3f;
+	public const float CLOSE_DISTANCE = 6f;
+	public const float CLOSE_HEIGHT = 6f;
 	
 	public const float FAR_DISTANCE = 6f;
 	public const float FAR_HEIGHT = 16f;
