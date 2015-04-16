@@ -191,6 +191,7 @@ GameObject:
   - 114: {fileID: 11460538}
   - 114: {fileID: 11411772}
   - 114: {fileID: 11461766}
+  - 114: {fileID: 11497612}
   - 82: {fileID: 8285428}
   m_Layer: 11
   m_Name: Ball
@@ -1961,6 +1962,17 @@ MonoBehaviour:
   numberOfTapsRequired: 1
   timeLimit: Infinity
   distanceLimit: Infinity
+--- !u!114 &11497612
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e80b33ede8c8cf743b43ec702359e155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11499056
 MonoBehaviour:
   m_ObjectHideFlags: 1
