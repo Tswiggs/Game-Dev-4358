@@ -41,17 +41,24 @@ public class GameSetupController : MonoBehaviour {
 	
 	private void assignDefaultStartingParameters(){
 		teamList = new List<ZoogiTeam>();
-		ZoogiTeam team1 = new ZoogiTeam("Player 1");
-		team1.addTeamMember(new Zoogi(2));
-		team1.addTeamMember(new Zoogi(1));
-		team1.addTeamMember(new Zoogi(0));
-		teamList.Add(team1);
-		
-		ZoogiTeam team2 = new ZoogiTeam("Player 2");
-		team2.addTeamMember(new Zoogi(3));
-		//team2.addTeamMember(new Zoogi(2));
-		//team2.addTeamMember(new Zoogi(0));
-		//teamList.Add(team2);
+		if(Application.loadedLevelName == Constants.SCENE_WOLFGANG_1){
+			ZoogiTeam team1 = new ZoogiTeam("Player 1");
+			team1.addTeamMember(new Zoogi(0));
+			teamList.Add(team1);
+		}
+		else{
+			ZoogiTeam team1 = new ZoogiTeam("Player 1");
+			team1.addTeamMember(new Zoogi(2));
+			team1.addTeamMember(new Zoogi(1));
+			team1.addTeamMember(new Zoogi(0));
+			teamList.Add(team1);
+			
+			ZoogiTeam team2 = new ZoogiTeam("Player 2");
+			team2.addTeamMember(new Zoogi(3));
+			//team2.addTeamMember(new Zoogi(2));
+			//team2.addTeamMember(new Zoogi(0));
+			//teamList.Add(team2);
+		}
 		
 		teamRoster = createTeamRoster(teamList);
 	}

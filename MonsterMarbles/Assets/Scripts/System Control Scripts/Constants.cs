@@ -1,4 +1,4 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class Constants : MonoBehaviour {
@@ -10,6 +10,7 @@ public class Constants : MonoBehaviour {
 	public const string SCENE_MAIN_MENU = "Main Menu";
 	public const string SCENE_PILA_PLAINS = "Pila_Plains_Prototype";
 	public const string SCENE_FROSTWIND_MOUNTAIN = "FrostwindMountain";
+	public const string SCENE_WOLFGANG_1 = "Wolfgang_Den";
 	
 	public static string[] CHARACTER_INDEX = new string[30];
 	

@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &110978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 439132}
+  - 114: {fileID: 11444364}
+  - 114: {fileID: 11406364}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &439132
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110978}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11406364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a4503bc33009143b539a49f9ce9b64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  victorySound: {fileID: 8300000, guid: 5319ba7cd3bfdfc46aee4d8ea3676317, type: 3}
+--- !u!114 &11444364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b302fab59304214abc030ffe960686a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameFlowController: {fileID: 11406364}
+  wolfgangModel: {fileID: 167194, guid: 20f7c92905ca3314080acba944d5e78f, type: 2}
+  wolfgangScripts: {fileID: 174814, guid: 72abd2da70811014b88828445d6bb0f6, type: 2}
+  hotstreakModel: {fileID: 142014, guid: 148b14e603ce98547b2f893c8a5bd442, type: 2}
+  hotstreakScripts: {fileID: 171600, guid: ba3e7b4455d4deb4687092867b1db507, type: 2}
+  larsModel: {fileID: 189142, guid: 9c76b3f1863a3f54fb60913e2e420e7a, type: 2}
+  larsScripts: {fileID: 190316, guid: b98a05b7119c01a4e86f99cda7661842, type: 2}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 110978}
+  m_IsPrefabParent: 1

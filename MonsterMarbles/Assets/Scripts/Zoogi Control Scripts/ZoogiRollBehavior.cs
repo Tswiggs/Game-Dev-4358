@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ZoogiRollBehavior : MonoBehaviour {
 	
-	private float noDragVelocity = 10f;
+	private float noDragVelocity = 30f;
 	private float maxDragVelocity = 3f;
 	private float minimumDragPercentage = 0.1f;
 	
@@ -42,7 +42,7 @@ public class ZoogiRollBehavior : MonoBehaviour {
 	void FixedUpdate() {
 		if(getCurrentState() == State.ROLLING){
 			
-			setDragBasedOnVelocity();
+			//setDragBasedOnVelocity();
 			
 			if(stopVelocityThreshold >= rigidBody.velocity.magnitude){
 				if(stopTimer >= stopVelocityTime){
@@ -61,9 +61,7 @@ public class ZoogiRollBehavior : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter(Collision collision){
-		if(collision.gameObject.CompareTag(Constants.TAG_PLAYER) || collision.gameObject.CompareTag(Constants.TAG_MARBLE) || collision.gameObject.CompareTag(Constants.TAG_BUMPER)){
-			setCurrentState(State.ROLLING);
-		}
+
 	}
 	
 	void OnDisable(){
