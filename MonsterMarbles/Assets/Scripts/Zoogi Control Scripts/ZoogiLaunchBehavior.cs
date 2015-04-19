@@ -15,7 +15,7 @@ public class ZoogiLaunchBehavior : MonoBehaviour {
 	private State currentState;
 	
 	public const float MAX_SPIN_ROTATION = 30f;
-	public const float MAX_LAUNCH_POWER = 450f;
+	public const float MAX_LAUNCH_POWER = 300f;
 	
 	public AudioClip launchSound;
 	
