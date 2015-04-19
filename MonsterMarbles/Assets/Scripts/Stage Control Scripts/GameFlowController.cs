@@ -165,4 +165,7 @@ public class GameFlowController : MonoBehaviour {
 		scoreTracker.addPointsToCurrentPlayer(amount);
 		totalBitsCollected += 1;
 	}
+
+
+
 }
