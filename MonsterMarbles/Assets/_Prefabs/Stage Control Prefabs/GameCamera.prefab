@@ -317,6 +317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localSource: {fileID: 8222514}
+  backgroundMusic: {fileID: 8208860}
 --- !u!114 &11467830
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class GameFlowController : MonoBehaviour {
 	
+	public static GameSetup Settings;
+	
 	public List<ZoogiTeam> teamList;
 	
 	public ZoogiTeamRoster teamRoster;
@@ -13,6 +15,8 @@ public class GameFlowController : MonoBehaviour {
 	private int turnLimit;
 	private int turnsTaken;
 	
+	private bool isSolo = true;
+	
 	private float victoryDisplayTime = 12f;
 	public AudioClip victorySound;
 	private float victoryTimer = 0;
@@ -21,6 +25,8 @@ public class GameFlowController : MonoBehaviour {
 	private ZoogiSpawnPointHandler zoogiSpawnPointHandler;
 	private RoundScoreTracker scoreTracker;
 	
+	private ObjectiveTrackerInterface objectiveTracker;
+	
 	public enum State {TAKING_TURN, WAITING, GAME_END};
 	private State currentState;
 	
@@ -28,30 +34,39 @@ public class GameFlowController : MonoBehaviour {
 	public static event stateChange PlayerChangeEvent;
 	public static event stateChange RoundBeginEvent;
 	public static event stateChange RoundEndEvent;
+	public static event stateChange SoloGameEnd;
+	
+	public delegate void valueChange(int amount);
+	public static event valueChange RankingAchieved;
 	
 	private int currentTeamIndex;
 	private int currentZoogiIndex;
 	
 	// Use this for initialization
 	void Start () {
-		enabled = false;
+		//enabled = false;
 		currentTeamIndex = 0;
 		currentZoogiIndex = 0;
 	}
 	
-	public void initialize( List<ZoogiTeam> TeamList, ZoogiTeamRoster roster){
-		teamList = TeamList;
-		enabled = true;
+	public void initialize( GameSetup settings){
+		Settings = settings;
+		
+		teamList = settings.teamList;
 		currentState = State.WAITING;
 		
-		teamRoster = roster;
+		teamRoster = settings.roster;
 		
 		turnFlowController = gameObject.AddComponent<TurnFlowController>();
 		turnFlowController.enabled = false;
 		
 		scoreTracker = new RoundScoreTracker(teamList.Count,3,0);
+		objectiveTracker = settings.objectiveTracker;
+		isSolo = settings.isSolo;
 		
 		TurnFlowController.TurnEndEvent += turnEnded;
+		GameGUIController.retryLevel += reloadLevel;
+		GameGUIController.nextLevel += advanceToNextLevel;
 		
 		zoogiSpawnPointHandler = GameObject.Find("ZoogiSpawnPoints").GetComponent<ZoogiSpawnPointHandler>();
 		
@@ -60,21 +75,27 @@ public class GameFlowController : MonoBehaviour {
 		turnLimit = 12;
 		turnsTaken = 0;
 		
-		GameGUIController.showInformationPanel("Collect All "+totalBitsInGame.ToString()+" Skybits And Drop Them Off Into Your Ships Before "+turnLimit.ToString()+" Turns Have Passed!",3f);
+		enabled = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.Escape)){
-			Application.Quit();
+		if(Debug.isDebugBuild){
+			if(Input.GetKeyDown(KeyCode.Escape)){
+				Application.Quit();
+			}
+			
+			if(Input.GetKeyDown(KeyCode.Space)){
+				reloadLevel();
+			}
 		}
 		
 		if(currentState == State.WAITING){
-			if(totalBitsCollected >= totalBitsInGame || turnsTaken >= turnLimit){
+			if(objectiveTracker.isGameOver()){
 				setCurrentState(State.GAME_END);
 			}
 			else {
-			setCurrentState (State.TAKING_TURN);
+				setCurrentState (State.TAKING_TURN);
 			}
 		}
 		else if (currentState == State.TAKING_TURN){
@@ -82,7 +103,7 @@ public class GameFlowController : MonoBehaviour {
 		}
 		else if (currentState == State.GAME_END){
 			if (victoryTimer < victoryDisplayTime){
-				victoryTimer += Time.deltaTime;
+				//victoryTimer += Time.deltaTime;
 			}
 			else{
 				Application.LoadLevel(Constants.SCENE_MAIN_MENU);
@@ -105,7 +126,7 @@ public class GameFlowController : MonoBehaviour {
 		
 		if(newState == State.TAKING_TURN){
 			turnsTaken += 1;
-			GameGUIController.showInformationPanel("Turn "+turnsTaken.ToString()+" Out Of "+turnLimit.ToString(),1f);
+			GameGUIController.showInformationPanel("Turn "+turnsTaken.ToString(),3f);
 			
 			turnFlowController.enabled = true;
 			ShipCollectorCollisionHandler.SkybitsCollected += skybitsCollected;
@@ -115,13 +136,26 @@ public class GameFlowController : MonoBehaviour {
 			turnFlowController.takeTurn(teamRoster.getZoogi(currentTeamIndex, currentZoogiIndex));
 		}
 		else if(newState == State.GAME_END){
-			victoryTimer = 0;
-			GameAudioController.playOneShotSound(victorySound);
-			if(totalBitsCollected >= totalBitsInGame){
-				GameGUIController.showInformationPanel("Congratulations You Collected All "+totalBitsCollected.ToString()+" Skybits In "+turnsTaken.ToString()+" Turns!",victoryDisplayTime-1.5f);
+		
+			if(isSolo){
+				GameGUIController.setCurrentState(GameGUIController.State.END_GAME_SOLO);
+				if(RankingAchieved != null){
+					RankingAchieved(objectiveTracker.getPlayerRanking(0));
+				}
+				
+				if(SoloGameEnd != null){
+					SoloGameEnd(0);
+				}
 			}
 			else{
-				GameGUIController.showInformationPanel("Congratulations You Collected "+totalBitsCollected.ToString()+" Skybits In "+turnsTaken.ToString()+" Turns!",victoryDisplayTime-1.5f);
+				victoryTimer = 0;
+				GameAudioController.playOneShotSound(victorySound);
+				if(totalBitsCollected >= totalBitsInGame){
+					GameGUIController.showInformationPanel("Congratulations You Collected All "+totalBitsCollected.ToString()+" Skybits In "+turnsTaken.ToString()+" Turns!",victoryDisplayTime-1.5f);
+				}
+				else{
+					GameGUIController.showInformationPanel("Congratulations You Collected "+totalBitsCollected.ToString()+" Skybits In "+turnsTaken.ToString()+" Turns!",victoryDisplayTime-1.5f);
+				}
 			}
 		}
 		
@@ -136,7 +170,7 @@ public class GameFlowController : MonoBehaviour {
 	public void spawnZoogiAt(Transform location, GameObject zoogi){
 		zoogi.transform.position = location.position;
 		zoogi.transform.FindChild("Ball").localPosition = Vector3.zero;
-		zoogi.transform.FindChild("Ball").localRotation = Quaternion.identity;
+		zoogi.transform.FindChild("Ball").localRotation = location.rotation;
 		if(!zoogi.activeSelf){
 			zoogi.SetActive(true);
 		}
@@ -161,8 +195,22 @@ public class GameFlowController : MonoBehaviour {
 		}
 	}
 	
+	public void reloadLevel(){
+		Application.LoadLevel(Application.loadedLevel);
+	}
+	
+	public void advanceToNextLevel() {
+		GameGUIController.showNoticePanel("Advance to Next Level Not Implemented. FUCK!");
+	}
+	
 	public void skybitsCollected(int amount){
 		scoreTracker.addPointsToCurrentPlayer(amount);
 		totalBitsCollected += 1;
+	}
+	
+	void OnDestroy(){
+		TurnFlowController.TurnEndEvent -= turnEnded;
+		GameGUIController.retryLevel -= reloadLevel;
+		GameGUIController.nextLevel -= advanceToNextLevel;
 	}
 }

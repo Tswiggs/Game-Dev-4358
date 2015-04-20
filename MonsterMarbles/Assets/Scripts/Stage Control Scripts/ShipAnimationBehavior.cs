@@ -18,7 +18,7 @@ public class ShipAnimationBehavior : MonoBehaviour {
 	private List<GameObject> fakeSkyBits;
 	private GameObject currentFakeBit;
 	private float skybitImpulse = 60f;
-	private float timeBetweenSkybits = 0.8f;
+	private float timeBetweenSkybits = 0.6f;
 	private float skybitLiveTime = 0.4f;
 	private float skybitDisplayTimer = 0;
 	// Use this for initialization

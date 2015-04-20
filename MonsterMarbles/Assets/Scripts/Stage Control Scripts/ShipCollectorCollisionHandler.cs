@@ -15,7 +15,7 @@ public class ShipCollectorCollisionHandler : MonoBehaviour {
 		
 	}
 	
-	void OnCollisionEnter(Collision collision) {
+	void OnTriggerEnter(Collider collision) {
 		
 		//If a player has hit the collision dock
 		if (collision.gameObject.CompareTag(Constants.TAG_PLAYER)) {

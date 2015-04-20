@@ -11,7 +11,7 @@ public class ZoogiLaunchBehavior : MonoBehaviour {
 	public delegate void launchInformation(GameObject ball, Vector3 launchVector, float xTorque, Vector3 position);
 	public static event launchInformation sendLaunchInformation;
 	
-	public enum State {IDLE, SPIN_UP, LAUNCH};
+	public enum State {INACTIVE, IDLE, SPIN_UP, LAUNCH};
 	private State currentState;
 	
 	public const float MAX_SPIN_ROTATION = 30f;
@@ -143,6 +143,10 @@ public class ZoogiLaunchBehavior : MonoBehaviour {
 		if(launchCompleted != null){
 			launchCompleted(transform.parent.gameObject);
 		}
+	}
+	
+	void OnDestroy(){
+		setCurrentState(State.INACTIVE);
 	}
 	
 	public Vector3 calculateLaunchVector(){
