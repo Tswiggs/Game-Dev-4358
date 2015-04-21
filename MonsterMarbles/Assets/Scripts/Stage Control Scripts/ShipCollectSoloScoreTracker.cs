@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ShipCollectSoloScoreTracker : ObjectiveTrackerInterface {
 	
-	public enum CollectObject {CLOUD_BIT, SKY_BIT};
+	public enum CollectObject {SKY_BIT, ENEMY};
 	
 	private CollectObject objectToCollect;
 	private bool finishOnPlayerCollect;
@@ -42,6 +42,9 @@ public class ShipCollectSoloScoreTracker : ObjectiveTrackerInterface {
 			//ShipCollectorCollisionHandler.SkybitsCollected += objectsCollected;
 			//ShipCollectorCollisionHandler.CollectedSkybit += objectCollected;
 			ZoogiController.skyBitAcquired += objectCollected;
+		}
+		else if(objectToCollect == CollectObject.ENEMY){
+			OutOfBoundsHandler.enemyOutOfBounds += objectCollected;
 		}
 	}
 	
@@ -129,6 +132,9 @@ public class ShipCollectSoloScoreTracker : ObjectiveTrackerInterface {
 			//ShipCollectorCollisionHandler.SkybitsCollected -= objectsCollected;
 			//ShipCollectorCollisionHandler.CollectedSkybit -= objectCollected;
 			ZoogiController.skyBitAcquired -= objectCollected;
+		}
+		else if(objectToCollect == CollectObject.ENEMY){
+			OutOfBoundsHandler.enemyOutOfBounds -= objectCollected;
 		}
 	}
 }

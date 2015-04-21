@@ -77,11 +77,13 @@ public class GameSetupController : MonoBehaviour {
 		setupParameters.isSolo = true;
 		if(Application.loadedLevelName == Constants.SCENE_HOTSTREAK_1){
 			setupParameters.setStarTimes(0,9,6);
+			scoreTracker = new ShipCollectSoloScoreTracker(ShipCollectSoloScoreTracker.CollectObject.ENEMY,5,true,setupParameters.oneStarTime,setupParameters.twoStarTime,setupParameters.threeStarTime);
 		}
 		else{
 			setupParameters.setStarTimes(0,6,3);
+			scoreTracker = new ShipCollectSoloScoreTracker(ShipCollectSoloScoreTracker.CollectObject.SKY_BIT,5,true,setupParameters.oneStarTime,setupParameters.twoStarTime,setupParameters.threeStarTime);
+			
 		}
-		scoreTracker = new ShipCollectSoloScoreTracker(ShipCollectSoloScoreTracker.CollectObject.SKY_BIT,5,true,setupParameters.oneStarTime,setupParameters.twoStarTime,setupParameters.threeStarTime);
 		setupParameters.setObjectiveTracker(scoreTracker);
 	}
 	

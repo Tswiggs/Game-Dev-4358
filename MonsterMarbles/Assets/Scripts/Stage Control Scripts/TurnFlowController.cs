@@ -60,7 +60,9 @@ public class TurnFlowController : MonoBehaviour {
 		//TODO: Verify we got a valid State pattern
 		
 		if(currentState == State.MAP_VIEW){
-			GameCameraController.setFocusTarget(selectedZoogi.transform.FindChild("Character Root"));
+			if(selectedZoogi != null){
+				GameCameraController.setFocusTarget(selectedZoogi.transform.FindChild("Character Root"));
+			}
 			ZoogiLaunchBehavior.launchCompleted -= launchCompleted;
 			GameGUIController.changeToLaunchState -= changeToLaunchState;
 		}
