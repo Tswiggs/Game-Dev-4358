@@ -173,6 +173,10 @@ public class MainMenuController : MonoBehaviour {
 		selectedTeam2Roster = team2;
 	}
 	
+	public void exitGame(){
+		Application.Quit();
+	}
+	
 	public void newMatch(){
 		if(selectedTeam2Roster != null){
 			gameController.newMatch(selectedGameMode,selectedMultiplayerMode,selectedTeam1Roster,selectedTeam2Roster,gameController.getUser(),gameController.getUser());

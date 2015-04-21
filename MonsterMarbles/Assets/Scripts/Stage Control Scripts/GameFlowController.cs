@@ -200,7 +200,15 @@ public class GameFlowController : MonoBehaviour {
 	}
 	
 	public void advanceToNextLevel() {
-		GameGUIController.showNoticePanel("Advance to Next Level Not Implemented. FUCK!");
+		if(Application.loadedLevelName == Constants.SCENE_WOLFGANG_1){
+			Application.LoadLevel(Constants.SCENE_WOLFGANG_2);
+		}
+		else if(Application.loadedLevelName == Constants.SCENE_WOLFGANG_2){
+			Application.LoadLevel(Constants.SCENE_HOTSTREAK_1);
+		}
+		else{
+			Application.LoadLevel(Constants.SCENE_MAIN_MENU);
+		}
 	}
 	
 	public void skybitsCollected(int amount){

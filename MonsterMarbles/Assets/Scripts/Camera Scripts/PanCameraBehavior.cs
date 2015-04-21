@@ -10,17 +10,22 @@ public class PanCameraBehavior : MonoBehaviour {
 	private float positionDamping = 4.0f;
 	
 	private float keyPanSpeed = 15f;
-	private float mousePanSpeed = 15f;
+	private float mousePanSpeed = 3f;
+	private float touchPanSpeed = 15f;
 	
 	public const float CLOSE_DISTANCE = 0f;
-	public const float CLOSE_HEIGHT = 18f;
+	public const float CLOSE_HEIGHT = 14f;
 	
 	public const float FAR_DISTANCE = 0f;
-	public const float FAR_HEIGHT = 25f;
+	public const float FAR_HEIGHT = 20f;
 	
 	public Transform target;
 	
 	private Vector3 focusPosition;
+	
+	private Vector2 mousePanPreviousPosition;
+	private Vector2 mousePanCurrentPosition;
+	private bool beginMousePan = false;
 	
 	public enum State {CLOSE, FAR};
 	private State currentState;
@@ -65,10 +70,22 @@ public class PanCameraBehavior : MonoBehaviour {
 		return true;
 	}
 	
-	void FixedUpdate() {
-		if(Input.GetMouseButton(0)){
-			Vector2 positionVector = new Vector2(Input.mousePosition.x,Input.mousePosition.y) - new Vector2(Screen.width/2f,Screen.height/2f);
-			focusPosition = new Vector3(focusPosition.x+ positionVector.normalized.x * mousePanSpeed*Time.fixedDeltaTime, focusPosition.y, focusPosition.z+ positionVector.normalized.y * mousePanSpeed*Time.fixedDeltaTime);
+	private void processInputs() {
+		if(Input.GetMouseButtonDown(0)){
+			if(!beginMousePan){
+				beginMousePan = true;
+				mousePanCurrentPosition = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
+			}
+			else{
+				beginMousePan = false;
+			}
+		}
+		else if(beginMousePan){
+			mousePanPreviousPosition = new Vector2(mousePanCurrentPosition.x,mousePanCurrentPosition.y);
+			mousePanCurrentPosition = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
+			Vector2 offsetVector = new Vector2(mousePanPreviousPosition.x,mousePanPreviousPosition.y) - new Vector2(mousePanCurrentPosition.x,mousePanCurrentPosition.y);
+			offsetVector.Scale(new Vector2(mousePanSpeed*Time.deltaTime,mousePanSpeed*Time.deltaTime));
+			focusPosition = new Vector3(focusPosition.x+offsetVector.x, focusPosition.y, focusPosition.z+ offsetVector.y);
 		}
 		else{
 			if(Input.GetKey(KeyCode.W)){
@@ -85,6 +102,14 @@ public class PanCameraBehavior : MonoBehaviour {
 				focusPosition = new Vector3(focusPosition.x-keyPanSpeed*Time.fixedDeltaTime,focusPosition.y,focusPosition.z);
 			}
 		}
+		
+		if(!Input.GetMouseButton(0)){
+			beginMousePan = false;
+		}
+	}
+	
+	void FixedUpdate() {
+		
 	}
 	
 	// Update is called once per frame
@@ -93,6 +118,8 @@ public class PanCameraBehavior : MonoBehaviour {
 		// Early out if we don't have a target
 		if (!target)
 			return;
+		
+		processInputs();
 		
 		float wantedRotationAngle;
 		float wantedHeight;
@@ -104,12 +131,12 @@ public class PanCameraBehavior : MonoBehaviour {
 		if(getCurrentState() == State.CLOSE || getCurrentState() == State.FAR){
 			
 			// Calculate the current rotation angles
-			wantedRotationAngle =  65f;
+			wantedRotationAngle =  80f;
 			wantedHeight = focusPosition.y + height;
 			wantedDistance = distance;
 			currentRotationAngle = transform.eulerAngles.x;
 			currentHeight = transform.position.y;
-			currentDistance = Vector2.Distance(new Vector2(focusPosition.x, focusPosition.z), new Vector2(focusPosition.x, focusPosition.z));
+			currentDistance = Vector2.Distance(new Vector2(focusPosition.x, focusPosition.z), new Vector2(transform.position.x, transform.position.z));
 			
 			// Damp the rotation around the y-axis
 			currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);

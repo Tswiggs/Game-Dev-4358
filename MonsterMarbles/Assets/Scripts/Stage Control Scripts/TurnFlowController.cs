@@ -60,8 +60,9 @@ public class TurnFlowController : MonoBehaviour {
 		//TODO: Verify we got a valid State pattern
 		
 		if(currentState == State.MAP_VIEW){
-			ZoogiLaunchBehavior.launchCompleted += launchCompleted;
-			GameGUIController.changeToLaunchState += changeToLaunchState;
+			GameCameraController.setFocusTarget(selectedZoogi.transform.FindChild("Character Root"));
+			ZoogiLaunchBehavior.launchCompleted -= launchCompleted;
+			GameGUIController.changeToLaunchState -= changeToLaunchState;
 		}
 		else if(currentState == State.LAUNCH){
 			selectedZoogiController.setCurrentState (ZoogiController.State.INACTIVE);
@@ -89,7 +90,8 @@ public class TurnFlowController : MonoBehaviour {
 		}
 		else if(newState == State.MAP_VIEW){
 			GameCameraController.setCurrentState(GameCameraController.State.BIRD_EYE_PAN);
-			selectedZoogiController.setCurrentState (ZoogiController.State.INACTIVE);
+			GameCameraController.setFocusTarget(selectedZoogi.transform.FindChild("Ball"));
+			selectedZoogiController.setCurrentState(ZoogiController.State.INACTIVE);
 			ZoogiLaunchBehavior.launchCompleted += launchCompleted;
 			GameGUIController.changeToLaunchState += changeToLaunchState;
 		}

@@ -6,6 +6,7 @@ public class Constants : MonoBehaviour {
 	public const string TAG_PLAYER = "Player";
 	public const string TAG_BUMPER = "Bumper";
 	public const string TAG_MARBLE = "Marble";
+	public const string TAG_ENEMY = "Enemy";
 	public const string TAG_NPC = "NPC";
 	
 	public const string SCENE_MAIN_MENU = "Main Menu";
@@ -13,6 +14,7 @@ public class Constants : MonoBehaviour {
 	public const string SCENE_FROSTWIND_MOUNTAIN = "FrostwindMountain";
 	public const string SCENE_WOLFGANG_1 = "Wolfgang_Path";
 	public const string SCENE_WOLFGANG_2 = "Wolfgang_Den";
+	public const string SCENE_HOTSTREAK_1 = "Hotstreak_Peak";
 	
 	public static string[] CHARACTER_INDEX = new string[30];
 	

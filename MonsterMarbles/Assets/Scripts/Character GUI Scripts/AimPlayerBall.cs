@@ -42,17 +42,26 @@ public class AimPlayerBall : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		var fraction = aimSpeed*Time.deltaTime;
-		if(Input.GetKeyDown(KeyCode.A)){
-			localRotationToGo=Quaternion.AngleAxis(-keyAimSpeed,Vector3.up)*localRotationToGo;
+		if(Input.GetKey(KeyCode.A)){
+			localRotationToGo=Quaternion.AngleAxis(-keyAimSpeed*Time.deltaTime,Vector3.up)*localRotationToGo;
 		}
-		if(Input.GetKeyDown(KeyCode.D)){
-			localRotationToGo=Quaternion.AngleAxis(keyAimSpeed,Vector3.up)*localRotationToGo;
+		if(Input.GetKey(KeyCode.D)){
+			localRotationToGo=Quaternion.AngleAxis(keyAimSpeed*Time.deltaTime,Vector3.up)*localRotationToGo;
 		}
 		if (transform.localRotation != lastLocalRotation)
 		{
 			localRotationToGo = transform.localRotation;
 		}
 		transform.localRotation = lastLocalRotation = Quaternion.Lerp(transform.localRotation, localRotationToGo, fraction);
+	}
+	
+	void FixedUpdate(){
+		if(Input.GetKey(KeyCode.A)){
+			localRotationToGo=Quaternion.AngleAxis(-keyAimSpeed,Vector3.up)*localRotationToGo;
+		}
+		if(Input.GetKey(KeyCode.D)){
+			localRotationToGo=Quaternion.AngleAxis(keyAimSpeed,Vector3.up)*localRotationToGo;
+		}
 	}
 
 	private void panStateChanged(object sender, GestureStateChangeEventArgs e)

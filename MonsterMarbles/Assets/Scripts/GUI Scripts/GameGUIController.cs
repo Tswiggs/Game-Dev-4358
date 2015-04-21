@@ -9,7 +9,7 @@ public class GameGUIController : MonoBehaviour {
 	
 	private static GameGUIController guiController;
 	
-	public enum State{INACTIVE, LAUNCH, MAP, NOTICE, END_GAME_SOLO, PREVIOUS_STATE};
+	public enum State{INACTIVE, LAUNCH, MAP, NOTICE, OPTIONS, END_GAME_SOLO, PREVIOUS_STATE};
 	private State currentState;
 	
 	private State previousState = State.INACTIVE;
@@ -29,6 +29,7 @@ public class GameGUIController : MonoBehaviour {
 	public static event stateChange changeToLaunchState;
 	public static event stateChange changeToMapState;
 	public static event stateChange changeToNoticeState;
+	public static event stateChange changeToOptionsState;
 	public static event stateChange changeToEndGameSoloState;
 	
 	public delegate void performAction();
@@ -45,7 +46,7 @@ public class GameGUIController : MonoBehaviour {
 		currentState = State.INACTIVE;
 		guiController = this;
 		
-		informationPanel = transform.FindChild ("Always Shown Menu").FindChild("Information Panel").gameObject;
+		informationPanel = transform.FindChild ("Always Shown Menu").FindChild("Information Spacing Panel").FindChild("Information Panel").FindChild("Information Box").gameObject;
 		informationText = informationPanel.transform.GetChild(0).GetComponent<Text>();
 		
 		noticeText = transform.FindChild ("Notice Menu").FindChild ("Information Panel").FindChild("Information").GetChild(0).GetComponent<Text>();
@@ -61,7 +62,7 @@ public class GameGUIController : MonoBehaviour {
 		refreshGUIScore();
 		
 		if(showInformation){
-			if(Input.GetKeyDown(KeyCode.Space)){
+			if(Input.GetMouseButtonDown(0) || (Input.touchCount > 0)){
 				informationShowTimer = informationShowTime;
 			}
 		
@@ -86,6 +87,9 @@ public class GameGUIController : MonoBehaviour {
 			
 		}
 		else if(guiController.currentState == State.NOTICE){
+			Time.timeScale = 1;
+		}
+		else if(guiController.currentState == State.OPTIONS){
 			Time.timeScale = 1;
 		}
 		
@@ -113,6 +117,13 @@ public class GameGUIController : MonoBehaviour {
 			guiController.manager.ShowMenu(guiController.transform.FindChild("Notice Menu").GetComponent<Menu>());
 			if( changeToNoticeState != null){
 				changeToNoticeState();
+			}
+		}
+		else if(newState == State.OPTIONS){
+			Time.timeScale = 0;
+			guiController.manager.ShowMenu(guiController.transform.FindChild("Options Menu").GetComponent<Menu>());
+			if( changeToOptionsState != null){
+				changeToOptionsState();
 			}
 		}
 		else if(newState == State.END_GAME_SOLO){
@@ -150,6 +161,14 @@ public class GameGUIController : MonoBehaviour {
 		GameGUIController.setCurrentState(State.NOTICE);
 	}
 	
+	public static void showTutorial(int index){
+		guiController.transform.FindChild ("Always Shown Menu").FindChild ("Tutorial").FindChild(index.ToString()).gameObject.SetActive(true);
+	}
+	
+	public void changeToOptions(){
+		GameGUIController.setCurrentState(State.OPTIONS);
+	}
+	
 	public void changeToLaunch(){
 		GameGUIController.setCurrentState(State.LAUNCH);
 	}
@@ -178,6 +197,10 @@ public class GameGUIController : MonoBehaviour {
 		}
 	}
 	
+	public void performLoadLevel(string name){
+		Application.LoadLevel(name);
+	}
+	
 	public void playerScoreChange(int score, int player){
 		scoreList[player] = score;
 		if(player == playerScoreIndex){
@@ -195,7 +218,7 @@ public class GameGUIController : MonoBehaviour {
 	}
 	
 	private void refreshGUIScore(){
-		transform.FindChild("Always Shown Menu").FindChild("Score Panel").GetChild(0).FindChild("Skybit Image").GetChild(0).gameObject.GetComponent<Text>().text = GameFlowController.Settings.objectiveTracker.getPlayerScoreString(playerScoreIndex);
+		transform.FindChild("Always Shown Menu").FindChild("Spacing Panel").FindChild("Score Panel").GetChild(0).FindChild("Skybit Image").GetChild(0).gameObject.GetComponent<Text>().text = GameFlowController.Settings.objectiveTracker.getPlayerScoreString(playerScoreIndex);
 	}
 	
 	void OnDestroy(){

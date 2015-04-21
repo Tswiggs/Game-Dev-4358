@@ -52,6 +52,11 @@ public class GameSetupController : MonoBehaviour {
 			team1.addTeamMember(new Zoogi(0));
 			teamList.Add(team1);
 		}
+		else if(Application.loadedLevelName == Constants.SCENE_HOTSTREAK_1){
+			ZoogiTeam team1 = new ZoogiTeam("Player 1");
+			team1.addTeamMember(new Zoogi(1));
+			teamList.Add(team1);
+		}
 		else{
 			ZoogiTeam team1 = new ZoogiTeam("Player 1");
 			team1.addTeamMember(new Zoogi(2));
@@ -70,7 +75,12 @@ public class GameSetupController : MonoBehaviour {
 		
 		setupParameters = new GameSetup(teamList, teamRoster);
 		setupParameters.isSolo = true;
-		setupParameters.setStarTimes(0,6,3);
+		if(Application.loadedLevelName == Constants.SCENE_HOTSTREAK_1){
+			setupParameters.setStarTimes(0,9,6);
+		}
+		else{
+			setupParameters.setStarTimes(0,6,3);
+		}
 		scoreTracker = new ShipCollectSoloScoreTracker(ShipCollectSoloScoreTracker.CollectObject.SKY_BIT,5,true,setupParameters.oneStarTime,setupParameters.twoStarTime,setupParameters.threeStarTime);
 		setupParameters.setObjectiveTracker(scoreTracker);
 	}

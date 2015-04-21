@@ -22,11 +22,11 @@ public class EndGameSoloGUIController : MonoBehaviour {
 		GameAudioController.pauseBackgroundMusic();
 		if(GameFlowController.Settings.objectiveTracker.getPlayerWon() == 0){
 			headerText.text = "Victory!";
-			GameAudioController.playOneShotSound(victoryFanfare);
+			GameAudioController.playOneShotSound(victoryFanfare, 0.3f);
 		}
 		else{
 			headerText.text = "Too Bad!";
-			GameAudioController.playOneShotSound(defeatFanfare);
+			GameAudioController.playOneShotSound(defeatFanfare, 0.3f);
 		}
 		
 		bodyText.text = "";

@@ -489,10 +489,10 @@ RectTransform:
   - {fileID: 1411314242}
   m_Father: {fileID: 2038460193}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 123.125, y: 0}
+  m_SizeDelta: {x: 0, y: 159.318176}
   m_Pivot: {x: .5, y: 1}
 --- !u!114 &75993616
 MonoBehaviour:
@@ -1703,7 +1703,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1282563622}
   m_Direction: 0
   m_Value: .5
-  m_Size: .549000025
+  m_Size: .550000012
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4643,7 +4643,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 607580429}
   m_OnClick:
     m_PersistentCalls:
@@ -4663,7 +4663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 427a00eaf321c7f4b8bcf4d39d84221d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4fc8a06a9a2abc4da3f7a89a19f0567, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -7888,7 +7888,7 @@ MonoBehaviour:
         m_MethodName: ShowMenu
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 99183674}
+          m_ObjectArgument: {fileID: 1450913872}
           m_ObjectArgumentAssemblyTypeName: Menu, Assembly-CSharp, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null
           m_IntArgument: 0
@@ -8182,7 +8182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: .392156869}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 207540b76f5e93b499eb50120043286c, type: 3}
     m_FontSize: 24
@@ -8318,12 +8318,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 665608718}
-        m_MethodName: ShowMenu
-        m_Mode: 2
+      - m_Target: {fileID: 665608719}
+        m_MethodName: exitGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: Menu, Assembly-CSharp, Version=0.0.0.0,
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -9738,7 +9738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: .392156869}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 207540b76f5e93b499eb50120043286c, type: 3}
     m_FontSize: 24
@@ -9751,7 +9751,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: X
+  m_Text: 2
 --- !u!222 &1007847652
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11717,7 +11717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 427a00eaf321c7f4b8bcf4d39d84221d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4fc8a06a9a2abc4da3f7a89a19f0567, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -14994,7 +14994,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1536043804}
   m_OnClick:
     m_PersistentCalls:
@@ -15026,7 +15026,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 427a00eaf321c7f4b8bcf4d39d84221d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4fc8a06a9a2abc4da3f7a89a19f0567, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -16868,7 +16868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: .392156869}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 207540b76f5e93b499eb50120043286c, type: 3}
     m_FontSize: 24
@@ -16881,7 +16881,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: X
+  m_Text: 3
 --- !u!222 &1684748218
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17539,7 +17539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: .392156869}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 207540b76f5e93b499eb50120043286c, type: 3}
     m_FontSize: 24
@@ -17552,7 +17552,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: X
+  m_Text: 3
 --- !u!222 &1793814778
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17605,7 +17605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: .392156869}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 207540b76f5e93b499eb50120043286c, type: 3}
     m_FontSize: 24
@@ -17943,7 +17943,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1822029458}
   m_OnClick:
     m_PersistentCalls:
@@ -17963,7 +17963,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 427a00eaf321c7f4b8bcf4d39d84221d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4fc8a06a9a2abc4da3f7a89a19f0567, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -18841,7 +18841,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1938162889}
   m_OnClick:
     m_PersistentCalls:
@@ -18861,7 +18861,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 427a00eaf321c7f4b8bcf4d39d84221d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4fc8a06a9a2abc4da3f7a89a19f0567, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

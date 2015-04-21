@@ -72,6 +72,11 @@ public class StarDisplay : MonoBehaviour {
 						currentStar = 3;
 					}
 					else{
+						if(starsAcquired >= 3){
+							star1.SetTrigger("playSpecialSpin");
+							star2.SetTrigger("playSpecialSpin");
+							star3.SetTrigger("playSpecialSpin");
+						}
 						playAnimation = false;
 					}
 				}

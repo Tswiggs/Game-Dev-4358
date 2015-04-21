@@ -28,7 +28,9 @@ public class GameAudioController : MonoBehaviour {
 	}
 	
 	public static void playOneShotSound(AudioClip clip, float volumeScale){
-		mainAudioSource.PlayOneShot(clip, volumeScale);
+		if(clip != null){
+			mainAudioSource.PlayOneShot(clip, volumeScale);
+		}
 	}
 	
 	public static void pauseBackgroundMusic(){
