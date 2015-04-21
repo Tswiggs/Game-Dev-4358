@@ -48,7 +48,7 @@ GameObject:
   - 198: {fileID: 19814052}
   - 54: {fileID: 5459500}
   - 114: {fileID: 11447774}
-  m_Layer: 10
+  m_Layer: 13
   m_Name: Inner Bit
   m_TagString: Marble
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 185250}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 78.0500031, y: 8.77999973, z: -58.8199997}
+  m_LocalPosition: {x: 68.8300018, y: 8.77999973, z: -63.9900017}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 494916}

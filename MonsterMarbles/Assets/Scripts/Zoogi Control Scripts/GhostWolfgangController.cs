@@ -21,8 +21,8 @@ public class GhostWolfgangController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(transform.position.y < transform.parent.FindChild("Ball").position.y-1.5f){
+		/*if(transform.position.y < transform.parent.FindChild("Ball").position.y-1.5f){
 			transform.position = new Vector3(transform.position.x,transform.parent.FindChild("Ball").position.y-0.5f,transform.position.z);
-		}
+		}*/
 	}
 }

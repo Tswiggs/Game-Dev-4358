@@ -13,5 +13,11 @@ EditorBuildSettings:
     path: Assets/_Scenes/Pila_Plains_Prototype.unity
   - enabled: 0
     path: Assets/_Scenes/FrostwindMountain.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/PilaGardens.unity
+  - enabled: 1
+    path: Assets/_Scenes/Wolfgang_Den.unity
+  - enabled: 1
+    path: Assets/_Scenes/Hotstreak_Peak.unity
+  - enabled: 1
+    path: Assets/_Scenes/Wolfgang_Path.unity

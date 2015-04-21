@@ -30,9 +30,8 @@ public class MarbleCollisionHandler : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		if (collision.collider.CompareTag(Constants.TAG_PLAYER) || collision.collider.CompareTag (Constants.TAG_MARBLE)) {
+		if (collision.collider.CompareTag(Constants.TAG_PLAYER) || collision.collider.CompareTag (Constants.TAG_MARBLE) || collision.collider.CompareTag (Constants.TAG_ENEMY)) {
 			if(rigidbody.velocity.magnitude > collision.rigidbody.velocity.magnitude){
-				Debug.Log (collision.relativeVelocity.magnitude);
 				Vector3 forceVector = collision.relativeVelocity;
 				forceVector.Scale(new Vector3(getPowerMultiplier(),getPowerMultiplier(),getPowerMultiplier()));
 				//rigidbody.velocity = Vector3.zero;
@@ -62,7 +61,7 @@ public class MarbleCollisionHandler : MonoBehaviour {
 			
 		}
 		
-		if((collision.collider.CompareTag(Constants.TAG_PLAYER) || collision.collider.CompareTag(Constants.TAG_PLAYER)) && audioSource != null && collisionSound != null){
+		if((collision.collider.CompareTag(Constants.TAG_PLAYER) || collision.collider.CompareTag(Constants.TAG_ENEMY)) && audioSource != null && collisionSound != null){
 			if(collision.relativeVelocity.magnitude > 5f){
 				audioSource.PlayOneShot(collisionSound);
 			}

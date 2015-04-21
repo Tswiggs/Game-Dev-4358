@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using AssemblyCSharp;
 using System;
 
-public class RoundScoreTracker
+public class RoundScoreTracker : ObjectiveTrackerInterface
 {
 	
 	private int[,] roundMatrix;
@@ -44,6 +44,41 @@ public class RoundScoreTracker
 		OutOfBoundsHandler.pointCollected += addPointToCurrentPlayer;
 		RingerController.dropSkybits += addSkybitsToRound;
 		RingerController.PlayerTurnStartEvent += changePlayerIndex;
+	}
+	
+	public bool isGameOver(){
+		return checkForGameWin();
+	}
+	
+	public int getPlayerWon(){
+		for(int x = 0; x < numberOfPlayers; x++){
+			if(roundWins[x] >= (Math.Floor((double)numberOfRounds/2)+1)){
+				return x;
+			}
+		}
+		return -1;
+	}
+	
+	public int getPlayerScore(int index){
+		if(index < numberOfPlayers-1 && index >= 0){
+			return roundMatrix[roundIndex,index];
+		}
+		else{
+			return -1;
+		}
+	}
+	
+	public string getPlayerScoreString(int index){
+		if(index < numberOfPlayers-1 && index >= 0){
+			return roundMatrix[roundIndex,index].ToString();
+		}
+		else{
+			return "0";
+		}
+	}
+	
+	public int getPlayerRanking(int index){
+		return -1;
 	}
 	
 	public void changePlayerIndex(int index){
@@ -87,15 +122,17 @@ public class RoundScoreTracker
 		}	
 	}
 	
-	public void checkForGameWin(){
+	public bool checkForGameWin(){
 		for(int x = 0; x < numberOfPlayers; x++){
 			if(roundWins[x] >= (Math.Floor((double)numberOfRounds/2)+1)){
 				if(playerHasWonGame != null){
 					playerHasWonGame(x);
 				}
 				x = numberOfPlayers;
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	public void advanceRound(int index){

@@ -36,7 +36,7 @@ public class HotStreakPower : ZoogiPower {
 		if(GetComponent<ZoogiController>().getCurrentState() == ZoogiController.State.ROLLING){
 			if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)){
 				if(powerCharged){
-					groundSlamAndStop();
+					groundSlam();
 				}
 				powerCharged = false;
 			}
@@ -61,7 +61,7 @@ public class HotStreakPower : ZoogiPower {
 				if( c.gameObject.Equals(HotStreakBall)){
 					continue;
 				}
-				else if (c.gameObject.CompareTag(Constants.TAG_MARBLE) || c.gameObject.CompareTag(Constants.TAG_PLAYER)){
+				else if (c.gameObject.CompareTag(Constants.TAG_MARBLE) || c.gameObject.CompareTag(Constants.TAG_PLAYER) || c.gameObject.CompareTag(Constants.TAG_ENEMY)){
 					if(c.gameObject.GetComponent<SkybitBehavior>() != null){
 						c.gameObject.GetComponent<SkybitBehavior>().setCurrentState(SkybitBehavior.State.FALLING);
 					}
@@ -96,29 +96,30 @@ public class HotStreakPower : ZoogiPower {
 	
 	private void groundSlam()
 	{
-		if (isActivated == false /*&& (GetComponent<SteeringController>().isRolling == true)*/) {
-			isActivated = true;
-						HotStreakBall.GetComponent<AudioSource>().PlayOneShot(groundSlamSound);
-						Collider[] colliders = Physics.OverlapSphere (HotStreakBall.transform.position, slamRadius);
-						if(groundSlamParticles != null){
-							GameObject slamParticles = Instantiate(groundSlamParticles,HotStreakBall.transform.position, HotStreakBall.transform.rotation) as GameObject;
-							slamParticles.transform.parent = HotStreakBall.transform.FindChild ("Character Root");
-							SphereCollider ballCollider = HotStreakBall.GetComponent<Collider>() as SphereCollider;
-							slamParticles.transform.localPosition = new Vector3(slamParticles.transform.localPosition.x, slamParticles.transform.localPosition.y - ballCollider.radius, slamParticles.transform.localPosition.z);
-                    	}
-						foreach (Collider c in colliders) {
-								if (c.GetComponent<Rigidbody>() == null) {
-										continue; 
-								} else {
-									if( c.gameObject.Equals(HotStreakBall)){
-										continue;
-									}
-									else if (c.gameObject.CompareTag(Constants.TAG_MARBLE) || c.gameObject.CompareTag(Constants.TAG_PLAYER)){
-										c.GetComponent<Rigidbody>().AddExplosionForce (slamPower, HotStreakBall.transform.position, slamRadius*2, 0, ForceMode.Impulse);
-									}	
-								}
-						}
+		isActivated = true;
+		GameAudioController.playOneShotSound(groundSlamSound);
+		Collider[] colliders = Physics.OverlapSphere (HotStreakBall.transform.position, slamRadius);
+		if(groundSlamParticles != null){
+			GameObject slamParticles = Instantiate(groundSlamParticles,HotStreakBall.transform.position,Quaternion.identity) as GameObject;
+			slamParticles.transform.parent = HotStreakBall.transform.FindChild ("Character Root");
+			SphereCollider ballCollider = HotStreakBall.GetComponent<Collider>() as SphereCollider;
+			slamParticles.transform.localPosition = new Vector3(slamParticles.transform.localPosition.x, slamParticles.transform.localPosition.y - ballCollider.radius, slamParticles.transform.localPosition.z);
+		}
+		foreach (Collider c in colliders) {
+			if (c.GetComponent<Rigidbody>() == null) {
+				continue; 
+			} else {
+				if( c.gameObject.Equals(HotStreakBall)){
+					continue;
 				}
+				else if (c.gameObject.CompareTag(Constants.TAG_MARBLE) || c.gameObject.CompareTag(Constants.TAG_PLAYER) || c.gameObject.CompareTag(Constants.TAG_ENEMY)){
+					if(c.gameObject.GetComponent<SkybitBehavior>() != null){
+						c.gameObject.GetComponent<SkybitBehavior>().setCurrentState(SkybitBehavior.State.FALLING);
+					}
+					c.GetComponent<Rigidbody>().AddExplosionForce (slamPower, HotStreakBall.transform.position, slamRadius*2, 0, ForceMode.Impulse);
+				}	
+			}
+		}
 	}
 	
 	void OnDrawGizmos(){

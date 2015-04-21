@@ -11,8 +11,10 @@ public class OutOfBoundsHandler : MonoBehaviour {
 	public delegate void objectOutOfBounds(GameObject collectedObject);
 	public static event objectOutOfBounds playerOutOfBounds;
 	public static event objectOutOfBounds skyBitOutOfBounds;
+	public static event objectOutOfBounds enemyOutOfBounds;
 	
 	public AudioClip playerFallSound;
+	public AudioClip enemyFallSound;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +30,7 @@ public class OutOfBoundsHandler : MonoBehaviour {
 				skyBitOutOfBounds(collectedObject.transform.parent.gameObject);
 			}
 		}
-		if (collectedObject.CompareTag(Constants.TAG_PLAYER))
+		else if (collectedObject.CompareTag(Constants.TAG_PLAYER))
         {
 			collectedObject.transform.parent.gameObject.SetActive(false);
 			collectedObject.transform.position = new Vector3(transform.position.x,0, transform.position.z);
@@ -42,6 +44,15 @@ public class OutOfBoundsHandler : MonoBehaviour {
 				playerOutOfBounds(collectedObject.transform.parent.gameObject);
 			}
         }
+		else if (collectedObject.CompareTag(Constants.TAG_ENEMY)){
+			collectedObject.gameObject.SetActive(false);
+			
+			GameAudioController.playOneShotSound(enemyFallSound);
+			
+			if(enemyOutOfBounds != null){
+				enemyOutOfBounds(collectedObject.gameObject);
+			}
+		}
 	}
 
 	// Update is called once per frame

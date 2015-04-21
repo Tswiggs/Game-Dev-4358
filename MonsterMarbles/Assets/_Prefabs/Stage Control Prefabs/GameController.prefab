@@ -35,7 +35,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 110978}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5a4503bc33009143b539a49f9ce9b64, type: 3}
   m_Name: 
@@ -59,6 +59,9 @@ MonoBehaviour:
   hotstreakScripts: {fileID: 171600, guid: ba3e7b4455d4deb4687092867b1db507, type: 2}
   larsModel: {fileID: 189142, guid: 9c76b3f1863a3f54fb60913e2e420e7a, type: 2}
   larsScripts: {fileID: 190316, guid: b98a05b7119c01a4e86f99cda7661842, type: 2}
+  isSolo: 1
+  perfectTime: 0
+  goodTime: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

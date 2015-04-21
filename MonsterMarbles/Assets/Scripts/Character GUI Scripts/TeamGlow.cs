@@ -4,7 +4,7 @@ using System.Collections;
 public class TeamGlow : MonoBehaviour {
 	
 	public static Color teamColor;
-	private Light glow;
+	private ParticleSystem teamGlow;
 	
 	public enum State {GLOW_NONE, GLOW_RED, GLOW_BLUE};
 	private State currentState;
@@ -12,8 +12,8 @@ public class TeamGlow : MonoBehaviour {
 	void Awake() {
 		teamColor = Color.red;
 		currentState = State.GLOW_NONE;
-		glow = GetComponent<Light>();
-		glow.color = teamColor;
+		
+		teamGlow = GetComponent<ParticleSystem>();
 	}
 	
 	void Start () {
@@ -39,13 +39,13 @@ public class TeamGlow : MonoBehaviour {
 		currentState = newState;
 		
 		if(newState == State.GLOW_NONE){
-			glow.color = Color.clear;
+			teamGlow.startColor = Color.clear;
 		}
 		else if (newState == State.GLOW_RED){
-			glow.color = Color.red;
+			teamGlow.startColor = Color.red;
 		}
 		else if (newState == State.GLOW_BLUE){
-			glow.color = Color.blue;
+			teamGlow.startColor = Color.blue;
 		}
 		
 		return true;

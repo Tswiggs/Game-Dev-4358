@@ -16,6 +16,12 @@ public class GameSetupController : MonoBehaviour {
 	public GameObject larsModel;
 	public GameObject larsScripts;
 	
+	public GameSetup setupParameters;
+	
+	public bool isSolo = true;
+	public int perfectTime;
+	public int goodTime;
+	public ObjectiveTrackerInterface scoreTracker;
 	
 	private ZoogiTeamRoster teamRoster;
 	
@@ -31,7 +37,7 @@ public class GameSetupController : MonoBehaviour {
 	
 	//Setups up all controllers that are dependent on GameSetup, like the GameFlowController
 	void initialize(){
-		gameFlowController.initialize(teamList, teamRoster);
+		gameFlowController.initialize(setupParameters);
 	}
 	
 	// Update is called once per frame
@@ -41,9 +47,14 @@ public class GameSetupController : MonoBehaviour {
 	
 	private void assignDefaultStartingParameters(){
 		teamList = new List<ZoogiTeam>();
-		if(Application.loadedLevelName == Constants.SCENE_WOLFGANG_1){
+		if(Application.loadedLevelName == Constants.SCENE_WOLFGANG_1 || Application.loadedLevelName == Constants.SCENE_WOLFGANG_2){
 			ZoogiTeam team1 = new ZoogiTeam("Player 1");
 			team1.addTeamMember(new Zoogi(0));
+			teamList.Add(team1);
+		}
+		else if(Application.loadedLevelName == Constants.SCENE_HOTSTREAK_1){
+			ZoogiTeam team1 = new ZoogiTeam("Player 1");
+			team1.addTeamMember(new Zoogi(1));
 			teamList.Add(team1);
 		}
 		else{
@@ -61,6 +72,19 @@ public class GameSetupController : MonoBehaviour {
 		}
 		
 		teamRoster = createTeamRoster(teamList);
+		
+		setupParameters = new GameSetup(teamList, teamRoster);
+		setupParameters.isSolo = true;
+		if(Application.loadedLevelName == Constants.SCENE_HOTSTREAK_1){
+			setupParameters.setStarTimes(0,9,6);
+			scoreTracker = new ShipCollectSoloScoreTracker(ShipCollectSoloScoreTracker.CollectObject.ENEMY,5,true,setupParameters.oneStarTime,setupParameters.twoStarTime,setupParameters.threeStarTime);
+		}
+		else{
+			setupParameters.setStarTimes(0,6,3);
+			scoreTracker = new ShipCollectSoloScoreTracker(ShipCollectSoloScoreTracker.CollectObject.SKY_BIT,5,true,setupParameters.oneStarTime,setupParameters.twoStarTime,setupParameters.threeStarTime);
+			
+		}
+		setupParameters.setObjectiveTracker(scoreTracker);
 	}
 	
 	public static ZoogiTeamRoster createTeamRoster(List<ZoogiTeam> teamList){

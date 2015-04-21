@@ -25,7 +25,6 @@ public class MainMenuController : MonoBehaviour {
 	private enum UserInterface {
 		NO_INTERFACE,LOGGED_OUT,LOGGED_IN_NO_GAMES,LOGGED_IN_GAMES_IN_PROGRESS
 	}
-	
 
 	void Start () {
 		
@@ -35,6 +34,10 @@ public class MainMenuController : MonoBehaviour {
 		interfaceNavigation = 0;
 		mainMenuStyle = GUIStyles.getMainMenuStyle();
 		
+	}
+	
+	public void LoadLevel(string level){
+		Application.LoadLevel(level);
 	}
 	
 	void OnEnable() {
@@ -168,6 +171,10 @@ public class MainMenuController : MonoBehaviour {
 		selectedMultiplayerMode = multiplayerMode;
 		selectedTeam1Roster = team1;
 		selectedTeam2Roster = team2;
+	}
+	
+	public void exitGame(){
+		Application.Quit();
 	}
 	
 	public void newMatch(){
