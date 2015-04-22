@@ -12,8 +12,8 @@ public class HotStreakPower : ZoogiPower {
 	
 	public AudioClip groundSlamSound;
 	
-	public float slamRadius = 18f;
-	public float slamPower = 100f;
+	public float slamRadius = 7f;
+	public float slamPower = 130f;
 	
 	private bool isActivated = false;
 	void Start () {

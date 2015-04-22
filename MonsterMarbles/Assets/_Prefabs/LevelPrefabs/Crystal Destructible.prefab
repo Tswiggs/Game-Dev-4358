@@ -78,9 +78,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 163220}
-  m_LocalRotation: {x: 0, y: -.181787536, z: 0, w: .98333782}
-  m_LocalPosition: {x: 6.57000017, y: 0, z: 8.65999985}
-  m_LocalScale: {x: 4.00879383, y: 6.20256042, z: 4.02965355}
+  m_LocalRotation: {x: -.451689869, y: -.544036984, z: -.544036925, w: -.451689988}
+  m_LocalPosition: {x: 3.27999997, y: -3.69000006, z: -.0700000003}
+  m_LocalScale: {x: .340367615, y: .207763538, z: .455875427}
   m_Children:
   - {fileID: 488938}
   - {fileID: 496636}
@@ -226,7 +226,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: acbe2777029b3c346b9949f02cc0eb12, type: 3}
 --- !u!64 &6461258
 MeshCollider:
@@ -238,7 +238,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: acbe2777029b3c346b9949f02cc0eb12, type: 3}
 --- !u!64 &6488398
 MeshCollider:
@@ -250,7 +250,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: acbe2777029b3c346b9949f02cc0eb12, type: 3}
 --- !u!111 &11112064
 Animation:

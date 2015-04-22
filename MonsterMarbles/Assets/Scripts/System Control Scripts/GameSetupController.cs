@@ -65,10 +65,10 @@ public class GameSetupController : MonoBehaviour {
 			teamList.Add(team1);
 			
 			ZoogiTeam team2 = new ZoogiTeam("Player 2");
-			team2.addTeamMember(new Zoogi(3));
-			//team2.addTeamMember(new Zoogi(2));
-			//team2.addTeamMember(new Zoogi(0));
-			//teamList.Add(team2);
+			team2.addTeamMember(new Zoogi(1));
+			team2.addTeamMember(new Zoogi(0));
+			team2.addTeamMember(new Zoogi(2));
+			teamList.Add(team2);
 		}
 		
 		teamRoster = createTeamRoster(teamList);
