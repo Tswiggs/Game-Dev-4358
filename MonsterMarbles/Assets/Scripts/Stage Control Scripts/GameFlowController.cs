@@ -126,7 +126,7 @@ public class GameFlowController : MonoBehaviour {
 		
 		if(newState == State.TAKING_TURN){
 			turnsTaken += 1;
-			GameGUIController.showInformationPanel("Turn "+turnsTaken.ToString(),3f);
+			//GameGUIController.showInformationPanel("Turn "+turnsTaken.ToString(),3f);
 			
 			turnFlowController.enabled = true;
 			ShipCollectorCollisionHandler.SkybitsCollected += skybitsCollected;

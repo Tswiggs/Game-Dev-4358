@@ -16,7 +16,12 @@ public class ZoogiTutorialController : MonoBehaviour {
 	private int maxTutorialIndex;
 	private int currentTutorialIndex;
 	
+	private bool tutorialScreenTimed = false;
+	private float tutorialTimer = 0f;
+	private float tutorialMaxScreenTime = 0f;
+	
 	private bool launchTutorial = false;
+	private bool collectObjectiveTutorial = false;
 	
 	// Use this for initialization
 	void Start () {
@@ -31,6 +36,34 @@ public class ZoogiTutorialController : MonoBehaviour {
 				setCurrentState(State.LAUNCH_MECHANICS);
 			}
 		}
+		else if(Application.loadedLevelName == Constants.SCENE_WOLFGANG_2){
+			if(!collectObjectiveTutorial){
+				collectObjectiveTutorial = true;
+				setCurrentState(State.SOLO_PLAY_COLLECT_SKYBITS_VICTORY_MECHANICS);
+			}
+		}
+		
+		if(tutorialScreenTimed){
+			if(tutorialTimer >= tutorialMaxScreenTime && Input.GetMouseButtonDown(0)){
+				tutorialTimer =0;
+				tutorialScreenTimed = false;
+				nextTutorial();
+			}
+			else{
+				tutorialTimer += Time.deltaTime;
+			}
+		}
+	}
+	
+	public void setTutorialScreenTimer(float time){
+		if(time > 0){
+			tutorialMaxScreenTime = time;
+		}
+		else {
+			tutorialMaxScreenTime = 1f;
+		}
+		tutorialTimer = 0;
+		tutorialScreenTimed = true;
 	}
 	
 	public bool setCurrentState(State newState){
@@ -46,9 +79,15 @@ public class ZoogiTutorialController : MonoBehaviour {
 			GameGUIController.hideTutorial("Launch Mechanics", 1);
 			GameGUIController.hideTutorial("Launch Mechanics", 2);
 			GameGUIController.hideTutorial("Launch Mechanics", 3);
+			GameGUIController.hideTutorial("Launch Mechanics", 4);
+			GameGUIController.hideTutorial("Launch Mechanics", 5);
 		}
-		else if(currentState == State.MAP_MECHANICS){
-			
+		else if(currentState == State.SOLO_PLAY_COLLECT_SKYBITS_VICTORY_MECHANICS){
+			GameGUIController.hideTutorial("Collect Objective", 1);
+			GameGUIController.hideTutorial("Collect Objective", 2);
+			GameGUIController.hideTutorial("Collect Objective", 3);
+			GameGUIController.hideTutorial("Collect Objective", 4);
+			GameGUIController.hideTutorial("Collect Objective", 5);
 		}
 		
 		currentState = newState;
@@ -60,12 +99,15 @@ public class ZoogiTutorialController : MonoBehaviour {
 		}
 		else if(newState == State.LAUNCH_MECHANICS){
 			currentTutorial = "Launch Mechanics";
-			maxTutorialIndex = 3;
+			maxTutorialIndex = 4;
 			currentTutorialIndex = 0;
 			nextTutorial();
 		}
-		else if(newState == State.MAP_MECHANICS){
-			
+		else if(newState == State.SOLO_PLAY_COLLECT_SKYBITS_VICTORY_MECHANICS){
+			currentTutorial = "Collect Objective";
+			maxTutorialIndex = 3;
+			currentTutorialIndex = 0;
+			nextTutorial();
 		}
 		
 		return true;
@@ -91,16 +133,32 @@ public class ZoogiTutorialController : MonoBehaviour {
 		nextTutorial();
 	}
 	
+	public void nextTutorial(int index){
+		nextTutorial();
+	}
+	
 	public void unsubscribe(){
 		if(currentTutorial == "Launch Mechanics"){
 			if(currentTutorialIndex == 1){
-				AimPlayerBall.rotateButtonReleased -= nextTutorial;
+				AimPlayerBall.pullbackButtonTapped -= nextTutorial;
+				AimPlayerBall.rotateButtonTapped -= nextTutorial;
 			}
 			else if(currentTutorialIndex == 2){
-				AimPlayerBall.pullbackButtonTapped -= nextTutorial;
+				TurnFlowController.TurnBeginEvent -= nextTutorial;
 			}
 			else if(currentTutorialIndex == 3){
-				ZoogiLaunchBehavior.launchCompleted -= nextTutorial;
+				AimPlayerBall.rotateButtonTapped -= nextTutorial;
+			}
+			else if(currentTutorialIndex == 4){
+				GameFlowController.SoloGameEnd -= nextTutorial;
+			}
+		}
+		else if(currentTutorial == "Collect Objective"){
+			if(currentTutorialIndex == 1){
+			}
+			else if(currentTutorialIndex == 2){
+			}
+			else if(currentTutorialIndex == 3){
 			}
 		}
 	}
@@ -108,13 +166,28 @@ public class ZoogiTutorialController : MonoBehaviour {
 	public void subscribe(){
 		if(currentTutorial == "Launch Mechanics"){
 			if(currentTutorialIndex == 1){
-				AimPlayerBall.rotateButtonReleased += nextTutorial;
+				AimPlayerBall.pullbackButtonTapped += nextTutorial;
+				AimPlayerBall.rotateButtonTapped += nextTutorial;
 			}
 			else if(currentTutorialIndex == 2){
-				AimPlayerBall.pullbackButtonTapped += nextTutorial;
+				TurnFlowController.TurnBeginEvent += nextTutorial;
 			}
 			else if(currentTutorialIndex == 3){
-				ZoogiLaunchBehavior.launchCompleted += nextTutorial;
+				AimPlayerBall.rotateButtonTapped += nextTutorial;
+			}
+			else if(currentTutorialIndex == 4){
+				GameFlowController.SoloGameEnd += nextTutorial;
+			}
+		}
+		else if(currentTutorial == "Collect Objective"){
+			if(currentTutorialIndex == 1){
+				setTutorialScreenTimer(2.2f);
+			}
+			else if(currentTutorialIndex == 2){
+				setTutorialScreenTimer(2.2f);
+			}
+			else if(currentTutorialIndex == 3){
+				setTutorialScreenTimer(2.2f);
 			}
 		}
 	}
