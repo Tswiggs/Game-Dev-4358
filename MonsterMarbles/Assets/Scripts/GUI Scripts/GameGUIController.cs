@@ -161,8 +161,12 @@ public class GameGUIController : MonoBehaviour {
 		GameGUIController.setCurrentState(State.NOTICE);
 	}
 	
-	public static void showTutorial(int index){
-		guiController.transform.FindChild ("Always Shown Menu").FindChild ("Tutorial").FindChild(index.ToString()).gameObject.SetActive(true);
+	public static void showTutorial(string name, int index){
+		guiController.transform.FindChild ("Always Shown Menu").FindChild("Tutorial").FindChild(name).FindChild(index.ToString()).gameObject.SetActive(true);
+	}
+	
+	public static void hideTutorial(string name, int index){
+		guiController.transform.FindChild ("Always Shown Menu").FindChild("Tutorial").FindChild(name).FindChild(index.ToString()).gameObject.SetActive(false);
 	}
 	
 	public void changeToOptions(){

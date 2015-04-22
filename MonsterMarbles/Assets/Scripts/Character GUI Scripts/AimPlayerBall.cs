@@ -16,6 +16,8 @@ public class AimPlayerBall : MonoBehaviour {
 	
 	public delegate void buttonTapped();
 	public static event buttonTapped pullbackButtonTapped;
+	public static event buttonTapped rotateButtonTapped;
+	public static event buttonTapped rotateButtonReleased;
 
 
 	private Quaternion lastLocalRotation;
@@ -69,6 +71,10 @@ public class AimPlayerBall : MonoBehaviour {
 		switch (e.State)
 		{
 		case Gesture.GestureState.Began:
+			if(rotateButtonTapped != null){
+				rotateButtonTapped();
+			}
+			break;
 		case Gesture.GestureState.Changed:
 			var gesture = (SimplePanGesture)sender;
 
@@ -85,6 +91,11 @@ public class AimPlayerBall : MonoBehaviour {
 
 //			float deltaPos = gesture.LocalDeltaPosition.x;
 //			if (deltaPos != 0) localRotationToGo.y += deltaPos;
+			break;
+		case Gesture.GestureState.Ended:
+			if(rotateButtonReleased != null){
+				rotateButtonReleased();
+			}
 			break;
 		}
 	}
