@@ -38,6 +38,8 @@ public class GameGUIController : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+	
+		Time.timeScale = 1f;
 		manager = GetComponent<MenuManager>();
 		scoreList = new List<int>(3);
 		for(int x = 0; x < 3; x++){
