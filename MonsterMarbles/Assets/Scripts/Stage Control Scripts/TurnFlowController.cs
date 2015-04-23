@@ -77,7 +77,7 @@ public class TurnFlowController : MonoBehaviour {
 		}
 		else if(currentState == State.CLEANUP){
 			selectedZoogiController.setCurrentState (ZoogiController.State.INACTIVE);
-			ZoogiHopBehavior.hopComplete -= hopComplete;
+			//ZoogiHopBehavior.hopComplete -= hopComplete;
 		}
 		
 		currentState = newState;
@@ -99,9 +99,15 @@ public class TurnFlowController : MonoBehaviour {
 		}
 		else if(newState == State.LAUNCH){
 			GameCameraController.setCurrentState(GameCameraController.State.FOLLOW_CLOSE);
-			selectedZoogiController.setCurrentState (ZoogiController.State.CONTROLS_ACTIVE);
-			ZoogiLaunchBehavior.launchCompleted += launchCompleted;
-			GameGUIController.changeToMapState += changeToMapState;
+			if(!selectedZoogiController.isUpright()){
+				selectedZoogiController.setCurrentState (ZoogiController.State.HOPPING);
+				ZoogiHopBehavior.hopComplete += hopComplete;
+			}
+			else{
+				selectedZoogiController.setCurrentState (ZoogiController.State.CONTROLS_ACTIVE);
+				ZoogiLaunchBehavior.launchCompleted += launchCompleted;
+				GameGUIController.changeToMapState += changeToMapState;
+			}
 		}
 		else if(newState == State.ROLL){
 			GameCameraController.setCurrentState(GameCameraController.State.FOLLOW_FAR);
@@ -148,6 +154,10 @@ public class TurnFlowController : MonoBehaviour {
 		if(zoogi.GetInstanceID() == selectedZoogi.GetInstanceID ()){
 			if(getCurrentState() == State.CLEANUP){
 				setCurrentState(State.TURN_END);
+			}
+			else if (getCurrentState() == State.LAUNCH){
+				setCurrentState(State.LAUNCH);
+				ZoogiHopBehavior.hopComplete -= hopComplete;
 			}
 		}
 	}

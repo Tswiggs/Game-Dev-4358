@@ -9,7 +9,7 @@ public class StarDisplay : MonoBehaviour {
 	
 	public AudioClip starAcquiredSound;
 	
-	private float timeBetweenStars = 0.8f;
+	private float timeBetweenStars = 0.35f;
 	private float starTimer = 0f;
 	
 	public int starsAcquired = 0;
@@ -28,6 +28,50 @@ public class StarDisplay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
+		if(playAnimation){
+			if(starTimer >= timeBetweenStars){
+				currentStar += 1;
+				if(currentStar < starsAcquired){
+					starTimer = 0;
+					if(currentStar == 0){
+						star1.SetTrigger("playExpand");
+					}
+					else if(currentStar == 1){
+						star2.SetTrigger("playExpand");
+					}
+					else if(currentStar == 2){
+						star3.SetTrigger("playExpand");
+					}
+				}
+				else{
+					if(starsAcquired >= 3){
+						if(starTimer >= timeBetweenStars){
+							star1.SetTrigger("playSpecialSpin");
+							star2.SetTrigger("playSpecialSpin");
+							star3.SetTrigger("playSpecialSpin");
+							playAnimation = false;
+							currentStar = 0;
+							starTimer = 0;
+						}
+						else{
+							starTimer += Time.deltaTime;
+						}
+					}
+					else{
+						playAnimation = false;
+						currentStar = 0;
+						starTimer = 0;
+					}
+				}
+			}
+			else{
+				starTimer += Time.deltaTime;
+			}
+		}
+	}
+	
+	void sUpdate () {
 		
 		if(playAnimation){
 			if(currentStar < 1){
@@ -99,6 +143,10 @@ public class StarDisplay : MonoBehaviour {
 		}
 		else{
 			starsAcquired = StarsAcquired;
+		}
+		
+		if(starsAcquired > 0){
+			star1.SetTrigger("playExpand");
 		}
 		playAnimation = true;
 	}

@@ -138,11 +138,10 @@ public class GameFlowController : MonoBehaviour {
 		else if(newState == State.GAME_END){
 		
 			if(isSolo){
-				GameGUIController.setCurrentState(GameGUIController.State.END_GAME_SOLO);
 				if(RankingAchieved != null){
 					RankingAchieved(objectiveTracker.getPlayerRanking(0));
 				}
-				
+				GameGUIController.setCurrentState(GameGUIController.State.END_GAME_SOLO);
 				if(SoloGameEnd != null){
 					SoloGameEnd(0);
 				}

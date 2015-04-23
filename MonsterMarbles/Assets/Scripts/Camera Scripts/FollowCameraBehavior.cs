@@ -20,6 +20,8 @@ public class FollowCameraBehavior : MonoBehaviour {
 	public enum State {CLOSE, FAR};
 	private State currentState;
 	
+	private bool lockPosition = false; //Forces camera to not move position while following target
+	
 	// Use this for initialization
 	void Start () {
 		currentState = State.CLOSE;
@@ -29,6 +31,11 @@ public class FollowCameraBehavior : MonoBehaviour {
 	public bool setFocusTarget(Transform focusTarget){
 		target = focusTarget;
 		return true;
+	}
+	
+	public bool setPositionLock(bool value){
+		lockPosition = value;
+		return lockPosition;
 	}
 	
 	public State getCurrentState(){
@@ -75,12 +82,20 @@ public class FollowCameraBehavior : MonoBehaviour {
 		if(getCurrentState() == State.CLOSE || getCurrentState() == State.FAR){
 			
 			// Calculate the current rotation angles
-			wantedRotationAngle = target.eulerAngles.y;
-			wantedHeight = target.position.y + height;
-			wantedDistance = distance;
 			currentRotationAngle = transform.eulerAngles.y;
 			currentHeight = transform.position.y;
 			currentDistance = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(target.position.x,target.position.z));
+			
+			if(lockPosition){
+				wantedHeight = currentHeight;
+				wantedDistance = currentDistance;
+				wantedRotationAngle = currentRotationAngle;
+			}
+			else{
+				wantedHeight = target.position.y + height;
+				wantedDistance = distance;
+				wantedRotationAngle = target.eulerAngles.y;
+			}
 			
 			// Damp the rotation around the y-axis
 			currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);

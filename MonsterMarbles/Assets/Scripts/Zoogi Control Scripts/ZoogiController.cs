@@ -94,6 +94,14 @@ public class ZoogiController : MonoBehaviour {
 		return true;
 	}
 	
+	public bool isUpright(){
+		Quaternion standingUp = new Quaternion();
+		standingUp.x=0f;
+		standingUp.y=transform.rotation.y;
+		standingUp.z=0f;
+		return (Quaternion.Angle(transform.rotation, standingUp)>=0.003f);
+	}
+	
 	public void refreshZoogiReferences(){
 		zoogiBall = this.transform.FindChild("Ball").gameObject;
 		zoogiCharacterRoot = this.transform.FindChild("Character Root").gameObject;

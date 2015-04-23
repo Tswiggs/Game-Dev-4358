@@ -10,6 +10,13 @@ public class PullbackBehavior : MonoBehaviour {
 	/// Proportion of y screen space that makes up the active pullback area. 
 	/// </summary>
 	private float pullbackScreenProportion;
+	
+	/// <summary>
+	/// Proportion of screen space from the bottom that is not calculated 
+	/// for pullback (i.e. setting it at 0.1 means pulling past the bottom ten percent of 
+	/// the screen won't affect the pullbackFraction
+	/// </summary>
+	private float pullbackPercentageOffset = 0.1f;
 	public GUITexture pullbackButton;
 	private bool pullbackInProgress;
 	
@@ -107,7 +114,8 @@ public class PullbackBehavior : MonoBehaviour {
 	
 	float getPullbackFraction(Vector2 position){
 		float yDistance = startPosition.y - position.y;
-		float fraction = yDistance/(Screen.height * pullbackScreenProportion);
+		float bottomPullbackAreaOffset = Screen.height * pullbackPercentageOffset;
+		float fraction = yDistance/(Screen.height * pullbackScreenProportion - bottomPullbackAreaOffset);
 		if (fraction > 1){
 			fraction = 1;
 		}

@@ -12,7 +12,7 @@ public class ZoogiHopBehavior : MonoBehaviour {
 	private Quaternion standingUpRotation;
 	private float hopTime = 2f;
 	private float hopForce = 75f;
-	private float spinTime = 1f;
+	private float spinTime = 0.7f;
 	
 	private float hopTimer = 0f;
 	private float spinTimer = 0f;
@@ -41,7 +41,9 @@ public class ZoogiHopBehavior : MonoBehaviour {
 			
 			
 			if(hopTimer >= hopTime){
-				setCurrentState(State.HOP_FINISHED);
+				if(ball.GetComponent<Rigidbody>().velocity.y < 0.1f && ball.GetComponent<Rigidbody>().velocity.y > -0.1f){
+					setCurrentState(State.HOP_FINISHED);
+				}
 			}
 			else{
 				hopTimer += Time.deltaTime;
@@ -61,6 +63,7 @@ public class ZoogiHopBehavior : MonoBehaviour {
 			
 		}
 		else if(currentState == State.HOPPING){
+			GameCameraController.setPositionLock(false);
 			rigidBody.constraints = RigidbodyConstraints.None;
 		}
 		else if (currentState == State.HOP_FINISHED){
@@ -75,6 +78,7 @@ public class ZoogiHopBehavior : MonoBehaviour {
 		else if (newState == State.HOPPING){
 			hopTimer = 0;
 			spinTimer = 0;
+			GameCameraController.setPositionLock(true);
 			rigidBody.constraints = RigidbodyConstraints.None;
 			rigidBody.AddForce(new Vector3(0, hopForce, 0), ForceMode.Impulse);
 			standingUpRotation.y = transform.rotation.y;

@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class AimPlayerBall : MonoBehaviour {
 	public float aimSpeed=1;
-	public float aimSnappiness=1;
+	public float aimSnappiness=4;
 	public float keyAimSpeed=1;
 	public SimplePanGesture panGesture;
 	public PressGesture beginPullbackPress;

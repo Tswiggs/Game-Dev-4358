@@ -64,6 +64,18 @@ public class GameCameraController : MonoBehaviour {
 		return true;
 	}
 	
+	//Attempts to set current state camera's position lock. 
+	//If unable (like if the camera doesn't support position lock) then it returns false, otherwise the new position.
+	public static bool setPositionLock(bool val){
+		State currentState = cameraController.getCurrentState();
+		if(currentState == State.FOLLOW_FAR || currentState == State.FOLLOW_CLOSE){
+			if(cameraController.followCamera.enabled){
+				return cameraController.followCamera.setPositionLock(val);
+			}
+		}
+		return false;
+	}
+	
 	public static bool setFocusTarget(Transform focusTarget){
 		cameraController.target = focusTarget;
 		cameraController.SendMessage("setFocusTarget", focusTarget, SendMessageOptions.DontRequireReceiver);

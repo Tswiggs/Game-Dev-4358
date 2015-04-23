@@ -44,7 +44,7 @@ public class ZoogiTutorialController : MonoBehaviour {
 		}
 		
 		if(tutorialScreenTimed){
-			if(tutorialTimer >= tutorialMaxScreenTime && Input.GetMouseButtonDown(0)){
+			if(tutorialTimer >= tutorialMaxScreenTime || Input.GetMouseButtonDown(0)){
 				tutorialTimer =0;
 				tutorialScreenTimed = false;
 				nextTutorial();

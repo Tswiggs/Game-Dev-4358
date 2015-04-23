@@ -13,13 +13,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: playSpecialSpin
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -50,10 +50,10 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: .100000001
+  m_TransitionDuration: .995179772
   m_TransitionOffset: 0
-  m_ExitTime: .899999976
-  m_HasExitTime: 1
+  m_ExitTime: .0048202523
+  m_HasExitTime: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -113,9 +113,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: .0344632864
-  m_TransitionOffset: 0
-  m_ExitTime: .972096682
+  m_TransitionDuration: .0140693765
+  m_TransitionOffset: .332059056
+  m_ExitTime: .99249059
   m_HasExitTime: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -133,9 +133,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: .5
-  m_TransitionOffset: 0
-  m_ExitTime: .5
+  m_TransitionDuration: .982041538
+  m_TransitionOffset: .00053561246
+  m_ExitTime: .0051039895
   m_HasExitTime: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -174,7 +174,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 082d3cafef320e849b45eea5f223375e, type: 2}
   m_Tag: 
 --- !u!1102 &110270760
 AnimatorState:
@@ -230,6 +230,23 @@ AnimatorState:
   m_Mirror: 0
   m_Motion: {fileID: 7400000, guid: 5c7f39450486d31419996a83c43e2e38, type: 2}
   m_Tag: 
+--- !u!1102 &110298622
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Shrink 0
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_Motion: {fileID: 7400000, guid: 082d3cafef320e849b45eea5f223375e, type: 2}
+  m_Tag: 
 --- !u!1107 &110740254
 AnimatorStateMachine:
   serializedVersion: 5
@@ -253,6 +270,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 110280520}
     m_Position: {x: 756, y: 156, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 110298622}
+    m_Position: {x: 791, y: 221, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
