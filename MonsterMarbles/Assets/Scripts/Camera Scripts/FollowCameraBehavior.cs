@@ -12,8 +12,8 @@ public class FollowCameraBehavior : MonoBehaviour {
 	public const float CLOSE_DISTANCE = 6f;
 	public const float CLOSE_HEIGHT = 4f;
 	
-	public const float FAR_DISTANCE = 6f;
-	public const float FAR_HEIGHT = 16f;
+	public const float FAR_DISTANCE = 0f;
+	public const float FAR_HEIGHT = 20f;
 	
 	public Transform target;
 	

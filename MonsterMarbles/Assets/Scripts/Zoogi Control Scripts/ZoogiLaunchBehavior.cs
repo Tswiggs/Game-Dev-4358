@@ -16,12 +16,15 @@ public class ZoogiLaunchBehavior : MonoBehaviour {
 	
 	public const float MAX_SPIN_ROTATION = 30f;
 	public const float MAX_LAUNCH_POWER = 300f;
+	private const float activeClickZonePercentage = 0.1f; //Percentage of Screen height that is an active click zone around the ball's center
+	private float maxPullbackZonePercentage = 0.3f; //Percentage of Screen height or width (whichever is lower) beyond which you reach max pullback
 	
 	public AudioClip launchSound;
 	
 	private float powerFraction; //Total fraction of LAUNCH POWER to be used
 	
 	private Transform characterRoot;
+	private Transform ball;
 	
 	
 	// Use this for initialization
@@ -32,13 +35,53 @@ public class ZoogiLaunchBehavior : MonoBehaviour {
 	
 	void Start () {
 		characterRoot = transform.parent.FindChild("Character Root");
+		ball = transform.parent.FindChild ("Ball");
 		setCurrentState(State.IDLE);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(getCurrentState() == State.SPIN_UP){
+		if(getCurrentState() == State.IDLE){
+			if(Input.GetMouseButtonDown(0)){
+				Vector3 ballScreenPosition = Camera.main.WorldToScreenPoint(ball.position);
+				int pixelHalfSpace = (int)((Screen.height*activeClickZonePercentage)/2);
+				Rect activeClickZone = new Rect(ballScreenPosition.x-pixelHalfSpace, ballScreenPosition.y-pixelHalfSpace, pixelHalfSpace*2,pixelHalfSpace*2);
+				if(activeClickZone.Contains(new Vector2(Input.mousePosition.x,Input.mousePosition.y))){
+					GameAudioController.playOneShotSound(launchSound);
+					setCurrentState(State.SPIN_UP);
+				}
+			}
 			
+		}
+		else if (getCurrentState() == State.SPIN_UP){
+		
+			Vector3 ballScreenPosition = Camera.main.WorldToScreenPoint(ball.position);
+			int pixelHalfSpace = (int)((Screen.height*activeClickZonePercentage)/2);
+			Rect activeClickZone = new Rect(ballScreenPosition.x-pixelHalfSpace, ballScreenPosition.y-pixelHalfSpace, pixelHalfSpace*2,pixelHalfSpace*2);
+			
+			if(Input.GetMouseButton(0)){
+				if(!activeClickZone.Contains(new Vector2(Input.mousePosition.x,Input.mousePosition.y))){
+					Vector3 directionVector = ballScreenPosition - Input.mousePosition;
+					ball.forward = new Vector3(directionVector.x,ball.forward.z,directionVector.y);
+					float distanceFromBall = Vector2.Distance(new Vector2(ballScreenPosition.x,ballScreenPosition.y), new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+					float maxPullbackRadius;
+					if(Screen.height <= Screen.width){
+						maxPullbackRadius = Screen.height * maxPullbackZonePercentage;
+					}
+					else{
+						maxPullbackRadius = Screen.width * maxPullbackZonePercentage;
+					}
+					setPowerFraction(distanceFromBall/maxPullbackRadius);
+				}
+			}
+			else{
+				if(activeClickZone.Contains(new Vector2(Input.mousePosition.x,Input.mousePosition.y))){
+					setCurrentState(State.IDLE);
+				}
+				else{
+					setCurrentState(State.LAUNCH);
+				}
+			}
 		}
 		else if (getCurrentState() == State.LAUNCH){
 			performLaunch();

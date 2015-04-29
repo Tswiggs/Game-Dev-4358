@@ -27,12 +27,11 @@ public class PanCameraBehavior : MonoBehaviour {
 	private Vector2 mousePanCurrentPosition;
 	private bool beginMousePan = false;
 	
-	public enum State {CLOSE, FAR};
+	public enum State {CLOSE, FAR, CLOSE_NO_PAN};
 	private State currentState;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		currentState = State.CLOSE;
-		setCurrentState(State.CLOSE);
 	}
 	
 	public bool setFocusTarget(Transform focusTarget){
@@ -53,6 +52,9 @@ public class PanCameraBehavior : MonoBehaviour {
 		else if(currentState == State.FAR){
 			
 		}
+		else if(currentState == State.CLOSE_NO_PAN){
+			
+		}
 		
 		currentState = newState;
 		
@@ -64,6 +66,11 @@ public class PanCameraBehavior : MonoBehaviour {
 		else if(newState == State.FAR){
 			distance = FAR_DISTANCE;
 			height = FAR_HEIGHT;
+			focusPosition = target.position;
+		}
+		else if(newState == State.CLOSE_NO_PAN){
+			distance = CLOSE_DISTANCE;
+			height = CLOSE_HEIGHT;
 			focusPosition = target.position;
 		}
 		
@@ -118,8 +125,9 @@ public class PanCameraBehavior : MonoBehaviour {
 		// Early out if we don't have a target
 		if (!target)
 			return;
-		
-		processInputs();
+		if(getCurrentState() != State.CLOSE_NO_PAN){
+			processInputs();
+		}
 		
 		float wantedRotationAngle;
 		float wantedHeight;
@@ -128,42 +136,38 @@ public class PanCameraBehavior : MonoBehaviour {
 		float currentHeight;
 		float currentDistance;
 		
-		if(getCurrentState() == State.CLOSE || getCurrentState() == State.FAR){
 			
-			// Calculate the current rotation angles
-			wantedRotationAngle =  80f;
-			wantedHeight = focusPosition.y + height;
-			wantedDistance = distance;
-			currentRotationAngle = transform.eulerAngles.x;
-			currentHeight = transform.position.y;
-			currentDistance = Vector2.Distance(new Vector2(focusPosition.x, focusPosition.z), new Vector2(transform.position.x, transform.position.z));
+		// Calculate the current rotation angles
+		wantedRotationAngle =  80f;
+		wantedHeight = focusPosition.y + height;
+		wantedDistance = distance;
+		currentRotationAngle = transform.eulerAngles.x;
+		currentHeight = transform.position.y;
+		currentDistance = Vector2.Distance(new Vector2(focusPosition.x, focusPosition.z), new Vector2(transform.position.x, transform.position.z));
+		
+		// Damp the rotation around the y-axis
+		currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+		
+		// Damp the height
+		currentHeight = Mathf.Lerp (currentHeight, wantedHeight, heightDamping * Time.deltaTime);
+		
+		// Convert the angle into a rotation
+		Quaternion currentRotation = Quaternion.Euler (currentRotationAngle,0, 0);
+		
+		// Set the position of the camera on the x-z plane to:
+		// distance meters behind the target
+		transform.position = focusPosition;
+		
+		
+		currentDistance = Mathf.Lerp (currentDistance,wantedDistance, positionDamping * Time.deltaTime);
+		
+		transform.position -= currentRotation * Vector3.forward * currentDistance;
+		
+		transform.rotation = currentRotation;
+		//transform.position -= currentRotation * Vector3.forward * distance;
+		
+		// Set the height of the camera
+		transform.position = new Vector3(focusPosition.x, currentHeight, focusPosition.z);
 			
-			// Damp the rotation around the y-axis
-			currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
-			
-			// Damp the height
-			currentHeight = Mathf.Lerp (currentHeight, wantedHeight, heightDamping * Time.deltaTime);
-			
-			// Convert the angle into a rotation
-			Quaternion currentRotation = Quaternion.Euler (currentRotationAngle,0, 0);
-			
-			// Set the position of the camera on the x-z plane to:
-			// distance meters behind the target
-			transform.position = focusPosition;
-			
-			
-			currentDistance = Mathf.Lerp (currentDistance,wantedDistance, positionDamping * Time.deltaTime);
-			
-			transform.position -= currentRotation * Vector3.forward * currentDistance;
-			
-			transform.rotation = currentRotation;
-			//transform.position -= currentRotation * Vector3.forward * distance;
-			
-			// Set the height of the camera
-			transform.position = new Vector3(focusPosition.x, currentHeight, focusPosition.z);
-			
-			// Always look at the target
-			
-		}
 	}
 }
