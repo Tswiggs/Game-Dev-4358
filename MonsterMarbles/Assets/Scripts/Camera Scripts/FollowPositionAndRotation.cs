@@ -5,11 +5,12 @@ public class FollowPositionAndRotation : MonoBehaviour {
 	public Transform target;
 	public float sleepVelocityMagnitude=1;
 
-	
+	private ZoogiController zoogiController;
 	private bool pullbackInProgress = false;
 	
 	// Use this for initialization
 	void Start () {
+		zoogiController=transform.GetComponentInParent<ZoogiController>();
 	}
 	
 	// Update is called once per frame
@@ -17,9 +18,11 @@ public class FollowPositionAndRotation : MonoBehaviour {
 		transform.position = target.position;
 		
 		if(!pullbackInProgress){
-			if (target.GetComponent<Rigidbody>().velocity.magnitude > sleepVelocityMagnitude)
+			if (target.GetComponent<Rigidbody>().velocity.magnitude > sleepVelocityMagnitude 
+			    && zoogiController.getCurrentState() != ZoogiController.State.HOPPING)
 			{
 				transform.rotation=Quaternion.LookRotation(target.GetComponent<Rigidbody>().velocity);
+				//Debug.Log("greater than sleep!");
 			}
 			else //if(Vector3.Angle(Vector3.up, target.up)<5f)
 			{
@@ -27,6 +30,7 @@ public class FollowPositionAndRotation : MonoBehaviour {
 				forward.y=0f;
 	
 				transform.forward=forward;*/
+
 				
 				Vector2 forward1 = new Vector2(target.right.x,target.right.z);
 				forward1 = forward1.normalized;

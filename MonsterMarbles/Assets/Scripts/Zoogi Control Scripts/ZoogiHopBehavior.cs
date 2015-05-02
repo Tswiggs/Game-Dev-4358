@@ -18,7 +18,7 @@ public class ZoogiHopBehavior : MonoBehaviour {
 	private float spinTimer = 0f;
 	
 	public enum State {INACTIVE, HOPPING, HOP_FINISHED};
-	private State currentState;
+	public State currentState;
 	
 	// Use this for initialization
 	void Awake() {

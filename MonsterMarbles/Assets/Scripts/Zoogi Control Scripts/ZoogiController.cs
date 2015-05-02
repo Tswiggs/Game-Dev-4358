@@ -27,7 +27,7 @@ public class ZoogiController : MonoBehaviour {
 	}
 	
 	void OnEnable(){
-
+		currentState= ZoogiController.State.HOPPING;
 	}
 	
 	public void initialize(){
