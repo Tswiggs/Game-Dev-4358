@@ -98,7 +98,7 @@ public class TurnFlowController : MonoBehaviour {
 			GameGUIController.changeToLaunchState += changeToLaunchState;
 		}
 		else if(newState == State.LAUNCH){
-			GameCameraController.setCurrentState(GameCameraController.State.FOLLOW_CLOSE);
+			GameCameraController.setCurrentState(GameCameraController.State.BIRD_EYE);
 			if(!selectedZoogiController.isUpright()){
 				selectedZoogiController.setCurrentState (ZoogiController.State.HOPPING);
 				ZoogiHopBehavior.hopComplete += hopComplete;

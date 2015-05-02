@@ -11,6 +11,11 @@ public class PullbackBehavior : MonoBehaviour {
 	/// </summary>
 	private float pullbackScreenProportion;
 	
+	private const float activeClickZonePercentage = 0.1f; //Percentage of Screen height that is an active click zone around the ball's center
+	private float maxPullbackZonePercentage = 0.4f; //Percentage of Screen height or width (whichever is lower) beyond which you reach max pullback
+	
+	private Transform ball;
+	
 	/// <summary>
 	/// Proportion of screen space from the bottom that is not calculated 
 	/// for pullback (i.e. setting it at 0.1 means pulling past the bottom ten percent of 
@@ -47,15 +52,61 @@ public class PullbackBehavior : MonoBehaviour {
 	}
 	
 	void Start () {
-	
+		TurnFlowController.TurnBeginEvent += setCurrentBall;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(getCurrentState() == State.ACTIVE){
-			
+			if(Input.GetMouseButtonDown(0)){
+				Vector3 ballScreenPosition = Camera.main.WorldToScreenPoint(ball.position);
+				int pixelHalfSpace = (int)((Screen.height*activeClickZonePercentage)/2);
+				Rect activeClickZone = new Rect(ballScreenPosition.x-pixelHalfSpace, ballScreenPosition.y-pixelHalfSpace, pixelHalfSpace*2,pixelHalfSpace*2);
+				if(activeClickZone.Contains(new Vector2(Input.mousePosition.x,Input.mousePosition.y))){
+					setCurrentState(State.PULLBACK);
+				}
+			}
 		}
 		else if (getCurrentState() == State.PULLBACK){
+			Vector3 ballScreenPosition = Camera.main.WorldToScreenPoint(ball.position);
+			int pixelHalfSpace = (int)((Screen.height*activeClickZonePercentage)/2);
+			Rect activeClickZone = new Rect(ballScreenPosition.x-pixelHalfSpace, ballScreenPosition.y-pixelHalfSpace, pixelHalfSpace*2,pixelHalfSpace*2);
+			
+			if(Input.GetMouseButton(0)){
+				if(!activeClickZone.Contains(new Vector2(Input.mousePosition.x,Input.mousePosition.y))){
+					Vector3 directionVector = ballScreenPosition - Input.mousePosition;
+					ball.forward = new Vector3(directionVector.x,ball.forward.z,directionVector.y);
+					float distanceFromBall = Vector2.Distance(new Vector2(ballScreenPosition.x,ballScreenPosition.y), new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+					float maxPullbackRadius;
+					if(Screen.height <= Screen.width){
+						maxPullbackRadius = Screen.height * maxPullbackZonePercentage;
+					}
+					else{
+						maxPullbackRadius = Screen.width * maxPullbackZonePercentage;
+					}
+					
+					if(distanceFromBall > maxPullbackRadius){
+						distanceFromBall = maxPullbackRadius;
+					}
+					
+					if(pullbackInformation != null){
+						pullbackInformation(distanceFromBall/maxPullbackRadius);
+					}
+				}
+			}
+			else{
+				if(activeClickZone.Contains(new Vector2(Input.mousePosition.x,Input.mousePosition.y))){
+
+				}
+				else{
+					if(pullbackReleased != null){
+						pullbackReleased();
+					}
+				}
+				setCurrentState(State.ACTIVE);
+			}
+		
+			/*
 			pullbackFraction = getPullbackFraction(new Vector2(Input.mousePosition.x,Input.mousePosition.y));
 			if(pullbackInformation != null){
 				pullbackInformation(pullbackFraction);
@@ -73,6 +124,7 @@ public class PullbackBehavior : MonoBehaviour {
 					}
 				}
 			}
+			*/
 		}
 	}
 	
@@ -123,6 +175,10 @@ public class PullbackBehavior : MonoBehaviour {
 		
 	}
 	
+	public void setCurrentBall(GameObject zoogi){
+		ball = zoogi.transform.FindChild("Ball");
+	}
+	
 	public void pullbackButtonTapped(){
 		if(getCurrentState() == State.ACTIVE){
 			setCurrentState(State.PULLBACK);
@@ -138,5 +194,6 @@ public class PullbackBehavior : MonoBehaviour {
 	
 	void OnDisable() {
 		AimPlayerBall.pullbackButtonTapped -= pullbackButtonTapped;
+		setCurrentState(State.INACTIVE);
 	}
 }

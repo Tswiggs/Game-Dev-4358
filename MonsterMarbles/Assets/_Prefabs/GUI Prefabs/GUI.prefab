@@ -3788,7 +3788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &197934
 GameObject:
   m_ObjectHideFlags: 1
@@ -5706,7 +5706,7 @@ MonoBehaviour:
   m_PreferredWidth: -1
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
-  m_FlexibleHeight: 28
+  m_FlexibleHeight: 12
 --- !u!114 &11425952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5800,7 +5800,7 @@ MonoBehaviour:
   m_MinHeight: -1
   m_PreferredWidth: -1
   m_PreferredHeight: -1
-  m_FlexibleWidth: 3
+  m_FlexibleWidth: 9
   m_FlexibleHeight: -1
 --- !u!114 &11426756
 MonoBehaviour:
@@ -6214,7 +6214,7 @@ MonoBehaviour:
   m_MinHeight: -1
   m_PreferredWidth: -1
   m_PreferredHeight: -1
-  m_FlexibleWidth: 3
+  m_FlexibleWidth: 5
   m_FlexibleHeight: -1
 --- !u!114 &11429750
 MonoBehaviour:
@@ -6233,7 +6233,7 @@ MonoBehaviour:
   m_PreferredWidth: -1
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
-  m_FlexibleHeight: 6
+  m_FlexibleHeight: 7
 --- !u!114 &11429924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7177,7 +7177,7 @@ MonoBehaviour:
   m_PreferredWidth: -1
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
-  m_FlexibleHeight: 20
+  m_FlexibleHeight: 5
 --- !u!114 &11444112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8104,7 +8104,7 @@ MonoBehaviour:
   m_MinHeight: -1
   m_PreferredWidth: -1
   m_PreferredHeight: -1
-  m_FlexibleWidth: 3
+  m_FlexibleWidth: 9
   m_FlexibleHeight: -1
 --- !u!114 &11458890
 MonoBehaviour:
@@ -8308,7 +8308,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Tap and Drag the yellow arrow to rotate Wolfgang
+  m_Text: Reach the Sparkling Spaceship Beyond the Bridge to Finish the Level
 --- !u!114 &11461340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8897,7 +8897,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The more you pullback, the farther Wolfgang will travel!
+  m_Text: Wolfgang will travel in the direction of the arrow!
 --- !u!114 &11468002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10882,8 +10882,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Tap and pull back on the red button to prepare Wolfgang for launch, release
-    to send him flying!
+  m_Text: Tap and pull back on Wolfgang to prepare for launch, release to send him
+    flying!
 --- !u!114 &11499846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11833,8 +11833,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275.5, y: -107.074074}
-  m_SizeDelta: {x: 551, y: 214.148148}
+  m_AnchoredPosition: {x: 275.5, y: -103.25}
+  m_SizeDelta: {x: 551, y: 206.5}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22400414
 RectTransform:
@@ -12877,8 +12877,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275.5, y: -76.4814835}
-  m_SizeDelta: {x: 183.666656, y: 152.962967}
+  m_AnchoredPosition: {x: 275.5, y: -43.0208359}
+  m_SizeDelta: {x: 119.782608, y: 86.0416718}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22422186
 RectTransform:
@@ -13307,8 +13307,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 459.166626, y: -76.4814835}
-  m_SizeDelta: {x: 183.666656, y: 152.962967}
+  m_AnchoredPosition: {x: 443.195648, y: -43.0208359}
+  m_SizeDelta: {x: 215.608704, y: 86.0416718}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22432452
 RectTransform:
@@ -13619,8 +13619,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275.5, y: -290.629639}
-  m_SizeDelta: {x: 551, y: 152.962967}
+  m_AnchoredPosition: {x: 275.5, y: -249.520844}
+  m_SizeDelta: {x: 551, y: 86.0416718}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22438922
 RectTransform:
@@ -13835,8 +13835,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 91.8333282, y: -76.4814835}
-  m_SizeDelta: {x: 183.666656, y: 152.962967}
+  m_AnchoredPosition: {x: 107.804352, y: -43.0208359}
+  m_SizeDelta: {x: 215.608704, y: 86.0416718}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22443936
 RectTransform:
@@ -13996,8 +13996,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275.5, y: -390.055573}
-  m_SizeDelta: {x: 551, y: 45.8888893}
+  m_AnchoredPosition: {x: 275.5, y: -352.770844}
+  m_SizeDelta: {x: 551, y: 120.458336}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22449078
 RectTransform:

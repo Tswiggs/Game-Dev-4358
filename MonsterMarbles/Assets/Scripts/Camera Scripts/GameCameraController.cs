@@ -11,7 +11,7 @@ public class GameCameraController : MonoBehaviour {
 	public FollowCameraBehavior followCamera;
 	public PanCameraBehavior panCamera;
 	
-	public enum State{ ROTATE_ABOUT_CLOSE, ROTATE_ABOUT_FAR, FOLLOW_FAR, FOLLOW_CLOSE, BIRD_EYE_PAN, STATIC_POSITION};
+	public enum State{ ROTATE_ABOUT_CLOSE, ROTATE_ABOUT_FAR, FOLLOW_FAR, FOLLOW_CLOSE, BIRD_EYE, BIRD_EYE_PAN, STATIC_POSITION};
 	private State currentState;
 	
 	void Start(){
@@ -42,6 +42,9 @@ public class GameCameraController : MonoBehaviour {
 		else if(cameraController.currentState == State.FOLLOW_FAR){
 			cameraController.followCamera.enabled = false;
 		}
+		else if(cameraController.currentState == State.BIRD_EYE){
+			cameraController.panCamera.enabled = false;
+		}
 		else if(cameraController.currentState == State.BIRD_EYE_PAN){
 			cameraController.panCamera.enabled = false;
 		}
@@ -56,9 +59,13 @@ public class GameCameraController : MonoBehaviour {
 			cameraController.followCamera.enabled = true;
 			cameraController.followCamera.setCurrentState(FollowCameraBehavior.State.FAR);
 		}
+		else if(newState == State.BIRD_EYE){
+			cameraController.panCamera.enabled = true;
+			cameraController.panCamera.setCurrentState(PanCameraBehavior.State.CLOSE_NO_PAN);
+		}
 		else if(newState == State.BIRD_EYE_PAN){
 			cameraController.panCamera.enabled = true;
-			cameraController.panCamera.setCurrentState(PanCameraBehavior.State.CLOSE);
+			cameraController.panCamera.setCurrentState(PanCameraBehavior.State.FAR);
 		}
 		
 		return true;
