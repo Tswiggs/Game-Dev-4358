@@ -140,8 +140,7 @@ public class ZoogiTutorialController : MonoBehaviour {
 	public void unsubscribe(){
 		if(currentTutorial == "Launch Mechanics"){
 			if(currentTutorialIndex == 1){
-				AimPlayerBall.pullbackButtonTapped -= nextTutorial;
-				AimPlayerBall.rotateButtonTapped -= nextTutorial;
+				PullbackBehavior.pullbackStarted -= nextTutorial;
 			}
 			else if(currentTutorialIndex == 2){
 				TurnFlowController.TurnBeginEvent -= nextTutorial;
@@ -166,8 +165,7 @@ public class ZoogiTutorialController : MonoBehaviour {
 	public void subscribe(){
 		if(currentTutorial == "Launch Mechanics"){
 			if(currentTutorialIndex == 1){
-				AimPlayerBall.pullbackButtonTapped += nextTutorial;
-				AimPlayerBall.rotateButtonTapped += nextTutorial;
+				PullbackBehavior.pullbackStarted += nextTutorial;
 			}
 			else if(currentTutorialIndex == 2){
 				TurnFlowController.TurnBeginEvent += nextTutorial;

@@ -65,7 +65,7 @@ public class GameCameraController : MonoBehaviour {
 		}
 		else if(newState == State.BIRD_EYE_PAN){
 			cameraController.panCamera.enabled = true;
-			cameraController.panCamera.setCurrentState(PanCameraBehavior.State.CLOSE);
+			cameraController.panCamera.setCurrentState(PanCameraBehavior.State.FAR);
 		}
 		
 		return true;

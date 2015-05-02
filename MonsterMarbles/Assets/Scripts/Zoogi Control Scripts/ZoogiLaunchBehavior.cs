@@ -41,7 +41,7 @@ public class ZoogiLaunchBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(getCurrentState() == State.IDLE){
+		/*if(getCurrentState() == State.IDLE){
 			if(Input.GetMouseButtonDown(0)){
 				Vector3 ballScreenPosition = Camera.main.WorldToScreenPoint(ball.position);
 				int pixelHalfSpace = (int)((Screen.height*activeClickZonePercentage)/2);
@@ -83,7 +83,7 @@ public class ZoogiLaunchBehavior : MonoBehaviour {
 				}
 			}
 		}
-		else if (getCurrentState() == State.LAUNCH){
+		else*/ if (getCurrentState() == State.LAUNCH){
 			performLaunch();
 			setCurrentState(State.IDLE);
 		}

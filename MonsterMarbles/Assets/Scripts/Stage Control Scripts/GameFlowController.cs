@@ -10,11 +10,6 @@ public class GameFlowController : MonoBehaviour {
 	
 	public ZoogiTeamRoster teamRoster;
 	
-	private int totalBitsCollected;
-	private int totalBitsInGame;
-	private int turnLimit;
-	private int turnsTaken;
-	
 	private bool isSolo = true;
 	
 	private float victoryDisplayTime = 12f;
@@ -70,11 +65,6 @@ public class GameFlowController : MonoBehaviour {
 		
 		zoogiSpawnPointHandler = GameObject.Find("ZoogiSpawnPoints").GetComponent<ZoogiSpawnPointHandler>();
 		
-		totalBitsCollected = 0;
-		totalBitsInGame = GameObject.Find("Skybits").transform.childCount;
-		turnLimit = 12;
-		turnsTaken = 0;
-		
 		enabled = true;
 	}
 	
@@ -125,7 +115,6 @@ public class GameFlowController : MonoBehaviour {
 		currentState = newState;
 		
 		if(newState == State.TAKING_TURN){
-			turnsTaken += 1;
 			//GameGUIController.showInformationPanel("Turn "+turnsTaken.ToString(),3f);
 			
 			turnFlowController.enabled = true;
@@ -149,12 +138,6 @@ public class GameFlowController : MonoBehaviour {
 			else{
 				victoryTimer = 0;
 				GameAudioController.playOneShotSound(victorySound);
-				if(totalBitsCollected >= totalBitsInGame){
-					GameGUIController.showInformationPanel("Congratulations You Collected All "+totalBitsCollected.ToString()+" Skybits In "+turnsTaken.ToString()+" Turns!",victoryDisplayTime-1.5f);
-				}
-				else{
-					GameGUIController.showInformationPanel("Congratulations You Collected "+totalBitsCollected.ToString()+" Skybits In "+turnsTaken.ToString()+" Turns!",victoryDisplayTime-1.5f);
-				}
 			}
 		}
 		
@@ -212,7 +195,6 @@ public class GameFlowController : MonoBehaviour {
 	
 	public void skybitsCollected(int amount){
 		scoreTracker.addPointsToCurrentPlayer(amount);
-		totalBitsCollected += 1;
 	}
 	
 	void OnDestroy(){
