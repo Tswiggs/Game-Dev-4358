@@ -99,7 +99,7 @@ public class ZoogiTutorialController : MonoBehaviour {
 		}
 		else if(newState == State.LAUNCH_MECHANICS){
 			currentTutorial = "Launch Mechanics";
-			maxTutorialIndex = 4;
+			maxTutorialIndex = 3;
 			currentTutorialIndex = 0;
 			nextTutorial();
 		}

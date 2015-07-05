@@ -19,6 +19,7 @@ public class AimPlayerBall : MonoBehaviour {
 	public static event buttonTapped rotateButtonTapped;
 	public static event buttonTapped rotateButtonReleased;
 
+	public Vector3 previousMousePosition;
 
 	private Quaternion lastLocalRotation;
 	private Quaternion localRotationToGo;
@@ -26,6 +27,7 @@ public class AimPlayerBall : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		localRotationToGo = lastLocalRotation = transform.localRotation;
+		previousMousePosition = new Vector3();
 	}
 
 	private void OnEnable()
@@ -43,6 +45,15 @@ public class AimPlayerBall : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetMouseButtonDown(0)){
+			previousMousePosition = Input.mousePosition;
+		}
+		else if(Input.GetMouseButton(0)){
+			float deltaX = Input.mousePosition.x - previousMousePosition.x;
+			localRotationToGo=Quaternion.AngleAxis(aimSpeed*deltaX*Time.deltaTime,Vector3.up)*localRotationToGo;
+			previousMousePosition = Input.mousePosition;
+		}
+	
 		var fraction = aimSpeed*Time.deltaTime;
 		if(Input.GetKey(KeyCode.A)){
 			localRotationToGo=Quaternion.AngleAxis(-keyAimSpeed*Time.deltaTime,Vector3.up)*localRotationToGo;
