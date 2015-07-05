@@ -1749,6 +1749,7 @@ MonoBehaviour:
   keyAimSpeed: 5
   panGesture: {fileID: 11468692}
   beginPullbackPress: {fileID: 11474472}
+  previousMousePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &11465538
 MonoBehaviour:
   m_ObjectHideFlags: 1

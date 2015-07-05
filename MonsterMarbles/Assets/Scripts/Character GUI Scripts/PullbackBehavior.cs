@@ -43,6 +43,13 @@ public class PullbackBehavior : MonoBehaviour {
 	public static event pullBackStatus pullbackAborted;
 	public static event pullBackStatus pullbackReleased;
 	
+	private float previousRotation;
+	private Vector2 previousMousePosition;
+	private float aimSpeed = 40;
+	
+	private Quaternion lastLocalRotation;
+	private Quaternion localRotationToGo;
+	
 	public enum State {INACTIVE, ACTIVE, PULLBACK};
 	private State currentState;
 	
@@ -64,6 +71,8 @@ public class PullbackBehavior : MonoBehaviour {
 				Rect activeClickZone = new Rect(ballScreenPosition.x-pixelHalfSpace, ballScreenPosition.y-pixelHalfSpace, pixelHalfSpace*2,pixelHalfSpace*2);
 				if(activeClickZone.Contains(new Vector2(Input.mousePosition.x,Input.mousePosition.y))){
 					setCurrentState(State.PULLBACK);
+					previousRotation = 0f;
+					previousMousePosition = Input.mousePosition;
 				}
 			}
 		}
@@ -74,7 +83,7 @@ public class PullbackBehavior : MonoBehaviour {
 			
 			if(Input.GetMouseButton(0)){
 				if(!activeClickZone.Contains(new Vector2(Input.mousePosition.x,Input.mousePosition.y))){
-					Vector3 directionVector = ballScreenPosition - Input.mousePosition;
+					/*Vector3 directionVector = ballScreenPosition - Input.mousePosition;
 					ball.forward = new Vector3(directionVector.x,ball.forward.z,directionVector.y);
 					float distanceFromBall = Vector2.Distance(new Vector2(ballScreenPosition.x,ballScreenPosition.y), new Vector2(Input.mousePosition.x, Input.mousePosition.y));
 					float maxPullbackRadius;
@@ -91,6 +100,43 @@ public class PullbackBehavior : MonoBehaviour {
 					
 					if(pullbackInformation != null){
 						pullbackInformation(distanceFromBall/maxPullbackRadius);
+					}*/
+					/*Vector3 directionVector = ballScreenPosition - Input.mousePosition;
+					directionVector = Vector3.Project(directionVector,new Vector3(0,-1,0));
+					float distanceFromBall = Vector2.Distance(new Vector2(ballScreenPosition.x,ballScreenPosition.y), new Vector2(directionVector.x, directionVector.y));
+					float maxPullbackRadius;
+					if(Screen.height <= Screen.width){
+						maxPullbackRadius = Screen.height * maxPullbackZonePercentage;
+					}
+					else{
+						maxPullbackRadius = Screen.width * maxPullbackZonePercentage;
+					}
+					
+					if(distanceFromBall > maxPullbackRadius){
+						distanceFromBall = maxPullbackRadius;
+					}
+					
+					if(pullbackInformation != null){
+						pullbackInformation(distanceFromBall/maxPullbackRadius);
+					}*/
+					
+					pullbackFraction = getPullbackFraction(new Vector2(Input.mousePosition.x,Input.mousePosition.y));
+					setRotation(new Vector2(Input.mousePosition.x,Input.mousePosition.y));
+					if(pullbackInformation != null){
+						pullbackInformation(pullbackFraction);
+					}
+					if(!Input.GetMouseButton(0)){
+						if(pullbackFraction > noFireFractionCutoff){
+							if(pullbackReleased != null){
+								pullbackReleased();
+							}
+						}
+						else{
+							setCurrentState (State.ACTIVE);
+							if(pullbackAborted != null){
+								pullbackAborted();
+							}
+						}
 					}
 				}
 			}
@@ -154,6 +200,7 @@ public class PullbackBehavior : MonoBehaviour {
 
 		}
 		else if( newState == State.PULLBACK){
+			GameCameraController.setCurrentState(GameCameraController.State.STATIC_POSITION);
 			if (pullbackStarted != null){
 				pullbackStarted();
 			}
@@ -162,6 +209,31 @@ public class PullbackBehavior : MonoBehaviour {
 		}
 		
 		return true;
+	}
+	
+	void setRotation(Vector2 position){
+		/*float rotation = Vector2.Angle(new Vector2(0,-1), startPosition-position);
+		Quaternion newRotation = Quaternion.AngleAxis(rotation-previousRotation,Vector3.up);
+		//ball.transform.RotateAround(ball.transform.position,Vector3.up,ball.transform.rotation.eulerAngles.z+rotation-previousRotation);
+		//ball.transform.Rotate(new Vector3(ball.transform.rotation.eulerAngles.x,ball.transform.rotation.eulerAngles.y,ball.transform.rotation.eulerAngles.z));
+		ball.transform.rotation *= newRotation;
+		previousRotation = rotation;*/
+		
+		if(Input.GetMouseButtonDown(0)){
+			previousMousePosition = position;
+		}
+		else if(Input.GetMouseButton(0)){
+			float deltaX = previousMousePosition.x - Input.mousePosition.x;
+			localRotationToGo=Quaternion.AngleAxis(aimSpeed*deltaX*Time.deltaTime,Vector3.up)*localRotationToGo;
+			previousMousePosition = Input.mousePosition;
+		}
+		
+		var fraction = aimSpeed*Time.deltaTime;
+		if (ball.transform.localRotation != lastLocalRotation)
+		{
+			localRotationToGo = ball.transform.localRotation;
+		}
+		ball.transform.localRotation = lastLocalRotation = Quaternion.Lerp(ball.transform.localRotation, localRotationToGo, fraction);
 	}
 	
 	float getPullbackFraction(Vector2 position){
