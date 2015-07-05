@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LaunchOnClick : MonoBehaviour {
+public class RotateReverseOnClick : MonoBehaviour {
 
-	public bool active = false;
+	bool reverse = false;
 
 	// Use this for initialization
 	void Start () {
@@ -12,10 +12,15 @@ public class LaunchOnClick : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(active){
-
+		if(!reverse){
+			this.transform.parent.Rotate(Vector3.up,.75f);
 		}
-
+		else{
+			this.transform.parent.Rotate(Vector3.up,-1.5f);
+			if(!Input.GetMouseButton(0)){
+				reverse = false;
+			}
+		}
 
 		if(Input.GetMouseButtonDown(0)){
 			Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -23,7 +28,8 @@ public class LaunchOnClick : MonoBehaviour {
 				Debug.Log(ray.point);
 				if(ray.collider == this.GetComponent<Collider>()){
 					Debug.Log ("Hit!");
-					active = true;
+					reverse = true;
+					//this.transform.position = new Vector3(this.transform.position.x+2,this.transform.position.y,this.transform.position.z);
 				}
 			}
 		}
